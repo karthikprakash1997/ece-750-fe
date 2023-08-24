@@ -1,0 +1,16 @@
+### NRCAN-Dashboard-Client ****
+
+version: '3.3'
+services:
+  nrcan-dashboard-frontend:
+    image: nrcan-dashboard-frontend
+    env_file: docker-compose.env
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      ENV: development
+    ports:
+      - '3000:3000'
+    restart: on-failure
+    container_name: nrcan-dashboard-frontend
