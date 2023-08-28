@@ -1,11 +1,11 @@
 import { Grid } from '@mui/material';
 
-const Dashboard = () => {
+const Login = () => {
   return (
     <Grid margin={1}>
-      Dashboard view in progress
+      Login sign up page in progress
     </Grid>
   );
 };
 
-export default Dashboard;
+export default Login;

@@ -4,7 +4,6 @@ version: '3.3'
 services:
   nrcan-dashboard-frontend:
     image: nrcan-dashboard-frontend
-    env_file: docker-compose.env
     build:
       context: ./
       dockerfile: Dockerfile

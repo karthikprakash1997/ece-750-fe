@@ -1,7 +1,9 @@
 import { HighchartsReact } from 'highcharts-react-official';
 import * as Highcharts from 'highcharts';
 import highchartsMap from 'highcharts/modules/map';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { mapTopologyRequest } from '../../actions/modules';
 // import { makeStyles, } from '@mui/material/styles'
 
 highchartsMap(Highcharts);
@@ -23,18 +25,15 @@ highchartsMap(Highcharts);
 // }));
 
 const Map = ({ props, handleMapClick }) => {
-  const [mapOptioin, setMapOptions] = useState({});
   const chartRef = useRef(null);
+  const dispatch = useDispatch();
+  const mapTopology = useSelector(state=>state.overview.mapTopology)
   // const classes = useStyles();
 
-  const getApiData = async () => {
-    const mapData = await fetch('https://code.highcharts.com/mapdata/custom/world.topo.json').then((response) => response.json());
-    setMapOptions({ mapData, data: getGraticule() });
-  };
 
   useEffect(() => {
-    getApiData();
-  }, []);
+    dispatch(mapTopologyRequest())
+  }, []); //eslint-disable-line
 
 
   // console.log(chartColors, 'getGraticule');
@@ -42,7 +41,7 @@ const Map = ({ props, handleMapClick }) => {
   const mapOptions = {
     chart: {
       height: 700,
-      map: mapOptioin.mapData,
+      map: mapTopology,
       // width:'100%',
       // width:"100%",
       // map: 'countries/ie/ie-all'
