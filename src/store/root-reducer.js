@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
-
-import {overviewReducer }from '../reducers'
+import { combineReducers } from '@reduxjs/toolkit';
+import loginReducer from '../slices/loginSlice';
+import overviewReducer from '../slices/overviewSlice';
 
 const appReducer = combineReducers({
-  login: {},
-  overview: overviewReducer
+  login: loginReducer,
+  overview: overviewReducer,
 });
 
 const rootReducer = (state, action) => {
@@ -14,4 +14,4 @@ const rootReducer = (state, action) => {
   return appReducer(state, action);
 };
 
-export { rootReducer };
+export default rootReducer;
