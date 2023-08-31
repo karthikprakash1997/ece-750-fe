@@ -1,9 +1,9 @@
-import { HighchartsReact } from "highcharts-react-official";
-import * as Highcharts from "highcharts";
-import highchartsMap from "highcharts/modules/map";
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { mapTopologyRequest } from "../../actions/modules";
+import { HighchartsReact } from 'highcharts-react-official';
+import * as Highcharts from 'highcharts';
+import highchartsMap from 'highcharts/modules/map';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { overviewActions } from '../../slices/overview';
 import { makeStyles } from "@mui/styles";
 
 highchartsMap(Highcharts);
@@ -31,10 +31,9 @@ const Map = ({ props, handleMapClick }) => {
   const dispatch = useDispatch();
   const mapTopology = useSelector((state) => state.overview.mapTopology);
   const classes = useStyles();
-  console.log(screen.availHeight - 100); //eslint-disable-line
 
   useEffect(() => {
-    dispatch(mapTopologyRequest());
+    dispatch(overviewActions.mapTopologyRequest())
   }, []); //eslint-disable-line
 
   // console.log(chartColors, 'getGraticule');
