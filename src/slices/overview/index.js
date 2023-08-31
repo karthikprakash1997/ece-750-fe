@@ -30,9 +30,5 @@ const overviewSlice = createSlice({
   },
 });
 
-export const {
-  mapTopologyRequest,
-  mapTopologyResponse,
-  mapTopologyRequestFail,
-} = overviewSlice.actions;
+export const overviewActions = overviewSlice.actions;
 export default overviewSlice.reducer;

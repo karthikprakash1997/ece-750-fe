@@ -8,8 +8,8 @@ import Login from './containers/login';
 
 import AppBar from './containers/navBar';
 import { Provider } from 'react-redux';
-import { store, persistor } from './store';
-import { PersistGate } from 'redux-persist/integration/react';
+import { store } from './store';
+// import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createTheme({
   typography: {
@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
         <ThemeProvider theme={theme}>
           <Grid bgcolor={'#f0f2f5'} height={'100%'}>
             <AppBar />
@@ -34,7 +34,7 @@ const App = () => {
             </Router>
           </Grid>
         </ThemeProvider>
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   );
 };

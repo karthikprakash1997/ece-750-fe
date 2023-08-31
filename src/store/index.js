@@ -1,47 +1,32 @@
-import createSagaMiddleware from 'redux-saga';
-import { createLogger } from 'redux-logger';
+import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
-// import { createBlacklistFilter, createWhitelistFilter } from 'redux-persist-transform-filter';
-import localForage from 'localforage';
-import { createStore, applyMiddleware } from 'redux';
-
-// import { compileTimeEnv } from 'config';
-import { rootReducer } from './root-reducer';
-import { rootSaga } from './root-saga';
+import storage from 'redux-persist/lib/storage';
+import overviewReducer from '../slices/overview';
+// import anotherReducer from '../slices/another'; // Import your other reducer
 
 const persistConfig = {
-  key: 'reduxPersistState',
-  timeout: 0,
-  storage: localForage,
-//   whitelist: ['login', 'accountSwitcher', 'menuAccessiblity', 'revv'],
-//   transforms: [
-//     createBlacklistFilter('login', ['error', 'lastActiveDispatchType', 'isLogoutClicked']),
-//     createBlacklistFilter('accountSwitcher', ['currentAccountOrFranchisor', 'isAccountFetching', 'error', 'isLocationSelectorFetching', 'locationSelectorError']),
-//     createWhitelistFilter('revv', ['login'])
-//   ]
+  key: 'root',
+  storage,
+  // You can configure any other options here
 };
 
-const sagaMiddleWare = createSagaMiddleware();
-const middleWare = [sagaMiddleWare];
+const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
+// const persistedAnotherReducer = persistReducer(persistConfig, anotherReducer);
 
-const pReducer = persistReducer(persistConfig, rootReducer);
+const rootReducer = combineReducers({
+  overview: persistedOverviewReducer,
+  // another: persistedAnotherReducer,
+  // Add more persisted reducers here if needed
+});
 
-/*
-To disable logger add a false condition and remove it to enable it again.
-ENABLED: (compileTimeEnv.REACT_APP_BUILD_TYPE !== 'PRODUCTION')
-DISABLED: (compileTimeEnv.REACT_APP_BUILD_TYPE !== 'PRODUCTION' && false)
-*/
-
-// console.log(process.env)
-// if (process.env.REACT_APP_BUILD_TYPE !== 'PRODUCTION') {
-  const logger = createLogger();
-  middleWare.push(logger);
-// }
-
-const store = createStore(pReducer, applyMiddleware(...middleWare));
+const store = configureStore({
+  reducer: rootReducer,
+  // Adding the api middleware enables caching, invalidation, polling,
+  // and other useful features of `rtk-query`.
+  middleware: [...getDefaultMiddleware(), logger], // Include logger middleware
+});
 
 const persistor = persistStore(store);
-
-sagaMiddleWare.run(rootSaga);
 
 export { store, persistor };

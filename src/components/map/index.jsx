@@ -3,7 +3,7 @@ import * as Highcharts from 'highcharts';
 import highchartsMap from 'highcharts/modules/map';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { mapTopologyRequest } from '../../actions/modules';
+import { overviewActions } from '../../slices/overview';
 // import { makeStyles, } from '@mui/material/styles'
 
 highchartsMap(Highcharts);
@@ -32,7 +32,7 @@ const Map = ({ props, handleMapClick }) => {
 
 
   useEffect(() => {
-    dispatch(mapTopologyRequest())
+    dispatch(overviewActions.mapTopologyRequest())
   }, []); //eslint-disable-line
 
 
