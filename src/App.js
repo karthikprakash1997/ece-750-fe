@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './containers/dashboard';
 import Overview from './containers/overview';
 import Login from './containers/login';
+import ProtectedRoute from './routes/privateRoute';
 
-import AppBar from './containers/navBar';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -14,6 +14,14 @@ import { PersistGate } from 'redux-persist/integration/react';
 const theme = createTheme({
   typography: {
     fontFamily: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"'].join(',') // Specify the font family
+  },
+  palette: {
+    secondary: {
+      main: '#FFFFFF'
+    },
+    primary: {
+      main: '#B8E3F1'
+    }
   }
 });
 
@@ -23,13 +31,26 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
-          <Grid bgcolor={'#f0f2f5'} height={'100%'}>
-            <AppBar />
+          <Grid bgcolor={theme.palette.primary.main} height={'100%'}>
             <Router>
               <Routes>
                 <Route path="/" exact element={<Login />} />
-                <Route path="/overview" exact element={<Overview />} />
-                <Route path="/dashboard" exact element={<Dashboard />} />
+                {/* <AppBar /> */}
+
+                {/* <Route path="/overview" exact element={
+                  <ProtectedRoute isAuthenticated={true}>
+                    <Overview />
+                  </ProtectedRoute>
+                } />
+                <Route path="/dashboard" exact element={
+                  <ProtectedRoute isAuthenticated={true}>
+                    <Dashboard />
+                  </ProtectedRoute>
+                } /> */}
+                <Route element={<ProtectedRoute isAuthenticated={true} />}>
+                  <Route path="overview" element={<Overview />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                </Route>
               </Routes>
             </Router>
           </Grid>
