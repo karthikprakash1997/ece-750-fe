@@ -33,7 +33,7 @@ const Map = ({ props, handleMapClick }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(overviewActions.mapTopologyRequest())
+    dispatch(overviewActions.fetchMapTopologyData())
   }, []); //eslint-disable-line
 
   // console.log(chartColors, 'getGraticule');
