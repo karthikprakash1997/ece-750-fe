@@ -32,7 +32,7 @@ const Map = ({ props, handleMapClick }) => {
 
 
   useEffect(() => {
-    dispatch(overviewActions.mapTopologyRequest())
+    dispatch(overviewActions.fetchMapTopologyData())
   }, []); //eslint-disable-line
 
 
