@@ -26,12 +26,11 @@ const theme = createTheme({
 });
 
 const App = () => {
-
   return (
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
         <ThemeProvider theme={theme}>
-          <Grid bgcolor={theme.palette.primary.main} height={'100%'}>
+          <Grid bgcolor={theme.palette.primary.main} height={'100vh'}>
             <Router>
               <Routes>
                 <Route path="/" exact element={<Login />} />

@@ -1,11 +1,9 @@
-import { Box, Button, Grid, Paper, Typography, useTheme } from "@mui/material";
+import { Button, Grid, useTheme } from "@mui/material";
 
 import Stats from "../../components/stats";
-import CentralSection from "./centralContent";
 import Map from "../../components/map";
-import { MapV2 } from "../../components/mapV1";
-import { BsGlobeAmericas } from "react-icons/bs";
 import { SiGoogleanalytics } from "react-icons/si";
+import { BsGlobeAmericas } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
 
 import { makeStyles } from "@mui/styles";
@@ -245,7 +243,7 @@ const Overview = () => {
   ];
   // const height = screen.availHeight - 125; //eslint-disable-line
   return (
-    <Grid container className={classes.container} height={690}>
+    <Grid container className={classes.container} minHeight={690}>
       <Grid className={classes.bottomDiv} marginTop={1}>
         <Map />
       </Grid>

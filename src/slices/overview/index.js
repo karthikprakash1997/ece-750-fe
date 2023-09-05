@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiCall } from '../../utils/common'; // Assuming you have your API utility function
+import { apiCall } from '../../utils/helpers/common'; // Assuming you have your API utility function
 
 const initialState = {
   isMapTopologyFetching: false,

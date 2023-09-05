@@ -5,11 +5,10 @@ import { Country } from 'country-state-city';
 import { FlagIcon } from 'react-flag-kit';
 import { Box } from '@mui/material';
 
-export const CheckboxLabels = () => {
+export const CountrySelect = () => {
   return (
     <FormGroup >
       {Country.getAllCountries().map((it) => {
-        console.log(it, 'it');
         if(it.name==='Antarctica') return null;
         return (
           <Box key={it.isoCode}  display={'flex'} columnGap={0.25} alignItems={'center'}>

@@ -3,6 +3,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 import AppBar from '../containers/navBar';
+import { SideDrawer } from '../components/drawer';
 // import Footer from '../containers/footer';
 
 const ProtectedRoute = ({ isAuthenticated = false, redirectPath = '/' }) => {
@@ -11,6 +12,7 @@ const ProtectedRoute = ({ isAuthenticated = false, redirectPath = '/' }) => {
   }
   return <>
     <AppBar />
+    <SideDrawer />
     <Outlet />
     {/* <Footer /> */}
   </>

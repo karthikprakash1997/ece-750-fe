@@ -4,7 +4,7 @@ import { useState } from 'react';
 import MapView from './mapView';
 import DetailView from './detailedView';
 import { RichObjectTreeView } from '../../../components';
-import { CheckboxLabels } from '../../../components/countrySelect';
+import { CountrySelect } from '../../../components/countrySelect';
 
 const style = {
   position: 'absolute',
@@ -82,7 +82,7 @@ const CentralSection = () => {
                         // }
                       }}
                     >
-                      {tabs === 0 ? <RichObjectTreeView /> : <CheckboxLabels />}
+                      {tabs === 0 ? <RichObjectTreeView /> : <CountrySelect />}
                     </Paper>
                   </Grid>
                   <Grid marginTop={2} display={'flex'} justifyContent={'flex-end'} alignItems={'self-end'} columnGap={1}>

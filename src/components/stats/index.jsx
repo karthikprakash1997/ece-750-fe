@@ -4,35 +4,27 @@ const Stats = ({ props }) => {
   const { background, title, value, Content, Icon } = props;
   return (
     <Grid
-      // marginTop={3}
-      paddingTop={title == "Data Count" ?0:2}
+      paddingTop={title === "Data Count" ? 0 : 2}
       paddingLeft={1.5}
-
-      //   key={Math.random()}
-      // //   height={80}
-      //   sx={{ boxShadow: 5, borderRadius: 3, ':hover': { marginTop: -0.5, transition: 10 }, transition: 5 }}
-      //   bgcolor={'white'}
-      //   item
-      //   style={{ display: 'flex', alignItems: 'center' }}
     >
-      {title == "Data Count" ? (
+      {title === "Data Count" ? (
         <>
           <Typography component={"div"} sx={{ fontSize: 15, fontWeight: 400 }}>
             DATA COUNT
           </Typography>
           <Typography component={"div"} sx={{ fontSize: 40, fontWeight: 600 }}>
-           {value}
+            {value}
           </Typography>
         </>
       ) : Content ? (
         <Grid
           display={"flex"}
           alignItems={"center"}
-        //   rowSpacing={2}
+          //   rowSpacing={2}
           columnGap={1.5}
         >
           {Content}
-          
+
           <Typography component={"div"} sx={{ fontSize: 15, fontWeight: 400 }}>
             {title}
           </Typography>
