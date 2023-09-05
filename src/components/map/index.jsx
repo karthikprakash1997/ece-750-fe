@@ -4,33 +4,55 @@ import highchartsMap from 'highcharts/modules/map';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { overviewActions } from '../../slices/overview';
-import { makeStyles } from "@mui/styles";
+import { css, keyframes } from '@emotion/react';
 
 highchartsMap(Highcharts);
 
-const useStyles = makeStyles(() => ({
-  "@global": {
-    "@keyframes dash": {
-      from: {
-        strokeDashoffset: 100,
-      },
-      to: {
-        strokeDashoffset: 20,
-      },
-    },
-  },
-  animatedLine: {
-    strokeDasharray: 8,
-    strokeDashoffset: 10,
-    animation: `dash 5s linear infinite`,
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   "@global": {
+//     "@keyframes dash": {
+//       from: {
+//         strokeDashoffset: 100,
+//       },
+//       to: {
+//         strokeDashoffset: 20,
+//       },
+//     },
+//   },
+//   animatedLine: {
+//     strokeDasharray: 8,
+//     strokeDashoffset: 10,
+//     animation: `dash 5s linear infinite`,
+//   },
+// }));
+
+
+// Define keyframes
+const dash = keyframes`
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 20;
+  }
+`;
+
+// Define Emotion styles
+const styles = {
+  animatedLine: css`
+    stroke-dasharray: 8;
+    stroke-dashoffset: 10;
+    animation: ${dash} 5s linear infinite;
+  `,
+};
+
+
 
 const Map = ({ props, handleMapClick }) => {
   const chartRef = useRef(null);
   const dispatch = useDispatch();
   const mapTopology = useSelector((state) => state.overview.mapTopology);
-  const classes = useStyles();
+  // const classes = useStyles();
 
   useEffect(() => {
     dispatch(overviewActions.fetchMapTopologyData())
@@ -265,7 +287,7 @@ const Map = ({ props, handleMapClick }) => {
                 [110.004444, -7.491667], // Java
               ],
             },
-            className: `${classes.animatedLine}`,
+            className: css(styles.animatedLine),
             color: "#666",
           },
           {
@@ -276,7 +298,7 @@ const Map = ({ props, handleMapClick }) => {
                 [55.5325, -21.114444], // La reunion
               ],
             },
-            className: `${classes.animatedLine}`,
+            className: css(styles.animatedLine),
             color: "#666",
           },
           {
@@ -287,7 +309,7 @@ const Map = ({ props, handleMapClick }) => {
                 [-43.2, -22.9], // Brazil
               ],
             },
-            className: `${classes.animatedLine}`,
+            className: css(styles.animatedLine),
             color: "#666",
           },
           {
@@ -298,7 +320,7 @@ const Map = ({ props, handleMapClick }) => {
                 [78, 21], // India
               ],
             },
-            className: `${classes.animatedLine}`,
+            className: css(styles.animatedLine),
             color: "#666",
           },
           {
@@ -309,7 +331,7 @@ const Map = ({ props, handleMapClick }) => {
                 [4.9, 52.366667], // Amsterdam
               ],
             },
-            className: `${classes.animatedLine}`,
+            className: css(styles.animatedLine),
             color: "#666",
           },
           {
@@ -320,7 +342,7 @@ const Map = ({ props, handleMapClick }) => {
                 [-61.030556, 14.681944], // Antilles
               ],
             },
-            className: `${classes.animatedLine}`,
+            className: css(styles.animatedLine),
             color: "#666",
           },
           {
@@ -331,7 +353,7 @@ const Map = ({ props, handleMapClick }) => {
                 [-53, 4], // Guyane
               ],
             },
-            className: `${classes.animatedLine}`,
+            className: css(styles.animatedLine),
             color: "#666",
           },
         ],
@@ -377,7 +399,7 @@ export default Map;
 //                 [-118.24, 34.05], // Los Angeles
 //               ],
 //             },
-//             className: `${classes.animatedLine}`,
+//             className: css(styles.animatedLine),
 //             color: "#313f77",
 //           },
 //         ],

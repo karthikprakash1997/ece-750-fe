@@ -6,39 +6,13 @@ import { SiGoogleanalytics } from "react-icons/si";
 import { BsGlobeAmericas } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
 
-import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import PieChart from "../../components/charts/pieChart";
 import { AiOutlineClose } from "react-icons/ai";
 
-const useStyles = makeStyles({
-  container: {
-    position: "relative",
-    // width: 300,
-    // height: 680,
-  },
-  bottomDiv: {
-    width: "100%",
-    height: "100%",
-    // position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 1,
-  },
-  topDiv: {
-    // width: '80%',
-    // height: '80%',
-    // backgroundColor: 'lightgreen',
-    position: "absolute",
-    // top: '10%',
-    // left: '10%',
-    // marginRight
-    zIndex: 2,
-  },
-});
+
 
 const Overview = () => {
-  const classes = useStyles();
   const theme = useTheme();
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -243,11 +217,20 @@ const Overview = () => {
   ];
   // const height = screen.availHeight - 125; //eslint-disable-line
   return (
-    <Grid container className={classes.container} minHeight={690}>
-      <Grid className={classes.bottomDiv} marginTop={1}>
+    <Grid container position={"relative"} minHeight={690}>
+      <Grid
+        style={{
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+          zIndex: 1,
+        }}
+        marginTop={1}
+      >
         <Map />
       </Grid>
-      <Grid className={classes.topDiv} marginY={1} marginX={3}>
+      <Grid position={"absolute"} zIndex={2} marginY={1} marginX={3}>
         {!openDrawer ? (
           <Button variant="contained" color="secondary" onClick={handleClick} />
         ) : (
