@@ -4,14 +4,19 @@ import { FaFilterCircleXmark } from "react-icons/fa6";
 import { useParamsDeconstructor } from "../../utils/hooks";
 
 const NAV_BAR = [
-  { title: "Overview", route: "overview", search:{} },
-  { title: "Dashboard", route: "dashboard", search:{selectedChart:"dependencyWheel"} },
+  { title: "Overview", route: "overview", search: {} },
+  {
+    title: "Dashboard",
+    route: "dashboard",
+    search: { selectedChart: "dependencyWheel" },
+  },
 ];
 
 const AppBar = () => {
   const theme = useTheme();
   // const location = useLocation();
-  const { queryParams,currentRoute,addSearchParams, handleRouteChange } = useParamsDeconstructor();
+  const { queryParams, currentRoute, addSearchParams, handleRouteChange } =
+    useParamsDeconstructor();
 
   // getCategories();
   // const handleRouteChange = (pathname) => {
@@ -19,13 +24,15 @@ const AppBar = () => {
   // };
 
   const handleFilterClick = () => {
-    const urlParams = !queryParams?.filter
-      ? {
-          filter: 1,
-          selectedFilter: 'category'
-        }
-      : {};
-      addSearchParams(urlParams);
+    let urlParams = { ...queryParams };
+    if (!queryParams?.filter) {
+      urlParams.filter = 1;
+      urlParams.selectedFilter = "category";
+    } else {
+      delete urlParams.filter;
+      delete urlParams.selectedFilter;
+    }
+    addSearchParams(urlParams);
     // navigate({ search: `?${new URLSearchParams(urlParams).toString()}` });
   };
 

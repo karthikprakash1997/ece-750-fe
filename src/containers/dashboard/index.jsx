@@ -13,7 +13,6 @@ import DrilldownPieChart from "../../components/charts/drilldown";
 const MENU_ITEMS = [
   {title:'Shipping Dependency Wheel', value:'dependencyWheel'},
   {title:'Drill down', value:'drilldown'},
-
 ]
 
 const Dashboard = () => {

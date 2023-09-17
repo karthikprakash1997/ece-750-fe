@@ -1,7 +1,7 @@
 import * as React from "react";
 import Drawer from "@mui/material/Drawer";
 import { useParamsDeconstructor } from "../../utils/hooks";
-import { Button, ButtonGroup, Grid, Slider, Typography } from "@mui/material";
+import { Button, Grid, Slider, Typography } from "@mui/material";
 import { BiSolidCategory } from "react-icons/bi";
 import { BsGlobeAmericas, BsSliders } from "react-icons/bs";
 import { RichObjectTreeView } from "../treeView";
@@ -16,9 +16,9 @@ import { CountrySelect } from "../countrySelect";
 // }));
 
 const FILTER_BUTTON = [
-  { title: "Category", value: "category", icon: <BiSolidCategory size={20} /> },
-  { title: "Country", value: "country", icon: <BsGlobeAmericas size={20} /> },
-  { title: "Threshold", value: "threshold", icon: <BsSliders size={20} /> },
+  { title: "Category", value: "category", icon: <BiSolidCategory size={20} color="black"/> },
+  { title: "Country", value: "country", icon: <BsGlobeAmericas size={20} color="black"/> },
+  { title: "Threshold", value: "threshold", icon: <BsSliders size={20} color="black"/> },
 ];
 
 export const SideDrawer = () => {
@@ -64,21 +64,28 @@ export const SideDrawer = () => {
           {FILTER_BUTTON.find(it=>it.value===queryParams?.selectedFilter)?.title}
         </Typography>
         <Grid margin={2} display={"flex"} width={400}>
-          <Grid marginLeft={-8.5}>
-            <ButtonGroup
-              variant="contained"
-              aria-label="outlined secondary button group"
-              color="secondary"
-              orientation="vertical"
+          <Grid marginLeft={-10.2}>
+            <Grid
+              // variant="contained"
+              // aria-label="outlined secondary button group"
+              // color="secondary"
+              display={'inline-flex'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              alignContent={'center'}
+              // back
+              // orientation="vertical"
               sx={{
                 // borderLeft:1,
+                backgroundColor:'transparent',
+                borderRadius:2,
                 boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.15)",
               }}
             >
               {FILTER_BUTTON.map((it) => (
-                <Button onClick={() => handleClick(it.value)}>{it.icon}</Button>
+                <Button sx={{backgroundColor: queryParams.selectedFilter===it.value?"red":'white', ":hover":{backgroundColor:'white'}, border:"ButtonFace", margin:0.2}} onClick={() => handleClick(it.value)}>{it.icon}</Button>
               ))}
-            </ButtonGroup>
+            </Grid>
           </Grid>
           <Grid style={{overflowY:'scroll'}} marginLeft={3} width={400} height={550}  overflowY={'scroll'}>
           {queryParams?.selectedFilter === FILTER_BUTTON[0].value && <RichObjectTreeView />}

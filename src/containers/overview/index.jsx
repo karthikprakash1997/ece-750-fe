@@ -1,4 +1,11 @@
-import { Button, Grid, useTheme } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  useTheme,
+} from "@mui/material";
 
 import Stats from "../../components/stats";
 import Map from "../../components/map";
@@ -10,8 +17,6 @@ import { useState } from "react";
 import PieChart from "../../components/charts/pieChart";
 import { AiOutlineClose } from "react-icons/ai";
 
-
-
 const Overview = () => {
   const theme = useTheme();
 
@@ -19,6 +24,11 @@ const Overview = () => {
   const handleClick = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  const handleShippingChange = () =>{
+    
+  }
+
   const statsCardData = [
     {
       title: "Data Count",
@@ -230,7 +240,7 @@ const Overview = () => {
       >
         <Map />
       </Grid>
-      <Grid position={"absolute"} zIndex={2} marginY={1} marginX={3}>
+      <Grid position={"absolute"} zIndex={2} marginY={1} marginX={3} display={'flex'} justifyContent={'space-between'} width={'90%'}>
         {!openDrawer ? (
           <Button variant="contained" color="secondary" onClick={handleClick} />
         ) : (
@@ -259,6 +269,14 @@ const Overview = () => {
             })}
           </Grid>
         )}
+
+        <FormGroup sx={{marginTop:80}}>
+          <FormControlLabel
+            control={<Checkbox defaultChecked color="error" />}
+            label="Show Shipping"
+            onChange={handleShippingChange}
+          />
+        </FormGroup>
       </Grid>
     </Grid>
   );
