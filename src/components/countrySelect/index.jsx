@@ -1,25 +1,53 @@
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Country } from 'country-state-city';
 import { FlagIcon } from 'react-flag-kit';
 import { Box } from '@mui/material';
+import { countriesActions } from '../../slices';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const CountrySelect = () => {
+export const CountrySelect = ({ countryFilter, onUpdateCountryFilter }) => {
+
+  const dispatch = useDispatch();
+  const countriesList = useSelector((state) => state.countries.countriesList.data);
+  // const classes = useStyles();
+
+  useEffect(() => {
+    dispatch(countriesActions.fetchCountries())
+  }, []); //eslint-disable-line
+
+  // Callback function to handle checkbox change
+  const handleCheckboxChange = (isoCode) => {
+    const updatedCountryFilter = [...countryFilter];
+    if (updatedCountryFilter.includes(isoCode)) {
+      updatedCountryFilter.splice(updatedCountryFilter.indexOf(isoCode), 1);
+    } else {
+      updatedCountryFilter.push(isoCode);
+    }
+    onUpdateCountryFilter(updatedCountryFilter); // Update the countryFilter state in the parent component
+  };
+
+
   return (
-    <FormGroup >
-      {Country.getAllCountries().map((it) => {
-        if(it.name==='Antarctica') return null;
+    <FormGroup>
+      {countriesList?.map((element) => {
+        if (element['country'] === 'Antarctica') return null;
         return (
-          <Box key={it.isoCode}  display={'flex'} columnGap={0.25} alignItems={'center'}>
-            <FormControlLabel control={<Checkbox defaultChecked />} label={it.name} />
-            <FlagIcon country code={it.isoCode} size={20} />
+          <Box key={element['country_code']} display={'flex'} columnGap={0.25} alignItems={'center'}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={countryFilter.includes(element['country_code'])}
+                  onChange={() => handleCheckboxChange(element['country_code'])}
+                />
+              }
+              label={element['country']}
+            />
+            <FlagIcon country code={element['country_code']} size={20} />
           </Box>
         );
       })}
-      {/* <FormControlLabel control={<Checkbox defaultChecked />} label="Country 1" />
-      <FormControlLabel required control={<Checkbox />} label="Country 2" />
-      <FormControlLabel disabled control={<Checkbox />} label="Country 3" /> */}
     </FormGroup>
   );
 };

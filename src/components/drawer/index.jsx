@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from 'react';
 import Drawer from "@mui/material/Drawer";
 import { useParamsDeconstructor } from "../../utils/hooks";
 import { Button, ButtonGroup, Grid, Slider, Typography } from "@mui/material";
@@ -31,9 +31,63 @@ export const SideDrawer = () => {
   // const container =
   //   window !== undefined ? () => window().document.body : undefined;
 
+  const [categoryFilter, setCategoryFilter] = useState(queryParams?.categoryFilter || '');
+  const [countryFilter, setCountryFilter] = useState(queryParams?.countryFilter || []);
+  const [thresholdFilter, setThresholdFilter] = useState(queryParams?.thresholdFilter || 0);
+
+  const selectedFilter = queryParams?.selectedFilter || 'category'; // Track selected filter
+
+  const handleApplyClick = () => {
+    // Combine different filter states into a single object
+    const filters = {
+      categoryFilter,
+      countryFilter,
+      thresholdFilter,
+    };
+
+    const stringifiedFilters = JSON.stringify(filters)
+    
+    // const combinedFilters = encodeURIComponent(stringifiedFilters);
+
+    // Store the combined filter object in local storage
+    localStorage.setItem('combinedFilters', stringifiedFilters);
+
+    // Append the selected filter to the URL
+    addSearchParams(filters);
+  };
+
+  const handleCancelClick = () => {
+    // Reset filter states from local storage
+    const savedFilters = JSON.parse(localStorage.getItem('combinedFilters'));
+    if (savedFilters) {
+      setCategoryFilter(savedFilters.categoryFilter || '');
+      setCountryFilter(savedFilters.countryFilter || []);
+      setThresholdFilter(savedFilters.thresholdFilter || 0);
+    }
+
+    // Append the selected filter to the URL
+    addSearchParams({ ...queryParams, selectedFilter });
+  };
+
   const handleClick = (route) => {
     addSearchParams({ ...queryParams, selectedFilter: route });
   };
+
+  useEffect(() => {
+    // Load combined filter object from local storage when the component mounts
+    const savedFilters = JSON.parse(localStorage.getItem('combinedFilters'));
+    if (savedFilters) {
+      setCategoryFilter(savedFilters.categoryFilter || '');
+      setCountryFilter(savedFilters.countryFilter || []);
+      setThresholdFilter(savedFilters.thresholdFilter || 0);
+    }
+  }, []);
+
+  const updateCountryFilter = (newCountryFilter) => {
+    setCountryFilter(newCountryFilter);
+  };
+
+  // console.log(queryParams?.selectedFilter);
 
   return (
     <Drawer
@@ -82,12 +136,12 @@ export const SideDrawer = () => {
           </Grid>
           <Grid style={{overflowY:'scroll'}} marginLeft={3} width={400} height={550}  overflowY={'scroll'}>
           {queryParams?.selectedFilter === FILTER_BUTTON[0].value && <RichObjectTreeView />}
-          {queryParams?.selectedFilter === FILTER_BUTTON[1].value && <CountrySelect />}
+          {queryParams?.selectedFilter === FILTER_BUTTON[1].value && <CountrySelect countryFilter={countryFilter} onUpdateCountryFilter={updateCountryFilter} />}
           {queryParams?.selectedFilter === FILTER_BUTTON[2].value && (
             <Slider
               getAriaLabel={() => "Temperature range"}
-              // value={value}
-              // onChange={handleChange}
+              value={thresholdFilter}
+              onChange= {(event, newValue) => setThresholdFilter(newValue)}
               valueLabelDisplay="auto"
               // getAriaValueText={valuetext}
             />
@@ -95,10 +149,10 @@ export const SideDrawer = () => {
           </Grid>
         </Grid>
         <Grid display={'flex'} justifyContent={'center'} columnGap={2} margin={2}>
-        <Button variant="contained" color="error">
+        <Button variant="contained" color="error" onClick={handleCancelClick}>
           Cancel
         </Button>
-        <Button variant="contained" color='success'>
+        <Button variant="contained" color='success' onClick={handleApplyClick}>
           Apply
         </Button >
         </Grid>

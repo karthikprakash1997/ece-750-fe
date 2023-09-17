@@ -2,7 +2,10 @@ import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/
 import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import overviewReducer from '../slices/overview';
+import overviewReducer from '../slices/overview/overviewSlice';
+import countriesReducer from '../slices/overview/filter/countriesSlice';
+import categoriesReducer from '../slices/overview/filter/categoriesSlice';
+import mapDataReducer from '../slices/overview/mapDataSlice';
 // import anotherReducer from '../slices/another'; // Import your other reducer
 
 const persistConfig = {
@@ -12,10 +15,16 @@ const persistConfig = {
 };
 
 const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
+const persistedMapDataReducer = persistReducer(persistConfig, mapDataReducer);
+const persistedCountriesReducer = persistReducer(persistConfig, countriesReducer);
+const persistedCategoriesReducer = persistReducer(persistConfig, categoriesReducer);
 // const persistedAnotherReducer = persistReducer(persistConfig, anotherReducer);
 
 const rootReducer = combineReducers({
   overview: persistedOverviewReducer,
+  mapData: persistedMapDataReducer,
+  countries: persistedCountriesReducer,
+  categories: persistedCategoriesReducer,
   // another: persistedAnotherReducer,
   // Add more persisted reducers here if needed
 });

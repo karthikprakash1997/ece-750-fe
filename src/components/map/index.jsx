@@ -3,7 +3,7 @@ import * as Highcharts from 'highcharts';
 import highchartsMap from 'highcharts/modules/map';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { overviewActions } from '../../slices/overview';
+import { overviewActions, mapDataActions } from '../../slices/overview';
 import { css, keyframes } from '@emotion/react';
 
 highchartsMap(Highcharts);
@@ -52,11 +52,23 @@ const Map = ({ props, handleMapClick }) => {
   const chartRef = useRef(null);
   const dispatch = useDispatch();
   const mapTopology = useSelector((state) => state.overview.mapTopology);
+  const mapData = useSelector((state) => state.mapData.mapData.map(item => [item.countryCode.toLowerCase(), item.count]));
   // const classes = useStyles();
 
   useEffect(() => {
     dispatch(overviewActions.fetchMapTopologyData())
   }, []); //eslint-disable-line
+
+  useEffect(() => {
+    const queryParams = {
+      countryCode : ["JP", "TW"],
+      categoryHierarchy : [
+        "Magnetics/Transformers/Telecom Transformers",
+        "Magnetics/Transformers/Current Transformers","RF and Microwave/RF ICs/Up-Down Converters and Mixers"
+      ]
+    }
+    dispatch(mapDataActions.fetchMapData(queryParams))
+  }, []);
 
   // console.log(chartColors, 'getGraticule');
 
@@ -151,11 +163,14 @@ const Map = ({ props, handleMapClick }) => {
         // Use the gb-all map with no data as a basemap
         name: "Basemap",
         id: "data",
-        data: [
-          ["in", 5],
-          ["au", 10],
-          ["us", 97],
-        ],
+        // data: [
+        //   // ["in", 5],
+        //   // ["au", 10],
+        //   // ["us", 97],
+        //   ["TW",67],
+        //   ["JP", 62]
+        // ],
+        data: mapData,
         point: {
           events: {
             click(e) {
