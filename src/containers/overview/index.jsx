@@ -16,11 +16,19 @@ import { FaTools } from "react-icons/fa";
 import { useState } from "react";
 import PieChart from "../../components/charts/pieChart";
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from 'react-redux';
+import { COUNTRY_DETAILS } from "../../utils/helpers/common";
+import { useParamsDeconstructor } from "../../utils/hooks";
 
 const Overview = () => {
   const theme = useTheme();
 
   const [openDrawer, setOpenDrawer] = useState(false);
+  const {queryParams } = useParamsDeconstructor()
+
+  const stats = useSelector((state) => state.mapData.stats);
+
+  console.log(stats,"stats")
   const handleClick = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -33,12 +41,12 @@ const Overview = () => {
     {
       title: "Data Count",
       tooltipText: "Text for tooltip",
-      value: 12300,
+      value: stats?.data_count || 0,
     },
     {
       title: "Origin Count",
       tooltipText: "Text for tooltip",
-      value: 123,
+      value: stats?.origins || 0,
       // Content: (
       //   <>
       //     <Typography margin={1} variant="h4">
@@ -50,9 +58,9 @@ const Overview = () => {
       background: "linear-gradient(195deg, #66BB6A, #43A047)",
     },
     {
-      title: "Parts Count",
+      title: "Category Count",
       tooltipText: "Text for tooltip",
-      value: 123,
+      value: stats?.cat_count || 0,
       // Content: (
       //   <PieChart
       //     props={{
@@ -108,29 +116,32 @@ const Overview = () => {
     {
       title: "Top Rank",
       tooltipText: "Text for tooltip",
-      value: "USA",
+      value: COUNTRY_DETAILS.find(it=>it.alpha2===stats?.top_rank?.countryCode)?.country || 'None' ,
       Icon: <SiGoogleanalytics size={25} color="white" />,
       background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
     },
     {
-      title: "Parts Analysis",
+      title: "Category Analysis",
       tooltipText: "Text for tooltip",
       // value:123,
       Content: (
         <PieChart
           props={{
-            height: 52,
-            width: 52,
+            height: 58,
+            width: 58,
             title: {
-              text: "45",
+              text: `${((stats?.cat_count/queryParams?.selectedCategory?.split(',')?.length) * 100 || 0).toFixed(0)}%`,
               align: "center",
               verticalAlign: "middle",
+              style:{
+                fontSize:15
+              }
               // y: 30
             },
             colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
             plotOptions: {
               pie: {
-                size: 48,
+                size: 52,
               },
               series: {
                 borderWidth: 0,
@@ -154,11 +165,8 @@ const Overview = () => {
               {
                 type: "pie",
                 data: [
-                  { name: "Category A", y: 45 },
-                  { name: "Category B", y: 25 },
-                  { name: "Category C", y: 15 },
-                  { name: "Category D", y: 10 },
-                  { name: "Category E", y: 5 },
+                  { name: "Selected Categories", y: stats?.cat_count/queryParams?.selectedCategory?.split(',')?.length || 0 },
+                  { name: "Recieved Categories", y: 1-stats?.cat_count/queryParams?.selectedCategory?.split(',')?.length || 0 },
                 ],
               },
             ],
@@ -175,18 +183,21 @@ const Overview = () => {
       Content: (
         <PieChart
           props={{
-            height: 52,
-            width: 52,
+            height: 58,
+            width: 58,
             title: {
-              text: "45",
+              text: `${((stats?.origins/queryParams?.selectedCountry?.split(',')?.length) * 100 ||0).toFixed(0)}%`,
               align: "center",
               verticalAlign: "middle",
+              style:{
+                fontSize:15
+              }
               // y: 30
             },
             colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
             plotOptions: {
               pie: {
-                size: 48,
+                size: 52,
               },
               series: {
                 borderWidth: 0,
@@ -210,11 +221,8 @@ const Overview = () => {
               {
                 type: "pie",
                 data: [
-                  { name: "Category A", y: 45 },
-                  { name: "Category B", y: 25 },
-                  { name: "Category C", y: 15 },
-                  { name: "Category D", y: 10 },
-                  { name: "Category E", y: 5 },
+                  { name: "Selected Categories", y: stats?.origins/queryParams?.selectedCountry?.split(',')?.length || 0 },
+                  { name: "Recieved Categories", y: 1-stats?.origins/queryParams?.selectedCountry?.split(',')?.length || 0 },
                 ],
               },
             ],
