@@ -247,7 +247,7 @@ const Overview = () => {
       >
         <Map />
       </Grid>
-      <Grid position={"absolute"} zIndex={2} marginY={1} marginX={3} display={'flex'} justifyContent={'space-between'} width={'90%'}>
+      <Grid position={"absolute"} zIndex={2} marginY={1} marginX={3} display={'flex'} justifyContent={'space-between'} >
         {!openDrawer ? (
           <Button sx={{height:'fit-content'}} variant="contained" color="secondary" onClick={handleClick} />
         ) : (
@@ -277,13 +277,13 @@ const Overview = () => {
           </Grid>
         )}
 
-        <FormGroup sx={{marginTop:80}}>
+        {/* <FormGroup sx={{marginTop:80}}>
           <FormControlLabel
             control={<Checkbox defaultChecked color="error" />}
             label="Show Shipping"
             onChange={handleShippingChange}
           />
-        </FormGroup>
+        </FormGroup> */}
       </Grid>
     </Grid>
   );
