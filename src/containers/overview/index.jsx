@@ -28,7 +28,6 @@ const Overview = () => {
 
   const stats = useSelector((state) => state.mapData.stats);
 
-  console.log(stats,"stats")
   const handleClick = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -250,7 +249,7 @@ const Overview = () => {
       </Grid>
       <Grid position={"absolute"} zIndex={2} marginY={1} marginX={3} display={'flex'} justifyContent={'space-between'} width={'90%'}>
         {!openDrawer ? (
-          <Button variant="contained" color="secondary" onClick={handleClick} />
+          <Button sx={{height:'fit-content'}} variant="contained" color="secondary" onClick={handleClick} />
         ) : (
           <Grid
             bgcolor={theme.palette.secondary.main}
