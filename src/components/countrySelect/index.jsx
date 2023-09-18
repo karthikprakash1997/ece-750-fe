@@ -7,10 +7,10 @@ import { countriesActions } from '../../slices';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export const CountrySelect = ({ countryFilter, onUpdateCountryFilter }) => {
+export const CountrySelect = ({search, countryFilter, onUpdateCountryFilter }) => {
 
   const dispatch = useDispatch();
-  const countriesList = useSelector((state) => state.countries.countriesList.data);
+  const countriesList = useSelector((state) => state?.countries?.countriesList?.data?.filter(it=>it?.country?.toLowerCase()?.includes(search)));
   // const classes = useStyles();
 
   useEffect(() => {

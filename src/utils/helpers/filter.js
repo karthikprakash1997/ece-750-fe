@@ -11,7 +11,7 @@ return { childExists: false, child: null };
 }
 
 export const getCategories = (categories) => {
-// const categories = [
+// const cate = [
 //   "Amplifiers/Active Filters",
 //   "Amplifiers/Amplifier IC Development Boards and Kits",
 //   "Amplifiers/Amplifiers and Comparators/Instrumentation Amplifiers",
@@ -36,7 +36,7 @@ const categoryHierarchy = {
 }
 
 // Iterate through each category
-categories.forEach(category => {
+categories?.forEach(category => {
   // Split the category into segments using the "/" delimiter
   const segments = category.split("/");
 
@@ -66,6 +66,8 @@ categories.forEach(category => {
   });
   currentLevel.leaves.push(category);
 });
+
+console.log(categoryHierarchy,"categoryHierarchy")
 
 return categoryHierarchy;
 

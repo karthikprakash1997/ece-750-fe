@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import TreeView from '@mui/lab/TreeView';
-import TreeItem from '@mui/lab/TreeItem';
-import Checkbox from '@mui/material/Checkbox';
-import { getCategories } from '../../utils/helpers/filter';
-import { categoriesActions } from '../../slices';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import TreeView from "@mui/lab/TreeView";
+import TreeItem from "@mui/lab/TreeItem";
+import Checkbox from "@mui/material/Checkbox";
+import { getCategories } from "../../utils/helpers/filter";
+import { categoriesActions } from "../../slices";
+import { useDispatch, useSelector } from "react-redux";
 
-export const RichObjectTreeView = () => {
-  // console.log("data ",data)
-  const [selectedLeaves, setSelectedLeaves] = useState([]);
+export const RichObjectTreeView = ({search, selectedLeaves, setSelectedLeaves}) => {
+  // const [selectedLeaves, setSelectedLeaves] = useState([]);
   const dispatch = useDispatch();
-  const categoriesList = useSelector((state) => getCategories(state.categories.categoriesList.data));
-  // const classes = useStyles();
+  const categoriesList = useSelector((state) =>
+    getCategories(state.categories.categoriesList?.filter(it=>it?.toLowerCase()?.includes(search)))
+  );
+
 
   useEffect(() => {
-    dispatch(categoriesActions.fetchCategories())
+    dispatch(categoriesActions.fetchCategories());
   }, []); //eslint-disable-line
 
-  // console.log(categoriesList);
-
   const handleCheck = (nodeLeaves) => {
-    nodeLeaves.length === 1 ? singleLeafHandleCheck(nodeLeaves[0]) : multipleLeavesHandleCheck(nodeLeaves);
+    nodeLeaves.length === 1
+      ? singleLeafHandleCheck(nodeLeaves[0]):
+      multipleLeavesHandleCheck(nodeLeaves);
   };
 
   const singleLeafHandleCheck = (nodeLeaf) => {
@@ -31,58 +32,64 @@ export const RichObjectTreeView = () => {
     }
   };
 
+
   const multipleLeavesHandleCheck = (nodeLeaves) => {
-    let tempSelectedLeaves = [...selectedLeaves]
+    let tempSelectedLeaves = [...selectedLeaves];
     const tempSelectedLeavesCount = tempSelectedLeaves.length;
-    tempSelectedLeaves = tempSelectedLeaves.filter((leaf) => !nodeLeaves.includes(leaf));
-    if(tempSelectedLeaves.length !== tempSelectedLeavesCount-nodeLeaves.length) {
+    tempSelectedLeaves = tempSelectedLeaves.filter(
+      (leaf) => !nodeLeaves.includes(leaf)
+    );
+    if (
+      tempSelectedLeaves.length !==
+      tempSelectedLeavesCount - nodeLeaves.length
+    ) {
       tempSelectedLeaves = [...tempSelectedLeaves, ...nodeLeaves];
     }
     setSelectedLeaves([...tempSelectedLeaves]);
-  }
+  };
 
   const isNodeSelected = (nodeLeaves) => {
-    return nodeLeaves.every((element) => selectedLeaves.includes(element));
+    return nodeLeaves?.every((element) => selectedLeaves.includes(element));
   };
 
   const isNodeIndeterminate = (isSelected, nodeLeaves) => {
-    console.log(!isSelected && nodeLeaves.some((element) => selectedLeaves.includes(element)));
-    return !isSelected && nodeLeaves.some((element) => selectedLeaves.includes(element));
+    // console.log(
+    //   !isSelected &&
+    //     nodeLeaves.some((element) => selectedLeaves.includes(element))
+    // );
+    return !isSelected &&selectedLeaves.length&& nodeLeaves.some((element) => selectedLeaves.includes(element));
   };
 
-  // console.log("selectedLeaves", selectedLeaves);
-
-  const renderTree = (nodes) => {
-    // console.log("In nodes", nodes?.leaves ? "Hello": "Hi");
-    if (nodes?.leaves) {
-      
-    
-    const isChecked = isNodeSelected(nodes.leaves);
-    return (
-    <TreeItem
-      key={nodes.name}
-      nodeId={nodes.name}
-      label={
-        <div>
-          <Checkbox
-            checked={isChecked}
-            // indeterminate={() => isNodeIndeterminate(isChecked, nodes.leaves)}
-            onChange={() => handleCheck(nodes.leaves)}
-          />
-          {nodes.name}
-        </div>
+  const getTreeItemsFromData = (treeItems) => {
+    // console.log(treeItems, "treeItems");
+    return treeItems.map((treeItemData) => {
+      let children;
+      if (treeItemData.children && treeItemData.children.length > 0) {
+        children = getTreeItemsFromData(treeItemData.children);
       }
-    >
-      {Array.isArray(nodes.children)
-        ? nodes.children.map((node) => renderTree(node))
-        : null}
-    </TreeItem>
-    )
-    }
-    return null
+      const isChecked = isNodeSelected(treeItemData?.leaves);
+      const isIntermediate = isNodeIndeterminate(isChecked, treeItemData.leaves);
+
+      return (
+        <TreeItem
+          key={treeItemData.name}
+          nodeId={treeItemData.name}
+          label={
+            <div>
+              <Checkbox
+                checked={isChecked}
+                indeterminate={isIntermediate}
+                onChange={() => {
+                  handleCheck(treeItemData.leaves)}}
+              />
+              {treeItemData.name}
+            </div>
+          }
+          children={children}
+        />
+      );
+    });
   };
-
-
 
   return (
     <TreeView
@@ -90,9 +97,10 @@ export const RichObjectTreeView = () => {
       // defaultExpanded
       defaultCollapseIcon={null}
       defaultExpandIcon={null}
-      defaultExpanded={['Parent']}
+      // sx={{padding:"0"}}
+      // defaultExpanded={['Parent']}
     >
-      {renderTree(categoriesList)}
+      {getTreeItemsFromData(categoriesList.children)}
     </TreeView>
   );
 };

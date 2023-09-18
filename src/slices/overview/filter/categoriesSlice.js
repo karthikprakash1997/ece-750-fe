@@ -13,7 +13,7 @@ export const fetchCategories = createAsyncThunk(
   'filter/fetchCategories',
   async () => {
     try {
-      const response = await fetch(`${process.env.API_BASE_URL}/filter/categories`);
+      const response = await fetch(`https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/categories`);
       if (!response.ok) {
         throw new Error('Failed to fetch categories');
       }
@@ -40,7 +40,7 @@ const categoriesSlice = createSlice({
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
-        state.categoriesList = action.payload;
+        state.categoriesList = action.payload.data;
       })
       .addCase(fetchCategories.rejected, (state, action) => {
         state.isLoading = false;
