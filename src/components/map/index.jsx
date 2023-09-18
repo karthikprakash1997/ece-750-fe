@@ -3,8 +3,11 @@ import * as Highcharts from 'highcharts';
 import highchartsMap from 'highcharts/modules/map';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { overviewActions } from '../../slices/overview';
+import { overviewActions, mapDataActions } from '../../slices/overview';
 import { css, keyframes } from '@emotion/react';
+import { useParamsDeconstructor } from '../../utils/hooks';
+import { COUNTRY_DETAILS } from '../../utils/helpers/common';
+// Get the continent geojson of Europe
 
 highchartsMap(Highcharts);
 
@@ -51,12 +54,59 @@ const styles = {
 const Map = ({ props, handleMapClick }) => {
   const chartRef = useRef(null);
   const dispatch = useDispatch();
+  const {queryParams} = useParamsDeconstructor();
   const mapTopology = useSelector((state) => state.overview.mapTopology);
+  const mapData = useSelector((state) => state.mapData.mapData.map(item => [item.countryCode.toLowerCase(), item.count]));
+
+  const shippingData = useSelector((state) => state.mapData.mapData.reduce((acc,curr) =>{
+    const coor = COUNTRY_DETAILS.find(it=>it.alpha2===curr.countryCode)
+    curr.Shipping.forEach(it=>{
+      const result = {
+        geometry: {
+          type: "LineString",
+          coordinates:[
+            // [coor.longitude, coor.latitude],
+            // [coor.longitude, coor.latitude],
+            [2.352222, 48.856613], // Paris
+            [-53, 4], // Guyane
+
+            // [
+            // it?.coordinates[1],
+            // it?.coordinates[0]
+
+            // ]
+            // it?.coordinates
+          ]
+          // coordinates: [
+          //   [48.516388, 15.552727], // Yemen
+          //   [110.004444, -7.491667], // Java
+          // ],
+        },
+        className: css(styles.animatedLine),
+        color: "#666",
+      }
+      acc.push(result)
+    })
+    return acc;
+  },[]));
+
+  // const result = getContinentGeoJSONByCode('US');
+
   // const classes = useStyles();
 
   useEffect(() => {
     dispatch(overviewActions.fetchMapTopologyData())
   }, []); //eslint-disable-line
+
+  useEffect(() => {
+    if(queryParams?.selectedCountry &&  queryParams?.selectedCategory){
+      const par = {
+        countryCode : queryParams?.selectedCountry?.split(','),
+        categoryHierarchy : queryParams?.selectedCategory?.split(',')
+      }
+      dispatch(mapDataActions.fetchMapData(par))
+    }
+  }, [queryParams?.selectedCategory, queryParams?.selectedCountry]);
 
   // console.log(chartColors, 'getGraticule');
 
@@ -151,11 +201,14 @@ const Map = ({ props, handleMapClick }) => {
         // Use the gb-all map with no data as a basemap
         name: "Basemap",
         id: "data",
-        data: [
-          ["in", 5],
-          ["au", 10],
-          ["us", 97],
-        ],
+        // data: [
+        //   // ["in", 5],
+        //   // ["au", 10],
+        //   // ["us", 97],
+        //   ["TW",67],
+        //   ["JP", 62]
+        // ],
+        data: mapData,
         point: {
           events: {
             click(e) {
@@ -180,183 +233,185 @@ const Map = ({ props, handleMapClick }) => {
           align: "left",
           verticalAlign: "middle",
         },
-        data: [
-          {
-            name: "Yemen",
-            geometry: {
-              type: "Point",
-              coordinates: [48.516388, 15.552727], // Yemen
-            },
-            custom: {
-              arrival: 1414,
-            },
-            dataLabels: {
-              align: "right",
-            },
-          },
-          {
-            name: "Java",
-            geometry: {
-              type: "Point",
-              coordinates: [110.004444, -7.491667], // Java
-            },
-            custom: {
-              arrival: 1696,
-            },
-          },
-          {
-            name: "La Reunion",
-            geometry: {
-              type: "Point",
-              coordinates: [55.5325, -21.114444], // La reunion
-            },
-            custom: {
-              arrival: 1708,
-            },
-          },
-          {
-            name: "Brazil",
-            geometry: {
-              type: "Point",
-              coordinates: [-43.2, -22.9], // Brazil
-            },
-            custom: {
-              arrival: 1770,
-            },
-            dataLabels: {
-              align: "right",
-            },
-          },
-          {
-            name: "India",
-            geometry: {
-              type: "Point",
-              coordinates: [78, 21], // India
-            },
-            custom: {
-              arrival: 1670,
-            },
-          },
-          {
-            name: "Amsterdam",
-            geometry: {
-              type: "Point",
-              coordinates: [4.9, 52.366667], // Amsterdam
-            },
-            custom: {
-              arrival: 1696,
-            },
-          },
-          {
-            name: "Antilles",
-            geometry: {
-              type: "Point",
-              coordinates: [-61.030556, 14.681944], // Antilles
-            },
-            custom: {
-              arrival: 1714,
-            },
-            dataLabels: {
-              align: "right",
-            },
-          },
-          {
-            name: "Guyane",
-            geometry: {
-              type: "Point",
-              coordinates: [-53, 4], // Guyane
-            },
-            custom: {
-              arrival: 1714,
-            },
-            dataLabels: {
-              align: "right",
-            },
-          },
-        ],
+        data:shippingData,
+        // data: [
+        //   {
+        //     name: "Yemen",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [48.516388, 15.552727], // Yemen
+        //     },
+        //     custom: {
+        //       arrival: 1414,
+        //     },
+        //     dataLabels: {
+        //       align: "right",
+        //     },
+        //   },
+        //   {
+        //     name: "Java",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [110.004444, -7.491667], // Java
+        //     },
+        //     custom: {
+        //       arrival: 1696,
+        //     },
+        //   },
+        //   {
+        //     name: "La Reunion",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [55.5325, -21.114444], // La reunion
+        //     },
+        //     custom: {
+        //       arrival: 1708,
+        //     },
+        //   },
+        //   {
+        //     name: "Brazil",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [-43.2, -22.9], // Brazil
+        //     },
+        //     custom: {
+        //       arrival: 1770,
+        //     },
+        //     dataLabels: {
+        //       align: "right",
+        //     },
+        //   },
+        //   {
+        //     name: "India",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [78, 21], // India
+        //     },
+        //     custom: {
+        //       arrival: 1670,
+        //     },
+        //   },
+        //   {
+        //     name: "Amsterdam",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [4.9, 52.366667], // Amsterdam
+        //     },
+        //     custom: {
+        //       arrival: 1696,
+        //     },
+        //   },
+        //   {
+        //     name: "Antilles",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [-61.030556, 14.681944], // Antilles
+        //     },
+        //     custom: {
+        //       arrival: 1714,
+        //     },
+        //     dataLabels: {
+        //       align: "right",
+        //     },
+        //   },
+        //   {
+        //     name: "Guyane",
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [-53, 4], // Guyane
+        //     },
+        //     custom: {
+        //       arrival: 1714,
+        //     },
+        //     dataLabels: {
+        //       align: "right",
+        //     },
+        //   },
+        // ],
         enableMouseTracking: false,
       },
       {
         type: "mapline",
-        data: [
-          {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [48.516388, 15.552727], // Yemen
-                [110.004444, -7.491667], // Java
-              ],
-            },
-            className: css(styles.animatedLine),
-            color: "#666",
-          },
-          {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [48.516388, 15.552727], // Yemen
-                [55.5325, -21.114444], // La reunion
-              ],
-            },
-            className: css(styles.animatedLine),
-            color: "#666",
-          },
-          {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [55.5325, -21.114444], // La reunion
-                [-43.2, -22.9], // Brazil
-              ],
-            },
-            className: css(styles.animatedLine),
-            color: "#666",
-          },
-          {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [48.516388, 15.552727], // Yemen
-                [78, 21], // India
-              ],
-            },
-            className: css(styles.animatedLine),
-            color: "#666",
-          },
-          {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [110.004444, -7.491667], // Java
-                [4.9, 52.366667], // Amsterdam
-              ],
-            },
-            className: css(styles.animatedLine),
-            color: "#666",
-          },
-          {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [-3, 55], // UK
-                [-61.030556, 14.681944], // Antilles
-              ],
-            },
-            className: css(styles.animatedLine),
-            color: "#666",
-          },
-          {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [2.352222, 48.856613], // Paris
-                [-53, 4], // Guyane
-              ],
-            },
-            className: css(styles.animatedLine),
-            color: "#666",
-          },
-        ],
+        data:shippingData,
+        // data: [
+        //   {
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: [
+        //         [48.516388, 15.552727], // Yemen
+        //         [110.004444, -7.491667], // Java
+        //       ],
+        //     },
+        //     className: css(styles.animatedLine),
+        //     color: "#666",
+        //   },
+        //   {
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: [
+        //         [48.516388, 15.552727], // Yemen
+        //         [55.5325, -21.114444], // La reunion
+        //       ],
+        //     },
+        //     className: css(styles.animatedLine),
+        //     color: "#666",
+        //   },
+        //   {
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: [
+        //         [55.5325, -21.114444], // La reunion
+        //         [-43.2, -22.9], // Brazil
+        //       ],
+        //     },
+        //     className: css(styles.animatedLine),
+        //     color: "#666",
+        //   },
+        //   {
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: [
+        //         [48.516388, 15.552727], // Yemen
+        //         [78, 21], // India
+        //       ],
+        //     },
+        //     className: css(styles.animatedLine),
+        //     color: "#666",
+        //   },
+        //   {
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: [
+        //         [110.004444, -7.491667], // Java
+        //         [4.9, 52.366667], // Amsterdam
+        //       ],
+        //     },
+        //     className: css(styles.animatedLine),
+        //     color: "#666",
+        //   },
+        //   {
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: [
+        //         [-3, 55], // UK
+        //         [-61.030556, 14.681944], // Antilles
+        //       ],
+        //     },
+        //     className: css(styles.animatedLine),
+        //     color: "#666",
+        //   },
+        //   {
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: [
+        //         [2.352222, 48.856613], // Paris
+        //         [-53, 4], // Guyane
+        //       ],
+        //     },
+        //     className: css(styles.animatedLine),
+        //     color: "#666",
+        //   },
+        // ],
         lineWidth: 2,
         enableMouseTracking: false,
       },

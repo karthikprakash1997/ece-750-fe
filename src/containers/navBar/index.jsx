@@ -20,7 +20,7 @@ const AppBar = () => {
 
   const handleFilterClick = () => {
     const urlParams = !queryParams?.filter
-      ? {
+      ? { ...queryParams,
           filter: 1,
           selectedFilter: 'category'
         }
