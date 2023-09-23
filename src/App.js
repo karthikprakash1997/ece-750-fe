@@ -9,6 +9,7 @@ import ProtectedRoute from './routes/privateRoute';
 
 import { Provider } from 'react-redux';
 import { store } from './store';
+import Report from './containers/report';
 // import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createTheme({
@@ -49,6 +50,7 @@ const App = () => {
                 <Route element={<ProtectedRoute isAuthenticated={true} />}>
                   <Route path="overview" element={<Overview />} />
                   <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="report" element={<Report />} />
                 </Route>
               </Routes>
             </Router>

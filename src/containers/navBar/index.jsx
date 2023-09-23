@@ -10,6 +10,11 @@ const NAV_BAR = [
     route: "dashboard",
     search: { selectedChart: "dependencyWheel" },
   },
+  {
+    title: "Report",
+    route: "report",
+    search: {},
+  },
 ];
 
 const AppBar = () => {
