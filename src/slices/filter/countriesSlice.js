@@ -22,10 +22,9 @@ export const fetchCountries = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (error) {
+      console.error('error')
       throw error;
     }
-    const data = await response.json();
-    return data;
 
   },
 );
