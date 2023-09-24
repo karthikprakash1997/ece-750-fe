@@ -17,95 +17,67 @@ const Report = () => {
 
   const tableData = [
     {
-      name: 'Oli Bob',
-      location: 'United Kingdom',
-      gender: 'male',
-      col: 'red',
-      dob: '14/04/1984',
+      category: 'Amplifier',
+      percentage: '20%',
+      count: '300',
       _children: [
         {
-          name: 'Mary May',
-          location: 'Germany',
-          gender: 'female',
-          col: 'blue',
-          dob: '14/05/1982',
+          category: 'Amplifier Child 1',
+          percentage: '30%',
+          count: '50',
         },
         {
-          name: 'Christine Lobowski',
-          location: 'France',
-          gender: 'female',
-          col: 'green',
-          dob: '22/05/1982',
+          category: 'Amplifier Child 2',
+          percentage: '40%',
+          count: '150',
         },
         {
-          name: 'Brendon Philips',
-          location: 'USA',
-          gender: 'male',
-          col: 'orange',
-          dob: '01/08/1980',
+          category: 'Amplifier Child 3',
+          percentage: '60%',
+          count: '100',
           _children: [
             {
-              name: 'Margret Marmajuke',
-              location: 'Canada',
-              gender: 'female',
-              col: 'yellow',
-              dob: '31/01/1999',
+              category: 'Amplifier Child 3 Child 1',
+              percentage: '50%',
+              count: '30',
             },
             {
-              name: 'Frank Harbours',
-              location: 'Russia',
-              gender: 'male',
-              col: 'red',
-              dob: '12/05/1966',
+              category: 'Amplifier Child 3 Child 2',
+              percentage: '70%',
+              count: '70',
             },
           ],
         },
       ],
     },
     {
-      name: 'Jamie Newhart',
-      location: 'India',
-      gender: 'male',
-      col: 'green',
-      dob: '14/05/1985',
+      category: 'Screws',
+      percentage: '65%',
+      count: '1300',
     },
     {
-      name: 'Gemma Jane',
-      location: 'China',
-      gender: 'female',
-      col: 'red',
-      dob: '22/05/1982',
+      category: 'Bolts',
+      percentage: '90%',
+      count: '1800',
       _children: [
         {
-          name: 'Emily Sykes',
-          location: 'South Korea',
-          gender: 'female',
-          col: 'maroon',
-          dob: '11/11/1970',
+          category: 'Bolts Child 1',
+          percentage: '90%',
+          count: '1800',
         },
       ],
     },
     {
-      name: 'James Newman',
-      location: 'Japan',
-      gender: 'male',
-      col: 'red',
-      dob: '22/03/1998',
+      category: 'Microprocessor',
+      percentage: '40%',
+      count: '4000',
     },
   ];
 
   const columns = [
-    { title: 'Name', field: 'name', width: 200, responsive: 0 },
-    { title: 'Location', field: 'location', width: 150 },
-    { title: 'Gender', field: 'gender', width: 150, responsive: 2 },
-    { title: 'Favourite Color', field: 'col', width: 150 },
-    {
-      title: 'Date Of Birth',
-      field: 'dob',
-      hozAlign: 'center',
-      sorter: 'date',
-      width: 150,
-    },
+    { title: 'Category Name', field: 'category', width: 200, responsive: 0 },
+    { title: 'Percentage', field: 'percentage', width: 150 },
+    { title: 'Count', field: 'count', width: 150, responsive: 2 },
   ];
 
   return (
@@ -195,9 +167,8 @@ const Report = () => {
       <Grid item xs={12}>
         <h3>Report</h3>
       </Grid>
-      <br></br>
       <Grid item xs={12}>
-        <NestedTable tableData={tableData} columns={columns}></NestedTable>
+        <NestedTable tableTitle="If we lost access to Choose a country China as a supplier, the following categories will be effected." tableData={tableData} columns={columns}></NestedTable>
       </Grid>
     </Grid>
   );

@@ -5,7 +5,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Button } from '@mui/material';
 
-function NestedTable({ tableData, columns }) {
+function NestedTable({ tableTitle, tableData, columns }) {
   const elRef = useRef(null);
   let tabulator = null;
 
@@ -63,9 +63,13 @@ const handleExportPDF = () => {
 
   return (
     <div>
-      <Button variant="contained" color="success" onClick={handleExportPDF}>
-        Export as PDF
-      </Button>
+      <h4>
+        {tableTitle} &nbsp;
+        <Button variant="contained" color="success" onClick={handleExportPDF}>
+          Export the table as PDF
+        </Button>
+      </h4>
+      
       <div ref={elRef} style={{ width: 'fit-content' }}></div>
     </div>
   );

@@ -7,8 +7,8 @@ import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import overviewReducer from '../slices/overview/overviewSlice';
-import countriesReducer from '../slices/overview/filter/countriesSlice';
-import categoriesReducer from '../slices/overview/filter/categoriesSlice';
+import countriesReducer from '../slices/filter/countriesSlice';
+import categoriesReducer from '../slices/filter/categoriesSlice';
 import mapDataReducer from '../slices/overview/mapDataSlice';
 // import anotherReducer from '../slices/another'; // Import your other reducer
 
