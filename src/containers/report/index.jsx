@@ -169,7 +169,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle="If we lost access to Choose a country China as a supplier, the following categories will be effected."
+          tableTitle="If we lost access to China as a supplier, the following categories will be effected."
           tableData={tableData}
           columns={columns}
         ></NestedTable>
