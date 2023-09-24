@@ -15,7 +15,7 @@ export const fetchCountries = createAsyncThunk(
   'filter/fetchCountries',
   async () => {
     try {
-      const response = await fetch(`https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/countries`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/filter/countries`);
       if (!response.ok) {
         throw new Error('Failed to fetch countries');
       }

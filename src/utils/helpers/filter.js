@@ -67,7 +67,6 @@ categories?.forEach(category => {
   currentLevel.leaves.push(category);
 });
 
-console.log(categoryHierarchy,"categoryHierarchy")
 
 return categoryHierarchy;
 

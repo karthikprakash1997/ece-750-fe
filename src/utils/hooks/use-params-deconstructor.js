@@ -7,8 +7,29 @@ export const useParamsDeconstructor = (initialValue) => {
 
   const queryParams = useMemo(() => {
     const urlParams = new URLSearchParams(location.search);
-    return Object.fromEntries(urlParams);
+    const query = Object.fromEntries(urlParams);
+
+    const selectedFilter = query?.selectedFilter || 'category'
+    const filter = query?.filter
+    const selectedChart = query?.selectedChart
+    return {
+      query,
+      values: {
+        selectedFilter,
+        filter,
+        selectedChart
+      }
+    }
   }, [location.search]);
+
+  const selectedCountry = useMemo(() => {
+    return queryParams?.selectedCountry?.split(',') || [];
+  }, [queryParams?.selectedCountry]);
+
+  const selectedCategory = useMemo(() => {
+    return queryParams?.selectedCategory?.split(',') || [];
+  }, [queryParams?.selectedCategory]);
+
 
   const addSearchParams = (urlParams) => {
     navigate({ search: `?${new URLSearchParams(urlParams).toString()}` });
@@ -19,7 +40,7 @@ export const useParamsDeconstructor = (initialValue) => {
   // }, [navigate, location.search]);
 
   const handleRouteChange = (pathname, urlParams) => {
-    pathname && navigate({ pathname, search:  `?${new URLSearchParams(urlParams).toString()}`});
+    pathname && navigate({ pathname, search: `?${new URLSearchParams(urlParams).toString()}` });
   };
 
   // const currentRoute = useMemo(() => {
@@ -36,10 +57,13 @@ export const useParamsDeconstructor = (initialValue) => {
   // }, [queryParams, id, userOwnership, accountSelectionList, initialValue]);
 
   return {
-    queryParams,
     addSearchParams,
     handleRouteChange,
-    currentRoute
+    currentRoute,
+    queryParams: queryParams.query,
+    ...queryParams.values,
+    selectedCountry,
+    selectedCategory
     // filter,
   };
 };

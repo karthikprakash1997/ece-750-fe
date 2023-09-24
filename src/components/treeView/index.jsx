@@ -6,22 +6,30 @@ import { getCategories } from "../../utils/helpers/filter";
 import { categoriesActions } from "../../slices";
 import { useDispatch, useSelector } from "react-redux";
 
-export const RichObjectTreeView = ({search, selectedLeaves, setSelectedLeaves}) => {
+export const RichObjectTreeView = ({
+  search,
+  selectedLeaves,
+  setSelectedLeaves,
+}) => {
   // const [selectedLeaves, setSelectedLeaves] = useState([]);
   const dispatch = useDispatch();
   const categoriesList = useSelector((state) =>
-    getCategories(state.categories.categoriesList?.filter(it=>it?.toLowerCase()?.includes(search)))
+    getCategories(
+      state.categories.categoriesList?.filter((it) =>
+        it?.toLowerCase()?.includes(search)
+      )
+    )
   );
 
-
   useEffect(() => {
-    dispatch(categoriesActions.fetchCategories());
+    if (!categoriesList?.children?.length)
+      dispatch(categoriesActions.fetchCategories());
   }, []); //eslint-disable-line
 
   const handleCheck = (nodeLeaves) => {
     nodeLeaves.length === 1
-      ? singleLeafHandleCheck(nodeLeaves[0]):
-      multipleLeavesHandleCheck(nodeLeaves);
+      ? singleLeafHandleCheck(nodeLeaves[0])
+      : multipleLeavesHandleCheck(nodeLeaves);
   };
 
   const singleLeafHandleCheck = (nodeLeaf) => {
@@ -31,7 +39,6 @@ export const RichObjectTreeView = ({search, selectedLeaves, setSelectedLeaves}) 
       setSelectedLeaves([...selectedLeaves, nodeLeaf]);
     }
   };
-
 
   const multipleLeavesHandleCheck = (nodeLeaves) => {
     let tempSelectedLeaves = [...selectedLeaves];
@@ -57,7 +64,11 @@ export const RichObjectTreeView = ({search, selectedLeaves, setSelectedLeaves}) 
     //   !isSelected &&
     //     nodeLeaves.some((element) => selectedLeaves.includes(element))
     // );
-    return !isSelected &&selectedLeaves.length&& nodeLeaves.some((element) => selectedLeaves.includes(element));
+    return (
+      !isSelected &&
+      selectedLeaves.length &&
+      nodeLeaves.some((element) => selectedLeaves.includes(element))
+    );
   };
 
   const getTreeItemsFromData = (treeItems) => {
@@ -68,7 +79,10 @@ export const RichObjectTreeView = ({search, selectedLeaves, setSelectedLeaves}) 
         children = getTreeItemsFromData(treeItemData.children);
       }
       const isChecked = isNodeSelected(treeItemData?.leaves);
-      const isIntermediate = isNodeIndeterminate(isChecked, treeItemData.leaves);
+      const isIntermediate = isNodeIndeterminate(
+        isChecked,
+        treeItemData.leaves
+      );
 
       return (
         <TreeItem
@@ -80,7 +94,8 @@ export const RichObjectTreeView = ({search, selectedLeaves, setSelectedLeaves}) 
                 checked={isChecked}
                 indeterminate={isIntermediate}
                 onChange={() => {
-                  handleCheck(treeItemData.leaves)}}
+                  handleCheck(treeItemData.leaves);
+                }}
               />
               {treeItemData.name}
             </div>

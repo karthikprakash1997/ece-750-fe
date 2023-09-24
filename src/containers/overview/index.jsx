@@ -24,7 +24,7 @@ const Overview = () => {
   const theme = useTheme();
 
   const [openDrawer, setOpenDrawer] = useState(false);
-  const {queryParams } = useParamsDeconstructor()
+  const {selectedCategory, selectedCountry } = useParamsDeconstructor()
 
   const stats = useSelector((state) => state.mapData.stats);
 
@@ -129,7 +129,7 @@ const Overview = () => {
             height: 58,
             width: 58,
             title: {
-              text: `${((stats?.cat_count/queryParams?.selectedCategory?.split(',')?.length) * 100 || 0).toFixed(0)}%`,
+              text: `${((stats?.cat_count/selectedCategory?.length) * 100 || 0).toFixed(0)}%`,
               align: "center",
               verticalAlign: "middle",
               style:{
@@ -164,8 +164,8 @@ const Overview = () => {
               {
                 type: "pie",
                 data: [
-                  { name: "Selected Categories", y: stats?.cat_count/queryParams?.selectedCategory?.split(',')?.length || 0 },
-                  { name: "Recieved Categories", y: 1-stats?.cat_count/queryParams?.selectedCategory?.split(',')?.length || 0 },
+                  { name: "Selected Categories", y: stats?.cat_count/selectedCategory?.length || 0 },
+                  { name: "Recieved Categories", y: 1-stats?.cat_count/selectedCategory?.length || 0 },
                 ],
               },
             ],
@@ -185,7 +185,7 @@ const Overview = () => {
             height: 58,
             width: 58,
             title: {
-              text: `${((stats?.origins/queryParams?.selectedCountry?.split(',')?.length) * 100 ||0).toFixed(0)}%`,
+              text: `${((stats?.origins/selectedCountry?.length) * 100 ||0).toFixed(0)}%`,
               align: "center",
               verticalAlign: "middle",
               style:{
@@ -220,8 +220,8 @@ const Overview = () => {
               {
                 type: "pie",
                 data: [
-                  { name: "Selected Categories", y: stats?.origins/queryParams?.selectedCountry?.split(',')?.length || 0 },
-                  { name: "Recieved Categories", y: 1-stats?.origins/queryParams?.selectedCountry?.split(',')?.length || 0 },
+                  { name: "Selected Categories", y: stats?.origins/selectedCountry?.length || 0 },
+                  { name: "Recieved Categories", y: 1-stats?.origins/selectedCountry?.length || 0 },
                 ],
               },
             ],

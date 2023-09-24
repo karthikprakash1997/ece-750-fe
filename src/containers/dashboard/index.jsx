@@ -11,14 +11,14 @@ import { useParamsDeconstructor } from "../../utils/hooks";
 import DrilldownPieChart from "../../components/charts/drilldown";
 
 const MENU_ITEMS = [
-  {title:'Shipping Dependency Wheel', value:'dependencyWheel'},
-  {title:'Drill down', value:'drilldown'},
-]
+  { title: "Shipping Dependency Wheel", value: "dependencyWheel" },
+  { title: "Drill down", value: "drilldown" },
+];
 
 const Dashboard = () => {
   const theme = useTheme();
-  const { queryParams,addSearchParams } = useParamsDeconstructor();
-
+  const { queryParams, selectedChart, addSearchParams } =
+    useParamsDeconstructor();
 
   const statsCardData = [
     {
@@ -217,41 +217,49 @@ const Dashboard = () => {
     },
   ];
 
-  const handleChange = (e) =>{
-   const  urlParams = {
-    ...queryParams,
-    selectedChart: e.target.value
-  };
+  const handleChange = (e) => {
+    const urlParams = {
+      ...queryParams,
+      selectedChart: e.target.value,
+    };
     addSearchParams(urlParams);
-  }
+  };
 
   return (
     <Grid container marginTop={3}>
-      <Grid item xs={12} sm={3} display={'grid'} justifyContent={'center'}>
-          <Typography variant="h6">
-            Chart Type
-          </Typography>
-          <BasicSelect handleChange={handleChange} menuItems={MENU_ITEMS} value={queryParams.selectedChart}/>
-          <Grid
-            bgcolor={theme.palette.secondary.main}
-            // minHeight={500}
-            height={500}
-            boxShadow={3}
-            minWidth={200}
-            maxWidth={240}
-            borderRadius={2}
-            marginTop={3}
-            // margin={2}
-            // marginRight={2}
-            // margintop={1}
-          >
-            {statsCardData.map((it) => {
-              return <Stats props={it} />;
-            })}
-          </Grid>
+      <Grid item xs={12} sm={3} display={"grid"} justifyContent={"center"}>
+        <Typography variant="h6">Chart Type</Typography>
+        <BasicSelect
+          handleChange={handleChange}
+          menuItems={MENU_ITEMS}
+          value={selectedChart}
+        />
+        <Grid
+          bgcolor={theme.palette.secondary.main}
+          // minHeight={500}
+          height={500}
+          boxShadow={3}
+          minWidth={200}
+          maxWidth={240}
+          borderRadius={2}
+          marginTop={3}
+          // margin={2}
+          // marginRight={2}
+          // margintop={1}
+        >
+          {statsCardData.map((it) => {
+            return <Stats props={it} />;
+          })}
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={9}  display={'grid'} justifyContent={'center'}>
-        {queryParams.selectedChart===MENU_ITEMS[0].value?<DependencyWheel />:queryParams.selectedChart===MENU_ITEMS[1].value?<DrilldownPieChart />:'Please enter a valid chart type'}
+      <Grid item xs={12} sm={9} display={"grid"} justifyContent={"center"}>
+        {selectedChart === MENU_ITEMS[0].value ? (
+          <DependencyWheel />
+        ) : selectedChart === MENU_ITEMS[1].value ? (
+          <DrilldownPieChart />
+        ) : (
+          "Please enter a valid chart type"
+        )}
       </Grid>
     </Grid>
   );

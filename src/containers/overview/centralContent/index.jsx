@@ -82,7 +82,6 @@ const CentralSection = () => {
                         // }
                       }}
                     >
-                      {tabs === 0 ? <RichObjectTreeView /> : <CountrySelect />}
                     </Paper>
                   </Grid>
                   <Grid marginTop={2} display={'flex'} justifyContent={'flex-end'} alignItems={'self-end'} columnGap={1}>
