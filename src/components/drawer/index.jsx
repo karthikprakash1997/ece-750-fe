@@ -36,28 +36,32 @@ const FILTER_BUTTON = [
 
 export const SideDrawer = () => {
   // const { window } = props;
-  const { queryParams, addSearchParams } = useParamsDeconstructor();
+  const { queryParams,filter, selectedFilter, addSearchParams, selectedCategory, selectedCountry } =
+    useParamsDeconstructor();
 
   // This is used only for the example
   // console.log(document.querySelector(''))
   // const container =
   //   window !== undefined ? () => window().document.body : undefined;
 
-  const [categoryFilter, setCategoryFilter] = useState(
-    queryParams?.categoryFilter || '',
-  );
-  const [countryFilter, setCountryFilter] = useState(
-    queryParams?.countryFilter || [],
-  );
+  const [categoryFilter, setCategoryFilter] = useState([]);
+  const [countryFilter, setCountryFilter] = useState([]);
   const [thresholdFilter, setThresholdFilter] = useState(
-    queryParams?.thresholdFilter || 0,
+    queryParams?.thresholdFilter || 0
   );
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
-  const selectedFilter = queryParams?.selectedFilter || 'category'; // Track selected filter
+  useEffect(() => {
+    if (!categoryFilter?.length && selectedCategory?.length) {
+      setCategoryFilter(selectedCategory);
+    }
+    if (!countryFilter?.length && selectedCountry?.length) {
+      setCountryFilter(selectedCountry);
+    }
+  }, []); //eslint-disable-line
+
 
   const handleApplyClick = () => {
-    console.log(categoryFilter, countryFilter);
     // Combine different filter states into a single object
     const filters = {
       ...queryParams,
@@ -71,7 +75,7 @@ export const SideDrawer = () => {
     // const combinedFilters = encodeURIComponent(stringifiedFilters);
 
     // Store the combined filter object in local storage
-    localStorage.setItem('combinedFilters', stringifiedFilters);
+    localStorage.setItem("combinedFilters", stringifiedFilters);
 
     // Append the selected filter to the URL
     addSearchParams(filters);
@@ -79,9 +83,9 @@ export const SideDrawer = () => {
 
   const handleCancelClick = () => {
     // Reset filter states from local storage
-    const savedFilters = JSON.parse(localStorage.getItem('combinedFilters'));
+    const savedFilters = JSON.parse(localStorage.getItem("combinedFilters"));
     if (savedFilters) {
-      setCategoryFilter(savedFilters.categoryFilter || '');
+      setCategoryFilter(savedFilters.categoryFilter || "");
       setCountryFilter(savedFilters.countryFilter || []);
       setThresholdFilter(savedFilters.thresholdFilter || 0);
     }
@@ -94,15 +98,15 @@ export const SideDrawer = () => {
     addSearchParams({ ...queryParams, selectedFilter: route });
   };
 
-  useEffect(() => {
-    // Load combined filter object from local storage when the component mounts
-    const savedFilters = JSON.parse(localStorage.getItem('combinedFilters'));
-    if (savedFilters) {
-      setCategoryFilter(savedFilters.categoryFilter || '');
-      setCountryFilter(savedFilters.countryFilter || []);
-      setThresholdFilter(savedFilters.thresholdFilter || 0);
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Load combined filter object from local storage when the component mounts
+  //   const savedFilters = JSON.parse(localStorage.getItem("combinedFilters"));
+  //   if (savedFilters) {
+  //     setCategoryFilter(savedFilters.categoryFilter || "");
+  //     setCountryFilter(savedFilters.countryFilter || []);
+  //     setThresholdFilter(savedFilters.thresholdFilter || 0);
+  //   }
+  // }, []);
 
   const updateCountryFilter = (newCountryFilter) => {
     setCountryFilter(newCountryFilter);
@@ -112,13 +116,12 @@ export const SideDrawer = () => {
     setCategoryFilter(newCountryFilter);
   };
 
-  console.log(search);
   // console.log(queryParams?.selectedFilter);
 
   return (
     <Drawer
       anchor="right"
-      open={+queryParams?.filter === 1}
+      open={+filter === 1}
       // open
       // onClose={handleClose}
       // onOpen={toggleDrawer(true)}
@@ -142,7 +145,7 @@ export const SideDrawer = () => {
       <Grid marginTop={6} height={700}>
         <Typography marginLeft={2} variant="h5">
           {
-            FILTER_BUTTON.find((it) => it.value === queryParams?.selectedFilter)
+            FILTER_BUTTON.find((it) => it.value === selectedFilter)
               ?.title
           }
         </Typography>
@@ -152,28 +155,29 @@ export const SideDrawer = () => {
               // variant="contained"
               // aria-label="outlined secondary button group"
               // color="secondary"
-              display={'inline-flex'}
-              flexDirection={'column'}
-              justifyContent={'center'}
-              alignContent={'center'}
+              display={"inline-flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignContent={"center"}
               // back
               // orientation="vertical"
               sx={{
                 // borderLeft:1,
-                backgroundColor: 'transparent',
+                backgroundColor: "transparent",
                 borderRadius: 2,
-                boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.15)',
+                boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.15)",
               }}
             >
               {FILTER_BUTTON.map((it) => (
                 <Button
                   sx={{
                     backgroundColor:
-                      queryParams.selectedFilter === it.value ? 'red' : 'white',
-                    ':hover': { backgroundColor: 'white' },
-                    border: 'ButtonFace',
+                      selectedFilter === it.value ? "red" : "white",
+                    ":hover": { backgroundColor: "white" },
+                    border: "ButtonFace",
                     margin: 0.2,
                   }}
+                  key={it.title}
                   onClick={() => handleClick(it.value)}
                 >
                   {it.icon}
@@ -182,7 +186,7 @@ export const SideDrawer = () => {
             </Grid>
           </Grid>
           <Grid
-            style={{ overflowY: 'scroll' }}
+            style={{ overflowY: "scroll" }}
             marginLeft={3}
             width={400}
             height={550}
@@ -196,28 +200,27 @@ export const SideDrawer = () => {
                 value={search}
                 variant="outlined"
                 onChange={(e) => {
-                  console.log(e.target, e.currentTarget);
                   setSearch(e.currentTarget.value);
                 }}
               />
             </Grid>
-            {queryParams?.selectedFilter === FILTER_BUTTON[0].value && (
+            {selectedFilter === FILTER_BUTTON[0].value && (
               <RichObjectTreeView
                 search={search}
                 selectedLeaves={categoryFilter}
                 setSelectedLeaves={updateCatFilter}
               />
             )}
-            {queryParams?.selectedFilter === FILTER_BUTTON[1].value && (
+            {selectedFilter === FILTER_BUTTON[1].value && (
               <CountrySelect
                 search={search}
                 countryFilter={countryFilter}
                 onUpdateCountryFilter={updateCountryFilter}
               />
             )}
-            {queryParams?.selectedFilter === FILTER_BUTTON[2].value && (
+            {selectedFilter === FILTER_BUTTON[2].value && (
               <Slider
-                getAriaLabel={() => 'Temperature range'}
+                getAriaLabel={() => "Temperature range"}
                 value={thresholdFilter}
                 onChange={(event, newValue) => setThresholdFilter(newValue)}
                 valueLabelDisplay="auto"
@@ -227,8 +230,8 @@ export const SideDrawer = () => {
           </Grid>
         </Grid>
         <Grid
-          display={'flex'}
-          justifyContent={'center'}
+          display={"flex"}
+          justifyContent={"center"}
           columnGap={2}
           margin={2}
         >

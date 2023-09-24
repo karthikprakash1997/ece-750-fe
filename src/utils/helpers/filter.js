@@ -70,7 +70,6 @@ export const getCategories = (categories) => {
     currentLevel.leaves.push(category);
   });
 
-  console.log(categoryHierarchy, 'categoryHierarchy');
 
   return categoryHierarchy;
 

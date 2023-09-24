@@ -101,7 +101,6 @@ const CentralSection = () => {
                         // }
                       }}
                     >
-                      {tabs === 0 ? <RichObjectTreeView /> : <CountrySelect />}
                     </Paper>
                   </Grid>
                   <Grid

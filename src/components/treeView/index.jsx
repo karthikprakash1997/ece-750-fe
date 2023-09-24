@@ -16,13 +16,14 @@ export const RichObjectTreeView = ({
   const categoriesList = useSelector((state) =>
     getCategories(
       state.categories.categoriesList?.filter((it) =>
-        it?.toLowerCase()?.includes(search),
-      ),
-    ),
+        it?.toLowerCase()?.includes(search)
+      )
+    )
   );
 
   useEffect(() => {
-    dispatch(categoriesActions.fetchCategories());
+    if (!categoriesList?.children?.length)
+      dispatch(categoriesActions.fetchCategories());
   }, []); //eslint-disable-line
 
   const handleCheck = (nodeLeaves) => {
@@ -80,7 +81,7 @@ export const RichObjectTreeView = ({
       const isChecked = isNodeSelected(treeItemData?.leaves);
       const isIntermediate = isNodeIndeterminate(
         isChecked,
-        treeItemData.leaves,
+        treeItemData.leaves
       );
 
       return (

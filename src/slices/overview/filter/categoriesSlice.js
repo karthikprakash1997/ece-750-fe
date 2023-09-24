@@ -11,11 +11,15 @@ const initialState = {
 export const fetchCategories = createAsyncThunk(
   'filter/fetchCategories',
   async () => {
-    const response = await fetch(
-      `https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/categories`,
-    );
-    if (!response.ok) {
-      throw new Error('Failed to fetch categories');
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/filter/categories`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch categories');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
     }
     const data = await response.json();
     return data;

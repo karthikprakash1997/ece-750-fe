@@ -20,7 +20,7 @@ const NAV_BAR = [
 const AppBar = () => {
   const theme = useTheme();
   // const location = useLocation();
-  const { queryParams, currentRoute, addSearchParams, handleRouteChange } =
+  const { queryParams, currentRoute,filter, addSearchParams, handleRouteChange } =
     useParamsDeconstructor();
 
   // getCategories();
@@ -30,7 +30,7 @@ const AppBar = () => {
 
   const handleFilterClick = () => {
     let urlParams = { ...queryParams };
-    if (!queryParams?.filter) {
+    if (!filter) {
       urlParams.filter = 1;
       urlParams.selectedFilter = 'category';
     } else {
