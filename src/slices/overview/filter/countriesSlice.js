@@ -14,18 +14,15 @@ const initialState = {
 export const fetchCountries = createAsyncThunk(
   'filter/fetchCountries',
   async () => {
-    try {
-      const response = await fetch(
-        `https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/countries`,
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch countries');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
+    const response = await fetch(
+      `https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/countries`,
+    );
+    if (!response.ok) {
+      throw new Error('Failed to fetch countries');
     }
+    const data = await response.json();
+    return data;
+
   },
 );
 

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { overviewActions, mapDataActions } from '../../slices/overview';
 import { css, keyframes } from '@emotion/react';
 import { useParamsDeconstructor } from '../../utils/hooks';
-import { COUNTRY_DETAILS } from '../../utils/helpers/common';
+// import { COUNTRY_DETAILS } from '../../utils/helpers/common';
 // Get the continent geojson of Europe
 
 highchartsMap(Highcharts);
@@ -48,7 +48,7 @@ const styles = {
   `,
 };
 
-const Map = ({ props, handleMapClick }) => {
+const Map = () => {
   const chartRef = useRef(null);
   const dispatch = useDispatch();
   const { queryParams } = useParamsDeconstructor();
@@ -62,8 +62,8 @@ const Map = ({ props, handleMapClick }) => {
 
   const shippingData = useSelector((state) =>
     state.mapData.mapData.reduce((acc, curr) => {
-      const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
-      curr.Shipping.forEach((it) => {
+      // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
+      curr.Shipping.forEach(() => {
         const result = {
           geometry: {
             type: 'LineString',
@@ -215,7 +215,7 @@ const Map = ({ props, handleMapClick }) => {
         data: mapData,
         point: {
           events: {
-            click(e) {
+            click() {
               // handleMapClick({ isOpen: true, modelData: e, modelType: 'detail' });
             },
           },

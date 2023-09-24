@@ -1,8 +1,8 @@
 import {
   Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
+  // Checkbox,
+  // FormControlLabel,
+  // FormGroup,
   Grid,
   useTheme,
 } from '@mui/material';
@@ -16,7 +16,7 @@ import { FaTools } from 'react-icons/fa';
 import { useState } from 'react';
 import PieChart from '../../components/charts/pieChart';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { COUNTRY_DETAILS } from '../../utils/helpers/common';
 import { useParamsDeconstructor } from '../../utils/hooks';
 
@@ -32,7 +32,7 @@ const Overview = () => {
     setOpenDrawer(!openDrawer);
   };
 
-  const handleShippingChange = () => {};
+  // const handleShippingChange = () => {};
 
   const statsCardData = [
     {

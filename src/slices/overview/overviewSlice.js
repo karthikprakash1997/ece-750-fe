@@ -12,15 +12,11 @@ const initialState = {
 export const fetchMapTopologyData = createAsyncThunk(
   'overview/fetchMapTopologyData',
   async () => {
-    try {
-      const response = await apiCall({
-        url: 'https://code.highcharts.com/mapdata/custom/world.topo.json',
-        action: 'GET',
-      });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await apiCall({
+      url: 'https://code.highcharts.com/mapdata/custom/world.topo.json',
+      action: 'GET',
+    });
+    return response.data;
   },
 );
 

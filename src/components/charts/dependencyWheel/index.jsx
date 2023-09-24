@@ -8,7 +8,7 @@ import highcartsSankey from 'highcharts/modules/sankey';
 highcartsSankey(Highcharts);
 highcartsDependencyWheel(Highcharts);
 
-const DependencyWheel = ({ props }) => {
+const DependencyWheel = () => {
   const chartOptions = {
     chart: {
       width: 1000,
