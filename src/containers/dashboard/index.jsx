@@ -11,8 +11,8 @@ import { useParamsDeconstructor } from '../../utils/hooks';
 import DrilldownPieChart from '../../components/charts/drilldown';
 
 const MENU_ITEMS = [
-  { title: "Shipping Dependency Wheel", value: "dependencyWheel" },
-  { title: "Drill down", value: "drilldown" },
+  { title: 'Shipping Dependency Wheel', value: 'dependencyWheel' },
+  { title: 'Drill down', value: 'drilldown' },
 ];
 
 const Dashboard = () => {
@@ -227,7 +227,7 @@ const Dashboard = () => {
 
   return (
     <Grid container marginTop={3}>
-      <Grid item xs={12} sm={3} display={"grid"} justifyContent={"center"}>
+      <Grid item xs={12} sm={3} display={'grid'} justifyContent={'center'}>
         <Typography variant="h6">Chart Type</Typography>
         <BasicSelect
           handleChange={handleChange}
@@ -252,13 +252,13 @@ const Dashboard = () => {
           })}
         </Grid>
       </Grid>
-      <Grid item xs={12} sm={9} display={"grid"} justifyContent={"center"}>
+      <Grid item xs={12} sm={9} display={'grid'} justifyContent={'center'}>
         {selectedChart === MENU_ITEMS[0].value ? (
           <DependencyWheel />
         ) : selectedChart === MENU_ITEMS[1].value ? (
           <DrilldownPieChart />
         ) : (
-          "Please enter a valid chart type"
+          'Please enter a valid chart type'
         )}
       </Grid>
     </Grid>

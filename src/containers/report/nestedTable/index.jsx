@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
 import 'tabulator-tables/dist/css/tabulator.min.css';
-import jsPDF from "jspdf";
-import "jspdf-autotable";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import { Button } from '@mui/material';
 
 function NestedTable({ tableTitle, tableData, columns }) {
@@ -27,7 +27,7 @@ function NestedTable({ tableTitle, tableData, columns }) {
     };
   }, []);
 
-const handleExportPDF = () => {
+  const handleExportPDF = () => {
     // Create a new jsPDF instance
     const doc = new jsPDF();
 
@@ -45,12 +45,12 @@ const handleExportPDF = () => {
       startY: 10,
       head: [columns.map((col) => col.title)],
       body: tableData.map((row) => columns.map((col) => row[col.dataKey])),
-      theme: "striped",
+      theme: 'striped',
       styles: { cellPadding: 1.5, fontSize: 10 },
       margin: { top: 15 },
       didDrawPage: (data) => {
         // Add page numbers
-        doc.text("Page " + data.pageNumber, 190, 285);
+        doc.text('Page ' + data.pageNumber, 190, 285);
       },
     };
 
@@ -58,7 +58,7 @@ const handleExportPDF = () => {
     doc.autoTable(autoTableConfig);
 
     // Save the PDF
-    doc.save("table.pdf");
+    doc.save('table.pdf');
   };
 
   return (
@@ -69,7 +69,7 @@ const handleExportPDF = () => {
           Export the table as PDF
         </Button>
       </h4>
-      
+
       <div ref={elRef} style={{ width: 'fit-content' }}></div>
     </div>
   );

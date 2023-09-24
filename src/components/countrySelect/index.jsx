@@ -21,9 +21,9 @@ export const CountrySelect = ({
   // const classes = useStyles();
 
   useEffect(() => {
-    if(!countriesList?.length){
-      console.log(countriesList, "countriesList")
-      dispatch(countriesActions.fetchCountries())
+    if (!countriesList?.length) {
+      console.log(countriesList, 'countriesList');
+      dispatch(countriesActions.fetchCountries());
     }
   }, []); //eslint-disable-line
 

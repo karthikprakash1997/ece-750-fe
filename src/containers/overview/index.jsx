@@ -24,7 +24,7 @@ const Overview = () => {
   const theme = useTheme();
 
   const [openDrawer, setOpenDrawer] = useState(false);
-  const {selectedCategory, selectedCountry } = useParamsDeconstructor()
+  const { selectedCategory, selectedCountry } = useParamsDeconstructor();
 
   const stats = useSelector((state) => state.mapData.stats);
 
@@ -129,12 +129,14 @@ const Overview = () => {
             height: 58,
             width: 58,
             title: {
-              text: `${((stats?.cat_count/selectedCategory?.length) * 100 || 0).toFixed(0)}%`,
-              align: "center",
-              verticalAlign: "middle",
-              style:{
-                fontSize:15
-              }
+              text: `${(
+                (stats?.cat_count / selectedCategory?.length) * 100 || 0
+              ).toFixed(0)}%`,
+              align: 'center',
+              verticalAlign: 'middle',
+              style: {
+                fontSize: 15,
+              },
               // y: 30
             },
             colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
@@ -164,8 +166,14 @@ const Overview = () => {
               {
                 type: 'pie',
                 data: [
-                  { name: "Selected Categories", y: stats?.cat_count/selectedCategory?.length || 0 },
-                  { name: "Recieved Categories", y: 1-stats?.cat_count/selectedCategory?.length || 0 },
+                  {
+                    name: 'Selected Categories',
+                    y: stats?.cat_count / selectedCategory?.length || 0,
+                  },
+                  {
+                    name: 'Recieved Categories',
+                    y: 1 - stats?.cat_count / selectedCategory?.length || 0,
+                  },
                 ],
               },
             ],
@@ -185,12 +193,14 @@ const Overview = () => {
             height: 58,
             width: 58,
             title: {
-              text: `${((stats?.origins/selectedCountry?.length) * 100 ||0).toFixed(0)}%`,
-              align: "center",
-              verticalAlign: "middle",
-              style:{
-                fontSize:15
-              }
+              text: `${(
+                (stats?.origins / selectedCountry?.length) * 100 || 0
+              ).toFixed(0)}%`,
+              align: 'center',
+              verticalAlign: 'middle',
+              style: {
+                fontSize: 15,
+              },
               // y: 30
             },
             colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
@@ -220,8 +230,14 @@ const Overview = () => {
               {
                 type: 'pie',
                 data: [
-                  { name: "Selected Categories", y: stats?.origins/selectedCountry?.length || 0 },
-                  { name: "Recieved Categories", y: 1-stats?.origins/selectedCountry?.length || 0 },
+                  {
+                    name: 'Selected Categories',
+                    y: stats?.origins / selectedCountry?.length || 0,
+                  },
+                  {
+                    name: 'Recieved Categories',
+                    y: 1 - stats?.origins / selectedCountry?.length || 0,
+                  },
                 ],
               },
             ],

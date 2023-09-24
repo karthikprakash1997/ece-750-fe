@@ -36,8 +36,14 @@ const FILTER_BUTTON = [
 
 export const SideDrawer = () => {
   // const { window } = props;
-  const { queryParams,filter, selectedFilter, addSearchParams, selectedCategory, selectedCountry } =
-    useParamsDeconstructor();
+  const {
+    queryParams,
+    filter,
+    selectedFilter,
+    addSearchParams,
+    selectedCategory,
+    selectedCountry,
+  } = useParamsDeconstructor();
 
   // This is used only for the example
   // console.log(document.querySelector(''))
@@ -47,9 +53,9 @@ export const SideDrawer = () => {
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [countryFilter, setCountryFilter] = useState([]);
   const [thresholdFilter, setThresholdFilter] = useState(
-    queryParams?.thresholdFilter || 0
+    queryParams?.thresholdFilter || 0,
   );
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     if (!categoryFilter?.length && selectedCategory?.length) {
@@ -59,7 +65,6 @@ export const SideDrawer = () => {
       setCountryFilter(selectedCountry);
     }
   }, []); //eslint-disable-line
-
 
   const handleApplyClick = () => {
     // Combine different filter states into a single object
@@ -75,7 +80,7 @@ export const SideDrawer = () => {
     // const combinedFilters = encodeURIComponent(stringifiedFilters);
 
     // Store the combined filter object in local storage
-    localStorage.setItem("combinedFilters", stringifiedFilters);
+    localStorage.setItem('combinedFilters', stringifiedFilters);
 
     // Append the selected filter to the URL
     addSearchParams(filters);
@@ -83,9 +88,9 @@ export const SideDrawer = () => {
 
   const handleCancelClick = () => {
     // Reset filter states from local storage
-    const savedFilters = JSON.parse(localStorage.getItem("combinedFilters"));
+    const savedFilters = JSON.parse(localStorage.getItem('combinedFilters'));
     if (savedFilters) {
-      setCategoryFilter(savedFilters.categoryFilter || "");
+      setCategoryFilter(savedFilters.categoryFilter || '');
       setCountryFilter(savedFilters.countryFilter || []);
       setThresholdFilter(savedFilters.thresholdFilter || 0);
     }
@@ -144,10 +149,7 @@ export const SideDrawer = () => {
     >
       <Grid marginTop={6} height={700}>
         <Typography marginLeft={2} variant="h5">
-          {
-            FILTER_BUTTON.find((it) => it.value === selectedFilter)
-              ?.title
-          }
+          {FILTER_BUTTON.find((it) => it.value === selectedFilter)?.title}
         </Typography>
         <Grid margin={2} display={'flex'} width={400}>
           <Grid marginLeft={-10.2}>
@@ -155,26 +157,26 @@ export const SideDrawer = () => {
               // variant="contained"
               // aria-label="outlined secondary button group"
               // color="secondary"
-              display={"inline-flex"}
-              flexDirection={"column"}
-              justifyContent={"center"}
-              alignContent={"center"}
+              display={'inline-flex'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              alignContent={'center'}
               // back
               // orientation="vertical"
               sx={{
                 // borderLeft:1,
-                backgroundColor: "transparent",
+                backgroundColor: 'transparent',
                 borderRadius: 2,
-                boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.15)",
+                boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.15)',
               }}
             >
               {FILTER_BUTTON.map((it) => (
                 <Button
                   sx={{
                     backgroundColor:
-                      selectedFilter === it.value ? "red" : "white",
-                    ":hover": { backgroundColor: "white" },
-                    border: "ButtonFace",
+                      selectedFilter === it.value ? 'red' : 'white',
+                    ':hover': { backgroundColor: 'white' },
+                    border: 'ButtonFace',
                     margin: 0.2,
                   }}
                   key={it.title}
@@ -186,7 +188,7 @@ export const SideDrawer = () => {
             </Grid>
           </Grid>
           <Grid
-            style={{ overflowY: "scroll" }}
+            style={{ overflowY: 'scroll' }}
             marginLeft={3}
             width={400}
             height={550}
@@ -220,7 +222,7 @@ export const SideDrawer = () => {
             )}
             {selectedFilter === FILTER_BUTTON[2].value && (
               <Slider
-                getAriaLabel={() => "Temperature range"}
+                getAriaLabel={() => 'Temperature range'}
                 value={thresholdFilter}
                 onChange={(event, newValue) => setThresholdFilter(newValue)}
                 valueLabelDisplay="auto"
@@ -230,8 +232,8 @@ export const SideDrawer = () => {
           </Grid>
         </Grid>
         <Grid
-          display={"flex"}
-          justifyContent={"center"}
+          display={'flex'}
+          justifyContent={'center'}
           columnGap={2}
           margin={2}
         >

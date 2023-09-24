@@ -17,7 +17,9 @@ export const fetchMapData = createAsyncThunk(
       const queryString = Object.keys(queryParams)
         .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
         .join('&');
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/overview?${queryString}`);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/overview?${queryString}`,
+      );
       // const response = await fetch("https://dev-api-nrcan.esg.uwaterloo.ca/api/overview?countryCode=[\"JP\", \"TW\"]&categoryHierarchy=[\"Magnetics/Transformers/Telecom Transformers\", \"Magnetics/Transformers/Current Transformers\",\"RF and Microwave/RF ICs/Up-Down Converters and Mixers\"]");
       if (!response.ok) {
         throw new Error('Failed to fetch map data');
@@ -25,7 +27,7 @@ export const fetchMapData = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('error')
+      console.error('error');
       throw error;
     }
   },

@@ -100,8 +100,7 @@ const CentralSection = () => {
                         //   outline: '1px solid slategrey'
                         // }
                       }}
-                    >
-                    </Paper>
+                    ></Paper>
                   </Grid>
                   <Grid
                     marginTop={2}

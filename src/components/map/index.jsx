@@ -51,7 +51,7 @@ const styles = {
 const Map = () => {
   const chartRef = useRef(null);
   const dispatch = useDispatch();
-  const {selectedCategory, selectedCountry} = useParamsDeconstructor();
+  const { selectedCategory, selectedCountry } = useParamsDeconstructor();
   const mapTopology = useSelector((state) => state.overview.mapTopology);
   const mapData = useSelector((state) =>
     state.mapData.mapData.map((item) => [
@@ -103,12 +103,12 @@ const Map = () => {
   }, []); //eslint-disable-line
 
   useEffect(() => {
-    if(selectedCountry?.length &&  selectedCategory?.length){
+    if (selectedCountry?.length && selectedCategory?.length) {
       const par = {
-        countryCode : selectedCountry,
-        categoryHierarchy : selectedCategory
-      }
-      dispatch(mapDataActions.fetchMapData(par))
+        countryCode: selectedCountry,
+        categoryHierarchy: selectedCategory,
+      };
+      dispatch(mapDataActions.fetchMapData(par));
     }
   }, [selectedCategory, selectedCountry]);
 

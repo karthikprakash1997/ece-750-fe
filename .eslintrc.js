@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     jest: true,
+    node: true,
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   overrides: [
@@ -12,7 +13,9 @@ module.exports = {
       },
       files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
-        sourceType: 'script',
+        parser: 'babel-eslint',
+        ecmaVersion: 2020,
+        sourceType: 'module',
       },
     },
   ],
@@ -25,6 +28,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/no-children-prop': 'off',
-    'react/jsx-key': 'off'
+    'react/jsx-key': 'off',
   },
 };

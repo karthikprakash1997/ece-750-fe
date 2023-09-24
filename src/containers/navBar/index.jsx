@@ -20,8 +20,13 @@ const NAV_BAR = [
 const AppBar = () => {
   const theme = useTheme();
   // const location = useLocation();
-  const { queryParams, currentRoute,filter, addSearchParams, handleRouteChange } =
-    useParamsDeconstructor();
+  const {
+    queryParams,
+    currentRoute,
+    filter,
+    addSearchParams,
+    handleRouteChange,
+  } = useParamsDeconstructor();
 
   // getCategories();
   // const handleRouteChange = (pathname) => {

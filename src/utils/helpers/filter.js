@@ -70,7 +70,6 @@ export const getCategories = (categories) => {
     currentLevel.leaves.push(category);
   });
 
-
   return categoryHierarchy;
 
   // The resulting hierarchy is stored in the categoryHierarchy object
