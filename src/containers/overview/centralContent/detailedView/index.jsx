@@ -6,13 +6,28 @@ import PieChart from '../../../../components/charts/pieChart/index.jsx';
 const DetailView = () => {
   return (
     <>
-      <Box padding={1} paddingRight={2} paddingLeft={2} style={{ display: 'flex', columnGap: '1rem', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Box
+        padding={1}
+        paddingRight={2}
+        paddingLeft={2}
+        style={{
+          display: 'flex',
+          columnGap: '1rem',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <Typography variant="h5" color="CaptionText">
           1. USA
         </Typography>
         <FlagIcon code="US" size={20} />
       </Box>
-      <Grid display={'flex'} alignContent={'center'} alignItems={'center'} justifyContent={'center'}>
+      <Grid
+        display={'flex'}
+        alignContent={'center'}
+        alignItems={'center'}
+        justifyContent={'center'}
+      >
         <PieChart
           props={{
             height: 300,
@@ -21,7 +36,7 @@ const DetailView = () => {
             title: {
               text: '97',
               align: 'center',
-              verticalAlign: 'middle'
+              verticalAlign: 'middle',
               // y: 30
             },
             plotOptions: {
@@ -33,9 +48,9 @@ const DetailView = () => {
                 innerSize: '80%',
                 // showInLegend: true,
                 dataLabels: {
-                  enabled: false
-                }
-              }
+                  enabled: false,
+                },
+              },
             },
             series: [
               {
@@ -46,10 +61,10 @@ const DetailView = () => {
                   { name: 'Category B', y: 25 },
                   { name: 'Category C', y: 15 },
                   { name: 'Category D', y: 10 },
-                  { name: 'Category E', y: 5 }
-                ]
-              }
-            ]
+                  { name: 'Category E', y: 5 },
+                ],
+              },
+            ],
           }}
         />
       </Grid>

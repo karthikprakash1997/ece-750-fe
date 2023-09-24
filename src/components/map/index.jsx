@@ -29,7 +29,6 @@ highchartsMap(Highcharts);
 //   },
 // }));
 
-
 // Define keyframes
 const dash = keyframes`
   from {
@@ -49,75 +48,80 @@ const styles = {
   `,
 };
 
-
-
 const Map = ({ props, handleMapClick }) => {
   const chartRef = useRef(null);
   const dispatch = useDispatch();
-  const {queryParams} = useParamsDeconstructor();
+  const { queryParams } = useParamsDeconstructor();
   const mapTopology = useSelector((state) => state.overview.mapTopology);
-  const mapData = useSelector((state) => state.mapData.mapData.map(item => [item.countryCode.toLowerCase(), item.count]));
+  const mapData = useSelector((state) =>
+    state.mapData.mapData.map((item) => [
+      item.countryCode.toLowerCase(),
+      item.count,
+    ]),
+  );
 
-  const shippingData = useSelector((state) => state.mapData.mapData.reduce((acc,curr) =>{
-    const coor = COUNTRY_DETAILS.find(it=>it.alpha2===curr.countryCode)
-    curr.Shipping.forEach(it=>{
-      const result = {
-        geometry: {
-          type: "LineString",
-          coordinates:[
-            // [coor.longitude, coor.latitude],
-            // [coor.longitude, coor.latitude],
-            [2.352222, 48.856613], // Paris
-            [-53, 4], // Guyane
+  const shippingData = useSelector((state) =>
+    state.mapData.mapData.reduce((acc, curr) => {
+      const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
+      curr.Shipping.forEach((it) => {
+        const result = {
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              // [coor.longitude, coor.latitude],
+              // [coor.longitude, coor.latitude],
+              [2.352222, 48.856613], // Paris
+              [-53, 4], // Guyane
 
-            // [
-            // it?.coordinates[1],
-            // it?.coordinates[0]
+              // [
+              // it?.coordinates[1],
+              // it?.coordinates[0]
 
-            // ]
-            // it?.coordinates
-          ]
-          // coordinates: [
-          //   [48.516388, 15.552727], // Yemen
-          //   [110.004444, -7.491667], // Java
-          // ],
-        },
-        className: css(styles.animatedLine),
-        color: "#666",
-      }
-      acc.push(result)
-    })
-    return acc;
-  },[]));
+              // ]
+              // it?.coordinates
+            ],
+            // coordinates: [
+            //   [48.516388, 15.552727], // Yemen
+            //   [110.004444, -7.491667], // Java
+            // ],
+          },
+          className: css(styles.animatedLine),
+          color: '#666',
+        };
+        acc.push(result);
+      });
+      return acc;
+    }, []),
+  );
 
   // const result = getContinentGeoJSONByCode('US');
 
   // const classes = useStyles();
 
   useEffect(() => {
-    dispatch(overviewActions.fetchMapTopologyData())
+    dispatch(overviewActions.fetchMapTopologyData());
   }, []); //eslint-disable-line
 
   useEffect(() => {
-    if(queryParams?.selectedCountry &&  queryParams?.selectedCategory){
+    if (queryParams?.selectedCountry && queryParams?.selectedCategory) {
       const par = {
-        countryCode : queryParams?.selectedCountry?.split(','),
-        categoryHierarchy : queryParams?.selectedCategory?.split(',')
-      }
-      dispatch(mapDataActions.fetchMapData(par))
+        countryCode: queryParams?.selectedCountry?.split(','),
+        categoryHierarchy: queryParams?.selectedCategory?.split(','),
+      };
+      dispatch(mapDataActions.fetchMapData(par));
     }
   }, [queryParams?.selectedCategory, queryParams?.selectedCountry]);
 
   // console.log(chartColors, 'getGraticule');
 
-  const height= screen.availHeight-140 //eslint-disable-line
-  
+  const height = screen.availHeight - 140; //eslint-disable-line
+
   const mapOptions = {
     chart: {
       height,
       // minHeight:675,
       map: mapTopology,
-      backgroundColor: "transparent",
+      backgroundColor: 'transparent',
       margin: 0,
       // events: {
       //   load: function() {
@@ -126,7 +130,7 @@ const Map = ({ props, handleMapClick }) => {
       //       bBox = group.getBBox(),
       //       ratio = bBox.width / (bBox.height-33);
       //       console.log(bBox.width, bBox.height)
-          
+
       //     if(!chart.allowUpdate) {
       //       chart.allowUpdate = true;
       //       chart.setSize(null, (chart.plotSizeX) / ratio, false);
@@ -145,14 +149,14 @@ const Map = ({ props, handleMapClick }) => {
       enabled: false,
     },
     tooltip: {
-      headerFormat: "",
+      headerFormat: '',
     },
     mapNavigation: {
       enabled: true,
       enableDoubleClickZoomTo: true,
       buttonOptions: {
-        verticalAlign: "bottom",
-        align: "right",
+        verticalAlign: 'bottom',
+        align: 'right',
         x: -20,
         // y:10
       },
@@ -160,7 +164,7 @@ const Map = ({ props, handleMapClick }) => {
     colorAxis: {
       min: 0,
       stops: [
-        [0, "#EFEFFF"],
+        [0, '#EFEFFF'],
         [0.5, Highcharts.getOptions().colors[3]],
         // [
         //     1,
@@ -168,7 +172,7 @@ const Map = ({ props, handleMapClick }) => {
         //         .brighten(-0.5).get()
         // ]
         // [0.5, "#FF7373"],
-        [1, "#FF0000"],
+        [1, '#FF0000'],
         // [1, "#d50000"],
         // [0, '#3DED97'],
         // [0.5, '#234F1E' as any],
@@ -180,7 +184,7 @@ const Map = ({ props, handleMapClick }) => {
       projection: {
         // name: props.projection
         // projectedBounds: 'world',
-        name: "Miller",
+        name: 'Miller',
       },
       //   fitToGeometry: {
       //     type: 'MultiPoint',
@@ -199,8 +203,8 @@ const Map = ({ props, handleMapClick }) => {
     series: [
       {
         // Use the gb-all map with no data as a basemap
-        name: "Basemap",
-        id: "data",
+        name: 'Basemap',
+        id: 'data',
         // data: [
         //   // ["in", 5],
         //   // ["au", 10],
@@ -222,18 +226,17 @@ const Map = ({ props, handleMapClick }) => {
         // mapData: mapOptioin,
         // borderColor: '#A0A0A0',
         // nullColor: '#9A7B4F'
-        nullColor: "white",
+        nullColor: 'white',
       },
       {
-        type: "mappoint",
-        color: "#333",
+        type: 'mappoint',
+        color: '#333',
         dataLabels: {
-          format:
-            '<b>{point.name}</b>',
-          align: "left",
-          verticalAlign: "middle",
+          format: '<b>{point.name}</b>',
+          align: 'left',
+          verticalAlign: 'middle',
         },
-        data:shippingData,
+        data: shippingData,
         // data: [
         //   {
         //     name: "Yemen",
@@ -331,8 +334,8 @@ const Map = ({ props, handleMapClick }) => {
         enableMouseTracking: false,
       },
       {
-        type: "mapline",
-        data:shippingData,
+        type: 'mapline',
+        data: shippingData,
         // data: [
         //   {
         //     geometry: {
@@ -422,7 +425,7 @@ const Map = ({ props, handleMapClick }) => {
     <>
       <HighchartsReact
         ref={chartRef}
-        constructorType={"mapChart"}
+        constructorType={'mapChart'}
         allowChartUpdate
         immutable
         updateArgs={[true, true, true]}

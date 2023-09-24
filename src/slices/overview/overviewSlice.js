@@ -21,7 +21,7 @@ export const fetchMapTopologyData = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 const overviewSlice = createSlice({

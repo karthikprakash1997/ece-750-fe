@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { TabulatorFull as Tabulator } from "tabulator-tables";
-import "tabulator-tables/dist/css/tabulator.min.css";
+import React, { useEffect, useRef } from 'react';
+import { TabulatorFull as Tabulator } from 'tabulator-tables';
+import 'tabulator-tables/dist/css/tabulator.min.css';
 
-function NestedTable({tableData, columns}) {
+function NestedTable({ tableData, columns }) {
   const elRef = useRef(null);
   let tabulator = null;
 
@@ -24,7 +24,7 @@ function NestedTable({tableData, columns}) {
     };
   }, []);
 
-  return <div ref={elRef} style={{width: 'fit-content'}}></div>;
+  return <div ref={elRef} style={{ width: 'fit-content' }}></div>;
 }
 
 export default NestedTable;

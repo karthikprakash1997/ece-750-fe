@@ -8,19 +8,23 @@ import Map from '../../../../components/map';
 const MapView = ({ handleModelChange }) => {
   const [view, setView] = useState({
     backgroundColor: '#4b96af',
-    projection: 'WebMercator'
+    projection: 'WebMercator',
   });
   const handleChange = (isTwoDClicked) => {
-    if ((isTwoDClicked && view.projection === 'WebMercator') || (!isTwoDClicked && view.projection === 'Orthographic')) return;
+    if (
+      (isTwoDClicked && view.projection === 'WebMercator') ||
+      (!isTwoDClicked && view.projection === 'Orthographic')
+    )
+      return;
     else if (isTwoDClicked) {
       setView({
         backgroundColor: '#4b96af',
-        projection: 'WebMercator'
+        projection: 'WebMercator',
       });
     } else {
       setView({
         backgroundColor: '#000000',
-        projection: 'Orthographic'
+        projection: 'Orthographic',
       });
     }
   };
@@ -34,21 +38,49 @@ const MapView = ({ handleModelChange }) => {
 
   return (
     <>
-      <Box sx={{ boxShadow: 5, borderRadius: 3 }} bgcolor={view.backgroundColor}>
-        <Box style={{ display: 'flex', columnGap: '1rem', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Box
+        sx={{ boxShadow: 5, borderRadius: 3 }}
+        bgcolor={view.backgroundColor}
+      >
+        <Box
+          style={{
+            display: 'flex',
+            columnGap: '1rem',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <Typography variant="h5" color="white" padding={1}>
             {view.projection === 'WebMercator' ? 'Map View' : 'Globe View'}
           </Typography>
           <Grid paddingRight={1} display={'flex'} columnGap={2}>
-            <ButtonGroup color="inherit" size="small" variant="contained" aria-label="outlined button group">
-              <Button color={view.projection !== 'WebMercator' ? 'inherit' : 'error'} onClick={() => handleChange(true)}>
+            <ButtonGroup
+              color="inherit"
+              size="small"
+              variant="contained"
+              aria-label="outlined button group"
+            >
+              <Button
+                color={view.projection !== 'WebMercator' ? 'inherit' : 'error'}
+                onClick={() => handleChange(true)}
+              >
                 2D
               </Button>
-              <Button color={view.projection === 'WebMercator' ? 'inherit' : 'error'} onClick={() => handleChange(false)}>
+              <Button
+                color={view.projection === 'WebMercator' ? 'inherit' : 'error'}
+                onClick={() => handleChange(false)}
+              >
                 3D
               </Button>
             </ButtonGroup>
-            <BiFilter size={30} color="white" cursor={'pointer'} onClick={() => handleModelChange({ isOpen: true, modelType: 'filter' })} />
+            <BiFilter
+              size={30}
+              color="white"
+              cursor={'pointer'}
+              onClick={() =>
+                handleModelChange({ isOpen: true, modelType: 'filter' })
+              }
+            />
           </Grid>
         </Box>
         {/* <ChartComponent identifier='hello' options={{}}/> */}

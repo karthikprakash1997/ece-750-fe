@@ -1,4 +1,8 @@
-import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  getDefaultMiddleware,
+  combineReducers,
+} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -16,8 +20,14 @@ const persistConfig = {
 
 const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
 const persistedMapDataReducer = persistReducer(persistConfig, mapDataReducer);
-const persistedCountriesReducer = persistReducer(persistConfig, countriesReducer);
-const persistedCategoriesReducer = persistReducer(persistConfig, categoriesReducer);
+const persistedCountriesReducer = persistReducer(
+  persistConfig,
+  countriesReducer,
+);
+const persistedCategoriesReducer = persistReducer(
+  persistConfig,
+  categoriesReducer,
+);
 // const persistedAnotherReducer = persistReducer(persistConfig, anotherReducer);
 
 const rootReducer = combineReducers({

@@ -20,7 +20,12 @@ const Stats = () => {
       title: 'Data Count',
       tooltipText: 'Text for tooltip',
       subTitle: (
-        <Box display={'flex'} columnGap={1} alignItems={'center'} alignContent={'center'}>
+        <Box
+          display={'flex'}
+          columnGap={1}
+          alignItems={'center'}
+          alignContent={'center'}
+        >
           <Typography variant="body1" marginLeft={0.5}>
             Updated Just Now
           </Typography>
@@ -35,7 +40,7 @@ const Stats = () => {
         </>
       ),
       Icon: <MdNumbers size={25} color="white" />,
-      background: 'linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25))'
+      background: 'linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25))',
     },
     {
       title: 'Origin Analysis',
@@ -56,7 +61,7 @@ const Stats = () => {
             colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
             plotOptions: {
               pie: {
-                size: 50
+                size: 50,
               },
               series: {
                 // borderWidth: 0,
@@ -65,10 +70,10 @@ const Stats = () => {
                 size: '100%',
                 // innerSize: '%',
                 dataLabels: {
-                  enabled: false
+                  enabled: false,
                   //   connectorWidth: 0
-                }
-              }
+                },
+              },
             },
             series: [
               {
@@ -76,15 +81,15 @@ const Stats = () => {
                 // name: startYear,
                 data: [
                   { name: 'Available', y: 80 },
-                  { name: 'Unavailable', y: 20 }
-                ]
-              }
-            ]
+                  { name: 'Unavailable', y: 20 },
+                ],
+              },
+            ],
           }}
         />
       ),
       Icon: <SiGoogleanalytics size={25} color="white" />,
-      background: 'linear-gradient(195deg, #49a3f1, #1A73E8)'
+      background: 'linear-gradient(195deg, #49a3f1, #1A73E8)',
     },
     {
       title: 'Origin Count',
@@ -105,7 +110,7 @@ const Stats = () => {
         </>
       ),
       Icon: <BsGlobeAmericas size={25} color="white" />,
-      background: 'linear-gradient(195deg, #66BB6A, #43A047)'
+      background: 'linear-gradient(195deg, #66BB6A, #43A047)',
     },
     {
       title: 'Parts Count',
@@ -126,20 +131,20 @@ const Stats = () => {
             title: {
               text: '45',
               align: 'center',
-              verticalAlign: 'middle'
+              verticalAlign: 'middle',
               // y: 30
             },
             colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
             plotOptions: {
               pie: {
-                size: 50
+                size: 50,
               },
               series: {
                 borderWidth: 0,
                 colorByPoint: true,
                 type: 'pie',
                 size: '100%',
-                innerSize: '80%'
+                innerSize: '80%',
                 // dataLabels: {
                 //   enabled: false,
                 //   crop: false,
@@ -150,7 +155,7 @@ const Stats = () => {
                 //   },
                 //   connectorWidth: 0
                 // }
-              }
+              },
             },
             series: [
               {
@@ -160,16 +165,16 @@ const Stats = () => {
                   { name: 'Category B', y: 25 },
                   { name: 'Category C', y: 15 },
                   { name: 'Category D', y: 10 },
-                  { name: 'Category E', y: 5 }
-                ]
-              }
-            ]
+                  { name: 'Category E', y: 5 },
+                ],
+              },
+            ],
           }}
         />
       ),
       Icon: <FaTools size={25} color="white" />,
-      background: 'linear-gradient(195deg, #EC407A, #D81B60)'
-    }
+      background: 'linear-gradient(195deg, #EC407A, #D81B60)',
+    },
   ];
 
   return (

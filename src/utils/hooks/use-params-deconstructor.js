@@ -19,7 +19,11 @@ export const useParamsDeconstructor = (initialValue) => {
   // }, [navigate, location.search]);
 
   const handleRouteChange = (pathname, urlParams) => {
-    pathname && navigate({ pathname, search:  `?${new URLSearchParams(urlParams).toString()}`});
+    pathname &&
+      navigate({
+        pathname,
+        search: `?${new URLSearchParams(urlParams).toString()}`,
+      });
   };
 
   // const currentRoute = useMemo(() => {
@@ -39,7 +43,7 @@ export const useParamsDeconstructor = (initialValue) => {
     queryParams,
     addSearchParams,
     handleRouteChange,
-    currentRoute
+    currentRoute,
     // filter,
   };
 };

@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Define the initial state
 const initialState = {
   mapData: [],
-  stats:{},
+  stats: {},
   isLoading: false,
   isError: false,
   error: null,
@@ -17,7 +17,9 @@ export const fetchMapData = createAsyncThunk(
       const queryString = Object.keys(queryParams)
         .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
         .join('&');
-      const response = await fetch(`https://dev-api-nrcan.esg.uwaterloo.ca/api/overview?${queryString}`);
+      const response = await fetch(
+        `https://dev-api-nrcan.esg.uwaterloo.ca/api/overview?${queryString}`,
+      );
       // const response = await fetch("https://dev-api-nrcan.esg.uwaterloo.ca/api/overview?countryCode=[\"JP\", \"TW\"]&categoryHierarchy=[\"Magnetics/Transformers/Telecom Transformers\", \"Magnetics/Transformers/Current Transformers\",\"RF and Microwave/RF ICs/Up-Down Converters and Mixers\"]");
       if (!response.ok) {
         throw new Error('Failed to fetch map dara');
@@ -27,7 +29,7 @@ export const fetchMapData = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 // Create a slice
@@ -46,7 +48,7 @@ const mapDataSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.mapData = action.payload.results;
-        state.stats = action.payload.stats
+        state.stats = action.payload.stats;
       })
       .addCase(fetchMapData.rejected, (state, action) => {
         state.isLoading = false;
