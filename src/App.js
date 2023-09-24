@@ -42,7 +42,7 @@ const App = () => {
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
       <ThemeProvider theme={theme}>
-        <Grid bgcolor={theme.palette.primary.main} height={'100vh'}>
+        <Grid bgcolor={theme.palette.primary.main} minHeight={'100vh'}>
           <Router>
             <Routes>
               <Route path="/" exact element={<Login />} />
