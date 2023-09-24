@@ -1,4 +1,14 @@
-import { Box, Fade, Grid, Modal, Tab, Tabs, Typography, Button, Paper } from '@mui/material';
+import {
+  Box,
+  Fade,
+  Grid,
+  Modal,
+  Tab,
+  Tabs,
+  Typography,
+  Button,
+  Paper,
+} from '@mui/material';
 import { useState } from 'react';
 
 import MapView from './mapView';
@@ -17,11 +27,14 @@ const style = {
   // border: '2px solid #000',
   boxShadow: 24,
   borderRadius: 2,
-  p: 4
+  p: 4,
 };
 
 const CentralSection = () => {
-  const [modelState, setModelState] = useState({ isOpen: false, modelType: 'filter' });
+  const [modelState, setModelState] = useState({
+    isOpen: false,
+    modelType: 'filter',
+  });
 
   const [tabs, setTabs] = useState(0);
   const handleChange = (newModelState) => setModelState(newModelState);
@@ -40,13 +53,15 @@ const CentralSection = () => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={modelState.isOpen}
-        onClose={() => setModelState({ ...modelState, isOpen: !modelState.isOpen })}
+        onClose={() =>
+          setModelState({ ...modelState, isOpen: !modelState.isOpen })
+        }
         closeAfterTransition
         // slots={{ backdrop: Backdrop }}
         slotProps={{
           backdrop: {
-            timeout: 500
-          }
+            timeout: 500,
+          },
         }}
       >
         <Fade in={modelState.isOpen}>
@@ -56,7 +71,11 @@ const CentralSection = () => {
                 <>
                   <Typography variant="h6"> Filter </Typography>
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={tabs} onChange={(_1, newValue) => setTabs(newValue)} aria-label="basic tabs example">
+                    <Tabs
+                      value={tabs}
+                      onChange={(_1, newValue) => setTabs(newValue)}
+                      aria-label="basic tabs example"
+                    >
                       <Tab label="category" />
                       <Tab label="Country" />
                     </Tabs>
@@ -84,11 +103,29 @@ const CentralSection = () => {
                     >
                     </Paper>
                   </Grid>
-                  <Grid marginTop={2} display={'flex'} justifyContent={'flex-end'} alignItems={'self-end'} columnGap={1}>
-                    <Button onClick={() => setModelState({ ...modelState, isOpen: false })} variant="contained" color="success">
+                  <Grid
+                    marginTop={2}
+                    display={'flex'}
+                    justifyContent={'flex-end'}
+                    alignItems={'self-end'}
+                    columnGap={1}
+                  >
+                    <Button
+                      onClick={() =>
+                        setModelState({ ...modelState, isOpen: false })
+                      }
+                      variant="contained"
+                      color="success"
+                    >
                       Submit
                     </Button>
-                    <Button onClick={() => setModelState({ ...modelState, isOpen: false })} variant="outlined" color="error">
+                    <Button
+                      onClick={() =>
+                        setModelState({ ...modelState, isOpen: false })
+                      }
+                      variant="outlined"
+                      color="error"
+                    >
                       Cancel
                     </Button>
                   </Grid>

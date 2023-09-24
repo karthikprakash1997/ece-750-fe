@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Drawer from "@mui/material/Drawer";
-import { TextField } from "@mui/material";
-import { useParamsDeconstructor } from "../../utils/hooks";
-import { Button, Grid, Slider, Typography } from "@mui/material";
-import { BiSolidCategory } from "react-icons/bi";
-import { BsGlobeAmericas, BsSliders } from "react-icons/bs";
-import { RichObjectTreeView } from "../treeView";
-import { CountrySelect } from "../countrySelect";
+import React, { useState, useEffect } from 'react';
+import Drawer from '@mui/material/Drawer';
+import { TextField } from '@mui/material';
+import { useParamsDeconstructor } from '../../utils/hooks';
+import { Button, Grid, Slider, Typography } from '@mui/material';
+import { BiSolidCategory } from 'react-icons/bi';
+import { BsGlobeAmericas, BsSliders } from 'react-icons/bs';
+import { RichObjectTreeView } from '../treeView';
+import { CountrySelect } from '../countrySelect';
 
 // const Root = styled("div")(({ theme }) => ({
 //   height: "100%",
@@ -18,18 +18,18 @@ import { CountrySelect } from "../countrySelect";
 
 const FILTER_BUTTON = [
   {
-    title: "Category",
-    value: "category",
+    title: 'Category',
+    value: 'category',
     icon: <BiSolidCategory size={20} color="black" />,
   },
   {
-    title: "Country",
-    value: "country",
+    title: 'Country',
+    value: 'country',
     icon: <BsGlobeAmericas size={20} color="black" />,
   },
   {
-    title: "Threshold",
-    value: "threshold",
+    title: 'Threshold',
+    value: 'threshold',
     icon: <BsSliders size={20} color="black" />,
   },
 ];
@@ -135,7 +135,7 @@ export const SideDrawer = () => {
       style={{ height: 200 }}
       PaperProps={{
         style: {
-          overflowY: "inherit",
+          overflowY: 'inherit',
           // height:750
           // overflowX:'auto'
         },
@@ -149,7 +149,7 @@ export const SideDrawer = () => {
               ?.title
           }
         </Typography>
-        <Grid margin={2} display={"flex"} width={400}>
+        <Grid margin={2} display={'flex'} width={400}>
           <Grid marginLeft={-10.2}>
             <Grid
               // variant="contained"

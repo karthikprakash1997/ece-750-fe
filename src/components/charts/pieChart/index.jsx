@@ -7,25 +7,25 @@ const PieChart = ({ props }) => {
       type: 'pie',
       width: props.height || '100%', // Set the width of the chart
       height: props.width || '100%', // Set the height of the chart
-      borderRadius: 12
+      borderRadius: 12,
       // zoom: 2
     },
     title: props.title || {
-      text: undefined // No title
+      text: undefined, // No title
     },
     // subtitle: {
     //   useHTML: true,
     //   verticalAlign: 'middle'
     // },
     credits: {
-      enabled: false
+      enabled: false,
     },
     legend: {
       align: 'bottom',
       verticalAlign: 'bottom',
       layout: 'vertical',
       x: 0,
-      y: 100
+      y: 100,
     },
 
     tooltip: {
@@ -40,7 +40,7 @@ const PieChart = ({ props }) => {
         return `${formatterCallback.point.name}:${formatterCallback.point.y}`;
         // }
         // return '';
-      }
+      },
     },
 
     // plotOptions: {
@@ -77,7 +77,7 @@ const PieChart = ({ props }) => {
     //     ]
     //   }
     // ]
-    series: props.series
+    series: props.series,
   };
   return (
     <>

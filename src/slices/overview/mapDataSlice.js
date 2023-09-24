@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Define the initial state
 const initialState = {
   mapData: [],
-  stats:{},
+  stats: {},
   isLoading: false,
   isError: false,
   error: null,
@@ -27,7 +27,9 @@ export const fetchMapData = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+    const data = await response.json();
+    return data;
+  },
 );
 
 // Create a slice
@@ -46,7 +48,7 @@ const mapDataSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.mapData = action.payload.results;
-        state.stats = action.payload.stats
+        state.stats = action.payload.stats;
       })
       .addCase(fetchMapData.rejected, (state, action) => {
         state.isLoading = false;

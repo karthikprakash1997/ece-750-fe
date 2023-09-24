@@ -6,12 +6,27 @@ const StatsCards = ({ props }) => {
     <Grid
       key={Math.random()}
       height={80}
-      sx={{ boxShadow: 5, borderRadius: 3, ':hover': { marginTop: -0.5, transition: 10 }, transition: 5 }}
+      sx={{
+        boxShadow: 5,
+        borderRadius: 3,
+        ':hover': { marginTop: -0.5, transition: 10 },
+        transition: 5,
+      }}
       bgcolor={'white'}
       item
       style={{ display: 'flex', alignItems: 'center' }}
     >
-      <Grid display={'flex'} alignItems={'center'} justifyContent={'center'} margin={1} height={'3.5rem'} width={'7rem'} sx={{ boxShadow: 5, borderRadius: 3 }} style={{ background }} marginTop={-6}>
+      <Grid
+        display={'flex'}
+        alignItems={'center'}
+        justifyContent={'center'}
+        margin={1}
+        height={'3.5rem'}
+        width={'7rem'}
+        sx={{ boxShadow: 5, borderRadius: 3 }}
+        style={{ background }}
+        marginTop={-6}
+      >
         {Icon}
       </Grid>
       <Grid width={'-webkit-fill-available'}>
@@ -22,7 +37,13 @@ const StatsCards = ({ props }) => {
           {subTitle}
         </Typography>
       </Grid>
-      <Grid container width={'fit-content'} direction={'row'} justifyContent={'flex-end'} marginRight={0.75}>
+      <Grid
+        container
+        width={'fit-content'}
+        direction={'row'}
+        justifyContent={'flex-end'}
+        marginRight={0.75}
+      >
         {Content}
       </Grid>
     </Grid>

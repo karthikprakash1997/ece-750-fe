@@ -1,8 +1,7 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 
-
 const Footer = () => {
-const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <Grid bgcolor={'transparent'} margin={1}>
@@ -13,16 +12,19 @@ const theme = useTheme()
           </Typography>
         </Box>
       </Grid> */}
-          <Typography sx={{ fontWeight: 'bold',fontStyle: 'italic' }} variant="subtitle2" marginBottom={1}>
-            Powered by
-          </Typography>
-       <img 
-            
-            height={40}
-            width={100}
-            src={window.location.origin + `/assets/uwaterloo.jpg`}
-            alt="Canada"
-          />
+      <Typography
+        sx={{ fontWeight: 'bold', fontStyle: 'italic' }}
+        variant="subtitle2"
+        marginBottom={1}
+      >
+        Powered by
+      </Typography>
+      <img
+        height={40}
+        width={100}
+        src={window.location.origin + `/assets/uwaterloo.jpg`}
+        alt="Canada"
+      />
     </Grid>
   );
 };

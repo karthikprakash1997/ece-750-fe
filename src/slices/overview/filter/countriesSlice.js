@@ -24,7 +24,10 @@ export const fetchCountries = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+    const data = await response.json();
+    return data;
+
+  },
 );
 
 // Create a slice

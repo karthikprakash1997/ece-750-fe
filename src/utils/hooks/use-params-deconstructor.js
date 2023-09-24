@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-export const useParamsDeconstructor = (initialValue) => {
+export const useParamsDeconstructor = () => {
   const location = useLocation();
   const navigate = useNavigate();
 

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import TreeView from "@mui/lab/TreeView";
-import TreeItem from "@mui/lab/TreeItem";
-import Checkbox from "@mui/material/Checkbox";
-import { getCategories } from "../../utils/helpers/filter";
-import { categoriesActions } from "../../slices";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import TreeView from '@mui/lab/TreeView';
+import TreeItem from '@mui/lab/TreeItem';
+import Checkbox from '@mui/material/Checkbox';
+import { getCategories } from '../../utils/helpers/filter';
+import { categoriesActions } from '../../slices';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const RichObjectTreeView = ({
   search,
@@ -44,7 +44,7 @@ export const RichObjectTreeView = ({
     let tempSelectedLeaves = [...selectedLeaves];
     const tempSelectedLeavesCount = tempSelectedLeaves.length;
     tempSelectedLeaves = tempSelectedLeaves.filter(
-      (leaf) => !nodeLeaves.includes(leaf)
+      (leaf) => !nodeLeaves.includes(leaf),
     );
     if (
       tempSelectedLeaves.length !==

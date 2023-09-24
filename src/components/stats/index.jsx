@@ -1,47 +1,44 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography } from '@mui/material';
 
 const Stats = ({ props }) => {
   const { background, title, value, Content, Icon } = props;
   return (
-    <Grid
-      paddingTop={title === "Data Count" ? 0 : 2}
-      paddingLeft={1.5}
-    >
-      {title === "Data Count" ? (
+    <Grid paddingTop={title === 'Data Count' ? 0 : 2} paddingLeft={1.5}>
+      {title === 'Data Count' ? (
         <>
-          <Typography component={"div"} sx={{ fontSize: 15, fontWeight: 400 }}>
+          <Typography component={'div'} sx={{ fontSize: 15, fontWeight: 400 }}>
             DATA COUNT
           </Typography>
-          <Typography component={"div"} sx={{ fontSize: 40, fontWeight: 600 }}>
+          <Typography component={'div'} sx={{ fontSize: 40, fontWeight: 600 }}>
             {value}
           </Typography>
         </>
       ) : Content ? (
         <Grid
-          display={"flex"}
-          alignItems={"center"}
+          display={'flex'}
+          alignItems={'center'}
           //   rowSpacing={2}
           columnGap={1.5}
         >
           {Content}
 
-          <Typography component={"div"} sx={{ fontSize: 15, fontWeight: 400 }}>
+          <Typography component={'div'} sx={{ fontSize: 15, fontWeight: 400 }}>
             {title}
           </Typography>
         </Grid>
       ) : (
         <Grid
-          display={"flex"}
-          alignItems={"center"}
+          display={'flex'}
+          alignItems={'center'}
           rowSpacing={2}
           columnGap={1.5}
         >
           <Grid
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            height={"52px"}
-            width={"52px"}
+            display={'flex'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            height={'52px'}
+            width={'52px'}
             sx={{ boxShadow: 5, borderRadius: 3 }}
             style={{ background }}
           >
@@ -49,13 +46,13 @@ const Stats = ({ props }) => {
           </Grid>
           <Grid>
             <Typography
-              component={"div"}
+              component={'div'}
               sx={{ fontSize: 15, fontWeight: 400 }}
             >
               {title}
             </Typography>
             <Typography
-              component={"div"}
+              component={'div'}
               sx={{ fontSize: 20, fontWeight: 600 }}
             >
               {value}

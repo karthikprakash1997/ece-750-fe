@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import Highcharts from "highcharts";
-import NoDataToDisplay from "highcharts/modules/no-data-to-display";
+import { useEffect, useRef, useState } from 'react';
+import Highcharts from 'highcharts';
+import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
 NoDataToDisplay(Highcharts);
 
 const data = [
   {
-    name: "United States of America",
+    name: 'United States of America',
     value: 1477,
   },
   {
-    name: "Brazil",
+    name: 'Brazil',
     value: 490,
   },
 ];
@@ -21,7 +21,7 @@ const getGraticule = () => {
   for (let x = -180; x <= 180; x += 15) {
     data.push({
       geometry: {
-        type: "LineString",
+        type: 'LineString',
         coordinates:
           x % 90 === 0
             ? [
@@ -45,7 +45,7 @@ const getGraticule = () => {
     }
     data.push({
       geometry: {
-        type: "LineString",
+        type: 'LineString',
         coordinates,
       },
       lineWidth: y === 0 ? 2 : undefined,
@@ -61,7 +61,7 @@ export const MapV2 = ({ identifier, options, classStr }) => {
 
   const getApiData = async () => {
     const mapData = await fetch(
-      "https://code.highcharts.com/mapdata/custom/world.topo.json"
+      'https://code.highcharts.com/mapdata/custom/world.topo.json',
     ).then((response) => response.json());
     setMapOptions({ mapData, data: getGraticule() });
   };
@@ -81,37 +81,35 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         // width:"",
         // map: 'countries/ie/ie-all'
         // height: '39%',
-        backgroundColor: "transparent",
-        margin:0,
-          // height: 600,
-          // events:{
-          // load: function(){
-          //   const chart = this;
-          //   chart.mapZoom(0.7);
-          // }
-          // }
+        backgroundColor: 'transparent',
+        margin: 0,
+        // height: 600,
+        // events:{
+        // load: function(){
+        //   const chart = this;
+        //   chart.mapZoom(0.7);
+        // }
+        // }
         // padding:-100,
         // borderRadius: 12,
-      //   minPadding:0,
-      //   maxPadding:0,
-      //   margin: [0, 0, 0, 0],
-      //   spacingTop: 0,
-      //   spacingRight: 0,
-      //   spacingBottom: 0,
-      //   spacingLeft: 0,
-      //   plotBorderWidth: 0,
-      //   margin: [0,0,0,0],
-      //   marginLeft: -10,
-      // marginRight: 0,
-      // spacingLeft: 0,
-      // spacingRight: 0,
-      //   // marginRight:0,
-      //   // polar: true,
-      //   // type: 'line',
+        //   minPadding:0,
+        //   maxPadding:0,
+        //   margin: [0, 0, 0, 0],
+        //   spacingTop: 0,
+        //   spacingRight: 0,
+        //   spacingBottom: 0,
+        //   spacingLeft: 0,
+        //   plotBorderWidth: 0,
+        //   margin: [0,0,0,0],
+        //   marginLeft: -10,
+        // marginRight: 0,
+        // spacingLeft: 0,
+        // spacingRight: 0,
+        //   // marginRight:0,
+        //   // polar: true,
+        //   // type: 'line',
 
-      //   spacing: [0, 0, 0, 0],
-        
-     
+        //   spacing: [0, 0, 0, 0],
       },
       legend: {
         enabled: false,
@@ -123,22 +121,22 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         enabled: false,
       },
       tooltip: {
-        headerFormat: "",
+        headerFormat: '',
       },
       mapNavigation: {
         enabled: true,
         enableDoubleClickZoomTo: true,
         buttonOptions: {
-          verticalAlign: "bottom",
-          align: "right",
+          verticalAlign: 'bottom',
+          align: 'right',
         },
       },
       colorAxis: {
         min: 0,
         stops: [
-          [0, "#EFEFFF"],
-          [0.5, "#F50505"],
-          [1, Highcharts.color("#f50505").brighten(-0.5).get()],
+          [0, '#EFEFFF'],
+          [0.5, '#F50505'],
+          [1, Highcharts.color('#f50505').brighten(-0.5).get()],
           // [0, '#3DED97'],
           // [0.5, '#234F1E' as any],
           // [1, Highcharts.color('#234F1E').brighten(-0.5).get()]
@@ -149,7 +147,7 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         projection: {
           // name: props.projection
           // projectedBounds: 'world',
-          name: "Miller",
+          name: 'Miller',
         },
         // zoom: 2.2,
         // center: [10, 58],
@@ -176,13 +174,13 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         //   : []),
         {
           // Use the gb-all map with no data as a basemap
-          name: "Basemap",
-          id: "data",
-          mapData:mapOptioin.mapData,
+          name: 'Basemap',
+          id: 'data',
+          mapData: mapOptioin.mapData,
           data: [
-            ["in", 5],
-            ["au", 10],
-            ["us", 97],
+            ['in', 5],
+            ['au', 10],
+            ['us', 97],
           ],
           point: {
             events: {
@@ -196,87 +194,87 @@ export const MapV2 = ({ identifier, options, classStr }) => {
           // }
           // mapData: mapOptioin,
           // borderColor: '#A0A0A0',
-          nullColor: "#9A7B4F",
+          nullColor: '#9A7B4F',
         },
         {
-          type: "mapline",
+          type: 'mapline',
           data: [
             {
               geometry: {
-                type: "LineString",
+                type: 'LineString',
                 coordinates: [
                   [48.516388, 15.552727], // Yemen
                   [110.004444, -7.491667], // Java
                 ],
               },
-              className: "animated-line",
-              color: "#666",
+              className: 'animated-line',
+              color: '#666',
             },
             {
               geometry: {
-                type: "LineString",
+                type: 'LineString',
                 coordinates: [
                   [48.516388, 15.552727], // Yemen
                   [55.5325, -21.114444], // La reunion
                 ],
               },
-              className: "animated-line",
-              color: "#666",
+              className: 'animated-line',
+              color: '#666',
             },
             {
               geometry: {
-                type: "LineString",
+                type: 'LineString',
                 coordinates: [
                   [55.5325, -21.114444], // La reunion
                   [-43.2, -22.9], // Brazil
                 ],
               },
-              className: "animated-line",
-              color: "#666",
+              className: 'animated-line',
+              color: '#666',
             },
             {
               geometry: {
-                type: "LineString",
+                type: 'LineString',
                 coordinates: [
                   [48.516388, 15.552727], // Yemen
                   [78, 21], // India
                 ],
               },
-              className: "animated-line",
-              color: "#666",
+              className: 'animated-line',
+              color: '#666',
             },
             {
               geometry: {
-                type: "LineString",
+                type: 'LineString',
                 coordinates: [
                   [110.004444, -7.491667], // Java
                   [4.9, 52.366667], // Amsterdam
                 ],
               },
-              className: "animated-line",
-              color: "#666",
+              className: 'animated-line',
+              color: '#666',
             },
             {
               geometry: {
-                type: "LineString",
+                type: 'LineString',
                 coordinates: [
                   [-3, 55], // UK
                   [-61.030556, 14.681944], // Antilles
                 ],
               },
-              className: "animated-line",
-              color: "#666",
+              className: 'animated-line',
+              color: '#666',
             },
             {
               geometry: {
-                type: "LineString",
+                type: 'LineString',
                 coordinates: [
                   [2.352222, 48.856613], // Paris
                   [-53, 4], // Guyane
                 ],
               },
-              className: "animated-line",
-              color: "#666",
+              className: 'animated-line',
+              color: '#666',
             },
           ],
           lineWidth: 2,
@@ -284,67 +282,67 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         },
       ],
     };
-    chartRef.current =   Highcharts.mapChart(identifier, mapOptions)
+    chartRef.current = Highcharts.mapChart(identifier, mapOptions);
 
-  //   chartRef.current =   Highcharts.mapChart(identifier, {
+    //   chartRef.current =   Highcharts.mapChart(identifier, {
 
-  //     chart: {
-  //         // height: 600,
-  //         // events:{
-  //         //   load: function(){
-  //         //     const chart = this;
-  //         //     chart.mapZoom(0.7);
-  //         //   }
-  //         //   }
-  //       // map: mapOptioin.mapData,
-  //     },
-  //     mapView: {
-  //       projection: {
-  //         name: 'Miller',
-  //         projectedBounds: 'world'
-  //     },
-  //       // zoom: 2.2,
-  //       // center: [10, 58],
-  //       // zoom: 5
-  //     },
-  //     title: {
-  //         text: 'Chart with explicit width and height'
-  //     },
+    //     chart: {
+    //         // height: 600,
+    //         // events:{
+    //         //   load: function(){
+    //         //     const chart = this;
+    //         //     chart.mapZoom(0.7);
+    //         //   }
+    //         //   }
+    //       // map: mapOptioin.mapData,
+    //     },
+    //     mapView: {
+    //       projection: {
+    //         name: 'Miller',
+    //         projectedBounds: 'world'
+    //     },
+    //       // zoom: 2.2,
+    //       // center: [10, 58],
+    //       // zoom: 5
+    //     },
+    //     title: {
+    //         text: 'Chart with explicit width and height'
+    //     },
 
-  //     mapNavigation: {
-  //         enabled: true,
-  //         buttonOptions: {
-  //             verticalAlign: 'bottom'
-  //         }
-  //     },
+    //     mapNavigation: {
+    //         enabled: true,
+    //         buttonOptions: {
+    //             verticalAlign: 'bottom'
+    //         }
+    //     },
 
-  //     colorAxis: {
-  //         min: 1,
-  //         max: 1000,
-  //         type: 'logarithmic'
-  //     },
+    //     colorAxis: {
+    //         min: 1,
+    //         max: 1000,
+    //         type: 'logarithmic'
+    //     },
 
-  //     legend: {
-  //         enabled: false
-  //     },
+    //     legend: {
+    //         enabled: false
+    //     },
 
-  //     series: [{
-  //         data: data,
-  //         // mapData: Highcharts.maps['custom/world'],
-  //         mapData:mapOptioin.mapData,
-  //         joinBy: ['iso-a2', 'code'],
-  //         name: 'Population density',
-  //         borderWidth: 0.5,
-  //         states: {
-  //             hover: {
-  //                 color: '#a4edba'
-  //             }
-  //         },
-  //         tooltip: {
-  //             valueSuffix: '/km²'
-  //         }
-  //     }]
-  // });
+    //     series: [{
+    //         data: data,
+    //         // mapData: Highcharts.maps['custom/world'],
+    //         mapData:mapOptioin.mapData,
+    //         joinBy: ['iso-a2', 'code'],
+    //         name: 'Population density',
+    //         borderWidth: 0.5,
+    //         states: {
+    //             hover: {
+    //                 color: '#a4edba'
+    //             }
+    //         },
+    //         tooltip: {
+    //             valueSuffix: '/km²'
+    //         }
+    //     }]
+    // });
 
     return () => {
       chartRef.current = null;

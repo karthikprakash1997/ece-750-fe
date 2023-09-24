@@ -8,7 +8,6 @@ const initialState = {
   error: null,
 };
 
-
 export const fetchCategories = createAsyncThunk(
   'filter/fetchCategories',
   async () => {
@@ -22,7 +21,10 @@ export const fetchCategories = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+    const data = await response.json();
+    return data;
+
+  },
 );
 
 // Create a slice
