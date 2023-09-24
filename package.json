@@ -66,6 +66,11 @@
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "devDependencies": {
     "eslint": "^8.47.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
