@@ -1,7 +1,7 @@
 import {
   configureStore,
   getDefaultMiddleware,
-  combineReducers,
+  // combineReducers,
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -18,8 +18,8 @@ const persistConfig = {
   // You can configure any other options here
 };
 
-const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
-const persistedMapDataReducer = persistReducer(persistConfig, mapDataReducer);
+// const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
+// const persistedMapDataReducer = persistReducer(persistConfig, mapDataReducer);
 const persistedCountriesReducer = persistReducer(
   persistConfig,
   countriesReducer,
@@ -30,14 +30,14 @@ const persistedCategoriesReducer = persistReducer(
 );
 // const persistedAnotherReducer = persistReducer(persistConfig, anotherReducer);
 
-const rootReducer = combineReducers({
-  overview: persistedOverviewReducer,
-  mapData: persistedMapDataReducer,
+const rootReducer = {
+  overview: overviewReducer,
+  mapData: mapDataReducer,
   countries: persistedCountriesReducer,
   categories: persistedCategoriesReducer,
   // another: persistedAnotherReducer,
   // Add more persisted reducers here if needed
-});
+};
 
 const store = configureStore({
   reducer: rootReducer,
