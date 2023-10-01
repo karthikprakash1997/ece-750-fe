@@ -5,7 +5,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Button } from '@mui/material';
 
-function NestedTable({ tableTitle, tableData, columns }) {
+const NestedTable = ({ tableTitle, tableData, columns }) => {
+  return null;
   const elRef = useRef(null);
   let tabulator = null;
 

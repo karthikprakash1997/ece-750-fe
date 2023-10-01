@@ -8,23 +8,21 @@ const initialState = {
   error: null,
 };
 
+
 export const fetchCategories = createAsyncThunk(
   'filter/fetchCategories',
   async () => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/filter/categories`,
-      );
+      const response = await fetch(`https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/categories`);
       if (!response.ok) {
         throw new Error('Failed to fetch categories');
       }
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('error');
       throw error;
     }
-  },
+  }
 );
 
 // Create a slice
