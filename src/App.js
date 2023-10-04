@@ -10,6 +10,7 @@ import ProtectedRoute from './routes/privateRoute';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import Report from './containers/report';
+import { useEffect } from 'react';
 // import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createTheme({
@@ -27,11 +28,12 @@ const theme = createTheme({
 });
 
 const App = () => {
+
   return (
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
         <ThemeProvider theme={theme}>
-          <Grid bgcolor={theme.palette.primary.main} height={'100vh'}>
+          <Grid bgcolor={theme.palette.primary.main} minHeight={'100vh'}>
             <Router>
               <Routes>
                 <Route path="/" exact element={<Login />} />

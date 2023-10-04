@@ -3,9 +3,11 @@ import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import overviewReducer from '../slices/overview/overviewSlice';
-import countriesReducer from '../slices/overview/filter/countriesSlice';
-import categoriesReducer from '../slices/overview/filter/categoriesSlice';
+import countriesReducer from '../slices/filter/countriesSlice';
+import categoriesReducer from '../slices/filter/categoriesSlice';
 import mapDataReducer from '../slices/overview/mapDataSlice';
+import reportReducer from '../slices/report/reportSlice';
+
 // import anotherReducer from '../slices/another'; // Import your other reducer
 
 const persistConfig = {
@@ -15,16 +17,17 @@ const persistConfig = {
 };
 
 const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
-const persistedMapDataReducer = persistReducer(persistConfig, mapDataReducer);
+// const persistedMapDataReducer = persistReducer(persistConfig, mapDataReducer);
 const persistedCountriesReducer = persistReducer(persistConfig, countriesReducer);
 const persistedCategoriesReducer = persistReducer(persistConfig, categoriesReducer);
 // const persistedAnotherReducer = persistReducer(persistConfig, anotherReducer);
 
 const rootReducer = combineReducers({
   overview: persistedOverviewReducer,
-  mapData: persistedMapDataReducer,
+  mapData: mapDataReducer,
   countries: persistedCountriesReducer,
   categories: persistedCategoriesReducer,
+  report: reportReducer
   // another: persistedAnotherReducer,
   // Add more persisted reducers here if needed
 });

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 import Checkbox from '@mui/material/Checkbox';
 import { getCategories } from '../../utils/helpers/filter';
 import { categoriesActions } from '../../slices';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const RichObjectTreeView = ({
   search,
@@ -12,7 +12,6 @@ export const RichObjectTreeView = ({
   setSelectedLeaves,
 }) => {
   // const [selectedLeaves, setSelectedLeaves] = useState([]);
-  const dispatch = useDispatch();
   const categoriesList = useSelector((state) =>
     getCategories(
       state.categories.categoriesList?.filter((it) =>
@@ -21,10 +20,10 @@ export const RichObjectTreeView = ({
     ),
   );
 
-  useEffect(() => {
-    if (!categoriesList?.children?.length)
-      dispatch(categoriesActions.fetchCategories());
-  }, []); //eslint-disable-line
+  // useEffect(() => {
+  //   if (!categoriesList?.children?.length)
+  //     dispatch(categoriesActions.fetchCategories());
+  // }, []); //eslint-disable-line
 
   const handleCheck = (nodeLeaves) => {
     nodeLeaves.length === 1

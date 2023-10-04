@@ -1,214 +1,230 @@
-import { Grid, Button, Autocomplete, TextField } from '@mui/material';
-import NestedTable from './nestedTable';
+import { Grid, Button, Autocomplete, TextField } from "@mui/material";
+import NestedTable from "./nestedTable";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { reportActions } from "../../slices/report";
 
 const Report = () => {
   const countries = [
-    { code: 'AD', label: 'Andorra' },
+    { code: "AD", label: "Andorra" },
     {
-      code: 'AE',
-      label: 'United Arab Emirates',
+      code: "AE",
+      label: "United Arab Emirates",
     },
-    { code: 'AF', label: 'Afghanistan' },
+    { code: "AF", label: "Afghanistan" },
     {
-      code: 'AG',
-      label: 'Antigua and Barbuda',
+      code: "AG",
+      label: "Antigua and Barbuda",
     },
   ];
 
   const tableData = [
     {
-      category: 'Amplifier',
-      percentage: '20%',
-      count: '300',
+      category: "Amplifier",
+      percentage: "20%",
+      count: "300",
       _children: [
         {
-          category: 'Amplifier Child 1',
-          percentage: '30%',
-          count: '50',
+          category: "Amplifier Child 1",
+          percentage: "30%",
+          count: "50",
         },
         {
-          category: 'Amplifier Child 2',
-          percentage: '40%',
-          count: '150',
+          category: "Amplifier Child 2",
+          percentage: "40%",
+          count: "150",
         },
         {
-          category: 'Amplifier Child 3',
-          percentage: '60%',
-          count: '100',
+          category: "Amplifier Child 3",
+          percentage: "60%",
+          count: "100",
           _children: [
             {
-              category: 'Amplifier Child 3 Child 1',
-              percentage: '50%',
-              count: '30',
+              category: "Amplifier Child 3 Child 1",
+              percentage: "50%",
+              count: "30",
             },
             {
-              category: 'Amplifier Child 3 Child 2',
-              percentage: '70%',
-              count: '70',
+              category: "Amplifier Child 3 Child 2",
+              percentage: "70%",
+              count: "70",
             },
           ],
         },
       ],
     },
     {
-      category: 'Screws',
-      percentage: '65%',
-      count: '1300',
+      category: "Screws",
+      percentage: "65%",
+      count: "1300",
     },
     {
-      category: 'Bolts',
-      percentage: '90%',
-      count: '1800',
+      category: "Bolts",
+      percentage: "90%",
+      count: "1800",
       _children: [
         {
-          category: 'Bolts Child 1',
-          percentage: '90%',
-          count: '1800',
+          category: "Bolts Child 1",
+          percentage: "90%",
+          count: "1800",
         },
       ],
     },
     {
-      category: 'Microprocessor',
-      percentage: '40%',
-      count: '4000',
+      category: "Microprocessor",
+      percentage: "40%",
+      count: "4000",
     },
   ];
 
   const tableData2 = [
     {
-      category: 'Amplifier',
-      percentage: '20%',
-      country: 'USA',
+      category: "Amplifier",
+      percentage: "20%",
+      country: "USA",
       _children: [
         {
-          category: 'Amplifier Child 1',
-          percentage: '30%',
-          country: 'Taiwan',
+          category: "Amplifier Child 1",
+          percentage: "30%",
+          country: "Taiwan",
         },
         {
-          category: 'Amplifier Child 2',
-          percentage: '40%',
-          country: 'USA',
+          category: "Amplifier Child 2",
+          percentage: "40%",
+          country: "USA",
         },
         {
-          category: 'Amplifier Child 3',
-          percentage: '60%',
-          country: 'USA',
+          category: "Amplifier Child 3",
+          percentage: "60%",
+          country: "USA",
           _children: [
             {
-              category: 'Amplifier Child 3 Child 1',
-              percentage: '50%',
-              country: 'USA',
+              category: "Amplifier Child 3 Child 1",
+              percentage: "50%",
+              country: "USA",
             },
             {
-              category: 'Amplifier Child 3 Child 2',
-              percentage: '70%',
-              country: 'Germany',
+              category: "Amplifier Child 3 Child 2",
+              percentage: "70%",
+              country: "Germany",
             },
           ],
         },
       ],
     },
     {
-      category: 'Screws',
-      percentage: '65%',
-      country: 'Germany',
+      category: "Screws",
+      percentage: "65%",
+      country: "Germany",
     },
     {
-      category: 'Bolts',
-      percentage: '90%',
-      country: 'Germany',
+      category: "Bolts",
+      percentage: "90%",
+      country: "Germany",
       _children: [
         {
-          category: 'Bolts Child 1',
-          percentage: '90%',
-          country: 'Germany',
+          category: "Bolts Child 1",
+          percentage: "90%",
+          country: "Germany",
         },
       ],
     },
     {
-      category: 'Microprocessor',
-      percentage: '40%',
-      country: 'Germany',
+      category: "Microprocessor",
+      percentage: "40%",
+      country: "Germany",
     },
   ];
 
   const tableData3 = [
     {
-      category: 'Amplifier',
-      percentage: '20%',
-      country: 'USA,China',
+      category: "Amplifier",
+      percentage: "20%",
+      country: "USA,China",
       _children: [
         {
-          category: 'Amplifier Child 1',
-          percentage: '30%',
-          country: 'Taiwan,France',
+          category: "Amplifier Child 1",
+          percentage: "30%",
+          country: "Taiwan,France",
         },
         {
-          category: 'Amplifier Child 2',
-          percentage: '40%',
-          country: 'USA,Taiwan',
+          category: "Amplifier Child 2",
+          percentage: "40%",
+          country: "USA,Taiwan",
         },
         {
-          category: 'Amplifier Child 3',
-          percentage: '60%',
-          country: 'USA',
+          category: "Amplifier Child 3",
+          percentage: "60%",
+          country: "USA",
           _children: [
             {
-              category: 'Amplifier Child 3 Child 1',
-              percentage: '50%',
-              country: 'USA,Germany',
+              category: "Amplifier Child 3 Child 1",
+              percentage: "50%",
+              country: "USA,Germany",
             },
             {
-              category: 'Amplifier Child 3 Child 2',
-              percentage: '70%',
-              country: 'Germany',
+              category: "Amplifier Child 3 Child 2",
+              percentage: "70%",
+              country: "Germany",
             },
           ],
         },
       ],
     },
     {
-      category: 'Screws',
-      percentage: '65%',
-      country: 'Germany',
+      category: "Screws",
+      percentage: "65%",
+      country: "Germany",
     },
     {
-      category: 'Bolts',
-      percentage: '90%',
-      country: 'Germany',
+      category: "Bolts",
+      percentage: "90%",
+      country: "Germany",
       _children: [
         {
-          category: 'Bolts Child 1',
-          percentage: '90%',
-          country: 'Germany',
+          category: "Bolts Child 1",
+          percentage: "90%",
+          country: "Germany",
         },
       ],
     },
     {
-      category: 'Microprocessor',
-      percentage: '40%',
-      country: 'Germany',
+      category: "Microprocessor",
+      percentage: "40%",
+      country: "Germany",
     },
   ];
 
   const columns = [
-    { title: 'Category Name', field: 'category', width: 200, responsive: 0 },
-    { title: 'Percentage', field: 'percentage', width: 150 },
-    { title: 'Count', field: 'count', width: 150, responsive: 2 },
+    { title: "Category Name", field: "category", width: 200, responsive: 0 },
+    { title: "Percentage", field: "percentage", width: 150 },
+    { title: "Count", field: "count", width: 150, responsive: 2 },
   ];
 
   const columnsQuery2 = [
-    { title: 'Category Name', field: 'category', width: 200, responsive: 0 },
-    { title: 'Percentage', field: 'percentage', width: 150 },
-    { title: 'Country', field: 'country', width: 150, responsive: 2 },
+    { title: "Category Name", field: "category", width: 200, responsive: 0 },
+    { title: "Percentage", field: "percentage", width: 150 },
+    { title: "Country", field: "country", width: 150, responsive: 2 },
   ];
 
   const columnsQuery3 = [
-    { title: 'Category Name', field: 'category', width: 200, responsive: 0 },
+    { title: "Category Name", field: "category", width: 200, responsive: 0 },
     // { title: 'Percentage', field: 'percentage', width: 150 },
-    { title: 'Countries', field: 'country', width: 150, responsive: 2 },
+    { title: "Countries", field: "country", width: 150, responsive: 2 },
   ];
+
+  const countriesList = useSelector(
+    (state) => state?.countries?.countriesList?.data
+  );
+  
+  const categoriesList = useSelector(
+    (state) => state.categories.categoriesList
+  );
+
+
+  const dispatch = useDispatch();
+
+  const [queryOne, setQueryOne] = useState("");
 
   return (
     <Grid fontSize={20}>
@@ -217,22 +233,25 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <span>
-          If we lost access to{' '}
+          If we lost access to{" "}
           <Autocomplete
             id="country-select-demo"
             sx={{
-              display: 'inline-block',
+              display: "inline-block",
               width: 200,
-              verticalAlign: 'middle',
+              verticalAlign: "middle",
             }}
-            options={countries}
+            options={countriesList}
             autoHighlight
-            getOptionLabel={(option) => option.label}
+            getOptionLabel={(option) => option.country}
             renderOption={(props, option) => (
               <div {...props}>
-                {option.label} ({option.code})
+                {option.country} ({option.country_code})
               </div>
             )}
+            // value={queryOne}
+            onChange={(e,value) => {
+              setQueryOne(value.country_code)}}
             size="small"
             renderInput={(params) => (
               <TextField
@@ -240,15 +259,24 @@ const Report = () => {
                 label="Choose a country"
                 inputProps={{
                   ...params.inputProps,
-                  autoComplete: 'new-password', // disable autocomplete and autofill
+                  autoComplete: "new-password", // disable autocomplete and autofill
                 }}
               />
             )}
-          />{' '}
+          />{" "}
           as a supplier, what would be the impact?
         </span>
-        <span style={{ marginLeft: '20px' }}>
-          <Button variant="contained" color="success">
+        <span style={{ marginLeft: "20px" }}>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              const par = {
+                countryCode: [queryOne],
+              };
+              dispatch(reportActions.fetchQueryOneData(par));
+            }}
+          >
             Generate Report
           </Button>
         </span>
@@ -264,19 +292,19 @@ const Report = () => {
         ></NestedTable>
       </Grid>
 
-{/* query2  */}
+      {/* query2  */}
       <Grid item xs={12}>
         <h3>Query 2</h3>
       </Grid>
       <Grid item xs={12}>
         <span>
-          If we lost access to{' '}
+          If we lost access to{" "}
           <Autocomplete
             id="country-select-demo"
             sx={{
-              display: 'inline-block',
+              display: "inline-block",
               width: 200,
-              verticalAlign: 'middle',
+              verticalAlign: "middle",
             }}
             options={countries}
             autoHighlight
@@ -293,11 +321,11 @@ const Report = () => {
                 label="Choose a country"
                 inputProps={{
                   ...params.inputProps,
-                  autoComplete: 'new-password', // disable autocomplete and autofill
+                  autoComplete: "new-password", // disable autocomplete and autofill
                 }}
               />
             )}
-          />{' '}
+          />{" "}
           as a supplier, what are the safe
           <TextField
             type="number"
@@ -314,7 +342,7 @@ const Report = () => {
           (=reliability) alternatives?
         </span>
 
-        <span style={{ marginLeft: '20px' }}>
+        <span style={{ marginLeft: "20px" }}>
           <Button variant="contained" color="success">
             Generate Report
           </Button>
@@ -332,14 +360,14 @@ const Report = () => {
         ></NestedTable>
       </Grid>
 
-
-{/* query 3 */}
-<Grid item xs={12}>
+      {/* query 3 */}
+      <Grid item xs={12}>
         <h3>Query 3</h3>
       </Grid>
       <Grid item xs={12}>
         <span>
-        What are the most vulnerable categories? (one or two countries that hold monopoly in that following categories)
+          What are the most vulnerable categories? (one or two countries that
+          hold monopoly in that following categories)
           {/* <Autocomplete
             id="country-select-demo"
             sx={{
@@ -383,7 +411,7 @@ const Report = () => {
           (=reliability) alternatives? */}
         </span>
 
-        <span style={{ marginLeft: '20px' }}>
+        <span style={{ marginLeft: "20px" }}>
           <Button variant="contained" color="success">
             Generate Report
           </Button>
@@ -407,13 +435,13 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <span>
-        What are the countries that must become unavailable for  
+          What are the countries that must become unavailable for
           <Autocomplete
             id="country-select-demo"
             sx={{
-              display: 'inline-block',
+              display: "inline-block",
               width: 200,
-              verticalAlign: 'middle',
+              verticalAlign: "middle",
             }}
             options={countries}
             autoHighlight
@@ -430,11 +458,11 @@ const Report = () => {
                 label="Choose a category"
                 inputProps={{
                   ...params.inputProps,
-                  autoComplete: 'new-password', // disable autocomplete and autofill
+                  autoComplete: "new-password", // disable autocomplete and autofill
                 }}
               />
             )}
-          />{' '}
+          />{" "}
           category to become a potential bottleneck
           <TextField
             type="number"
@@ -451,7 +479,7 @@ const Report = () => {
           ?
         </span>
 
-        <span style={{ marginLeft: '20px' }}>
+        <span style={{ marginLeft: "20px" }}>
           <Button variant="contained" color="success">
             Generate Report
           </Button>
@@ -523,9 +551,7 @@ const Report = () => {
           columns={columnsQuery3}
         ></NestedTable>
       </Grid> */}
-
     </Grid>
-
   );
 };
 
