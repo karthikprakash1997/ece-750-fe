@@ -1,52 +1,47 @@
-import { HighchartsReact } from 'highcharts-react-official';
-import * as Highcharts from 'highcharts';
-import highchartsMap from 'highcharts/modules/map';
-import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { overviewActions, mapDataActions } from '../../slices/overview';
-import { css, keyframes } from '@emotion/react';
-import { useParamsDeconstructor } from '../../utils/hooks';
+import { HighchartsReact } from "highcharts-react-official";
+import * as Highcharts from "highcharts";
+import highchartsMap from "highcharts/modules/map";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { overviewActions, mapDataActions } from "../../slices/overview";
+import { useParamsDeconstructor } from "../../utils/hooks";
 // import { COUNTRY_DETAILS } from '../../utils/helpers/common';
 // Get the continent geojson of Europe
 
 highchartsMap(Highcharts);
 
-// const useStyles = makeStyles(() => ({
-//   "@global": {
-//     "@keyframes dash": {
-//       from: {
-//         strokeDashoffset: 100,
-//       },
-//       to: {
-//         strokeDashoffset: 20,
-//       },
-//     },
-//   },
-//   animatedLine: {
-//     strokeDasharray: 8,
-//     strokeDashoffset: 10,
-//     animation: `dash 5s linear infinite`,
-//   },
-// }));
+// Function to process curr.Shipping data
+function processShipping(acc, curr) {
+  if (Array.isArray(curr.Shipping)) {
+    curr.Shipping
+      .filter((ship) => ship.Name !== null)
+      .forEach((it) => {
+        const result = {
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [curr.longitude, curr.latitude],
+              it.countryCode === "US"
+                ? [-74, 40]
+                : it.countryCode === "CN"
+                ? [119.48, 32.54]
+                : [it.coordinates[1], it.coordinates[0]],
+              [-74.3, 45.5], // Canada
+            ],
+          },
+          className: "animated-line",
+          color: "#666",
+        };
 
-// Define keyframes
-const dash = keyframes`
-  from {
-    stroke-dashoffset: 100;
+        acc.push(result);
+      });
+  } else {
+    console.log("curr.Shipping is not an array:", curr.Shipping);
   }
-  to {
-    stroke-dashoffset: 20;
-  }
-`;
+}
 
-// Define Emotion styles
-const styles = {
-  animatedLine: css`
-    stroke-dasharray: 8;
-    stroke-dashoffset: 10;
-    animation: ${dash} 5s linear infinite;
-  `,
-};
+
+
 
 const Map = () => {
   const chartRef = useRef(null);
@@ -54,49 +49,128 @@ const Map = () => {
   const { selectedCategory, selectedCountry } = useParamsDeconstructor();
   const mapTopology = useSelector((state) => state.overview.mapTopology);
   const mapData = useSelector((state) =>
-    state.mapData.mapData.map((item) => [
+    state?.mapData?.mapData?.map((item) => [
       item.countryCode.toLowerCase(),
       item.count,
-    ]),
+    ])
   );
 
   const shippingData = useSelector((state) =>
-    state.mapData.mapData.reduce((acc, curr) => {
-      // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
-      curr.Shipping.forEach(() => {
-        const result = {
-          geometry: {
-            type: 'LineString',
-            coordinates: [
-              // [coor.longitude, coor.latitude],
-              // [coor.longitude, coor.latitude],
-              [2.352222, 48.856613], // Paris
-              [-53, 4], // Guyane
+    (state?.mapData?.mapData || []).reduce((acc, curr) => {
+      console.log(curr?.Shipping,"curr.Shipping")
+      curr?.Shipping?.filter((ship) => ship.Name !== null)
+        ?.forEach((it) => {
+          // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
+          const result = {
+            geometry: {
+              type: "LineString",
+              coordinates: [
+                [curr.longitude, curr.latitude],
+                it.countryCode === "US"
+                  ? [-74, 40]
+                  : it.countryCode === "CN"
+                  ? [119.48, 32.54]
+                  : [it.coordinates[1], it.coordinates[0]],
+                [-74.3,45.5], //canada
+              ],
+            },
+            className: "animated-line",
+            color: "#666",
+          };
+          acc.push(result);
 
-              // [
-              // it?.coordinates[1],
-              // it?.coordinates[0]
+          // if(!acc.mapPoints.some(datum=>datum.name===curr.Name)){
+          //   const mapPointResult =  {
+          //     name: curr.Name,
+          //     geometry: {
+          //       type: "Point",
+          //       coordinates: [curr.longitude, curr.latitude], // Yemen
+          //     },
+          //     // custom: {
+          //     //   arrival: 1414,
+          //     // },
+          //     dataLabels: {
+          //       align: "right",
+          //     },
+          //   }
+          //   acc.mapPoints.push(mapPointResult)
+          // }
 
-              // ]
-              // it?.coordinates
-            ],
-            // coordinates: [
-            //   [48.516388, 15.552727], // Yemen
-            //   [110.004444, -7.491667], // Java
-            // ],
-          },
-          className: css(styles.animatedLine),
-          color: '#666',
-        };
-        acc.push(result);
-      });
+          
+          // if(!acc.mapPoints.some(datum=>datum.name===it.Name)){
+          //   const mapPointResult2 =  {
+          //     name: it.Name,
+          //     geometry: {
+          //       type: "Point",
+          //       coordinates: it.countryCode === "US"
+          //       ? [-74, 40]
+          //       : it.countryCode === "CN"
+          //       ? [119.48, 32.54]
+          //       : [it.coordinates[1], it.coordinates[0]], // Yemen
+          //     },
+          //     // custom: {
+          //     //   arrival: 1414,
+          //     // },
+          //     dataLabels: {
+          //       align: "right",
+          //     },
+          //   }
+          //   acc.mapPoints.push(mapPointResult2)
+          // }
+      
+        });
       return acc;
-    }, []),
+    }, [])
   );
 
-  // const result = getContinentGeoJSONByCode('US');
+  const shippingDataMapPoint = useSelector((state) =>
+    (state?.mapData?.mapData || []).reduce((acc, curr) => {
+      console.log(curr?.Shipping,"curr.Shipping")
+      curr?.Shipping?.filter((ship) => ship.Name !== null)
+        ?.forEach((it) => {
+          // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
 
-  // const classes = useStyles();
+          if(!acc.some(datum=>datum.name===curr.Name)){
+            const mapPointResult =  {
+              name: curr.Name,
+              geometry: {
+                type: "Point",
+                coordinates: [curr.longitude, curr.latitude], // Yemen
+              },
+              // custom: {
+              //   arrival: 1414,
+              // },
+              dataLabels: {
+                align: "right",
+              },
+            }
+            acc.push(mapPointResult)
+          }
+          
+          if(!acc.some(datum=>datum.name===it.Name)){
+            const mapPointResult2 =  {
+              name: it.Name,
+              geometry: {
+                type: "Point",
+                coordinates: it.countryCode === "US"
+                ? [-74, 40]
+                : it.countryCode === "CN"
+                ? [119.48, 32.54]
+                : [it.coordinates[1], it.coordinates[0]], // Yemen
+              },
+              // custom: {
+              //   arrival: 1414,
+              // },
+              dataLabels: {
+                align: "right",
+              },
+            }
+            acc.push(mapPointResult2)
+          }
+        });
+      return acc;
+    }, [])
+  );
 
   useEffect(() => {
     dispatch(overviewActions.fetchMapTopologyData());
@@ -105,23 +179,20 @@ const Map = () => {
   useEffect(() => {
     if (selectedCountry?.length && selectedCategory?.length) {
       const par = {
-        countryCode: selectedCountry,
-        categoryHierarchy: selectedCategory,
+        countryCode: selectedCountry.split(","),
+        categoryHierarchy: selectedCategory.split(","),
       };
       dispatch(mapDataActions.fetchMapData(par));
     }
   }, [selectedCategory, selectedCountry]);
-
-  // console.log(chartColors, 'getGraticule');
 
   const height = screen.availHeight - 140; //eslint-disable-line
 
   const mapOptions = {
     chart: {
       height,
-      // minHeight:675,
       map: mapTopology,
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
       margin: 0,
       // events: {
       //   load: function() {
@@ -149,14 +220,14 @@ const Map = () => {
       enabled: false,
     },
     tooltip: {
-      headerFormat: '',
+      headerFormat: "",
     },
     mapNavigation: {
       enabled: true,
       enableDoubleClickZoomTo: true,
       buttonOptions: {
-        verticalAlign: 'bottom',
-        align: 'right',
+        verticalAlign: "bottom",
+        align: "right",
         x: -20,
         // y:10
       },
@@ -164,7 +235,7 @@ const Map = () => {
     colorAxis: {
       min: 0,
       stops: [
-        [0, '#EFEFFF'],
+        [0, "#EFEFFF"],
         [0.5, Highcharts.getOptions().colors[3]],
         // [
         //     1,
@@ -172,7 +243,7 @@ const Map = () => {
         //         .brighten(-0.5).get()
         // ]
         // [0.5, "#FF7373"],
-        [1, '#FF0000'],
+        [1, "#FF0000"],
         // [1, "#d50000"],
         // [0, '#3DED97'],
         // [0.5, '#234F1E' as any],
@@ -184,7 +255,7 @@ const Map = () => {
       projection: {
         // name: props.projection
         // projectedBounds: 'world',
-        name: 'Miller',
+        name: "Miller",
       },
       //   fitToGeometry: {
       //     type: 'MultiPoint',
@@ -203,15 +274,8 @@ const Map = () => {
     series: [
       {
         // Use the gb-all map with no data as a basemap
-        name: 'Basemap',
-        id: 'data',
-        // data: [
-        //   // ["in", 5],
-        //   // ["au", 10],
-        //   // ["us", 97],
-        //   ["TW",67],
-        //   ["JP", 62]
-        // ],
+        name: "Basemap",
+        id: "data",
         data: mapData,
         point: {
           events: {
@@ -226,17 +290,17 @@ const Map = () => {
         // mapData: mapOptioin,
         // borderColor: '#A0A0A0',
         // nullColor: '#9A7B4F'
-        nullColor: 'white',
+        nullColor: "white",
       },
       {
-        type: 'mappoint',
-        color: '#333',
+        type: "mappoint",
+        color: "#333",
         dataLabels: {
-          format: '<b>{point.name}</b>',
-          align: 'left',
-          verticalAlign: 'middle',
+          format: "<b>{point.name}</b>",
+          align: "left",
+          verticalAlign: "middle",
         },
-        data: shippingData,
+        // data: shippingDataMapPoint,
         // data: [
         //   {
         //     name: "Yemen",
@@ -334,8 +398,8 @@ const Map = () => {
         enableMouseTracking: false,
       },
       {
-        type: 'mapline',
-        data: shippingData,
+        type: "mapline",
+        // data: shippingData,
         // data: [
         //   {
         //     geometry: {
@@ -345,7 +409,7 @@ const Map = () => {
         //         [110.004444, -7.491667], // Java
         //       ],
         //     },
-        //     className: css(styles.animatedLine),
+        // className: css(styles.animatedLine),
         //     color: "#666",
         //   },
         //   {
@@ -425,7 +489,7 @@ const Map = () => {
     <>
       <HighchartsReact
         ref={chartRef}
-        constructorType={'mapChart'}
+        constructorType={"mapChart"}
         allowChartUpdate
         immutable
         updateArgs={[true, true, true]}

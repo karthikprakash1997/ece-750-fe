@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import Report from './containers/report';
 import { useEffect } from 'react';
+import './App.css'
 // import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createTheme({

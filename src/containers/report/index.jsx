@@ -4,227 +4,158 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { reportActions } from "../../slices/report";
 
+const columns = [
+  { title: "Category Name", field: "category", width: 600 },
+  { title: "Percentage", field: "percentage", type: "numeric", width: 150 },
+  { title: "Count", field: "count", type: "numeric", width: 250 },
+];
+
+const columnsQuery2 = [
+  { title: "Category Name", field: "category", width: 600, responsive: 0 },
+  { title: "Percentage", field: "percentage", width: 150 },
+  { title: "Countries", field: "countries", width: 250, responsive: 2 },
+];
+
+const columnsQuery3 = [
+  { title: "Category Name", field: "category", width: 600, responsive: 0 },
+  // { title: 'Percentage', field: 'percentage', width: 150 },
+  { title: "Countries", field: "countries", width: 250, responsive: 2 },
+];
+
+const CountrySelect = ({ options, onChange, renderOption, getOptionLabel }) => {
+  return (
+    <Autocomplete
+      id="country-select-demo"
+      sx={{
+        display: "inline-block",
+        width: 200,
+        verticalAlign: "middle",
+      }}
+      options={options}
+      autoHighlight
+      getOptionLabel={getOptionLabel}
+      renderOption={renderOption}
+      // value={queryOne}
+      onChange={onChange}
+      size="small"
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Choose a country"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: "new-password", // disable autocomplete and autofill
+          }}
+        />
+      )}
+    />
+  );
+};
+
+const BNTextField = ({ setState, defaultValue }) => {
+  return (
+    <TextField
+      type="number"
+      InputProps={{
+        inputProps: {
+          max: 100,
+          min: 0,
+        },
+      }}
+      size="small"
+      defaultValue={defaultValue || 20}
+      onChange={(e) => {
+        setState(+e.target.value);
+      }}
+      label="Percentage"
+    />
+  );
+};
+
 const Report = () => {
-  const countries = [
-    { code: "AD", label: "Andorra" },
-    {
-      code: "AE",
-      label: "United Arab Emirates",
-    },
-    { code: "AF", label: "Afghanistan" },
-    {
-      code: "AG",
-      label: "Antigua and Barbuda",
-    },
-  ];
-
-  const tableData = [
-    {
-      category: "Amplifier",
-      percentage: "20%",
-      count: "300",
-      _children: [
-        {
-          category: "Amplifier Child 1",
-          percentage: "30%",
-          count: "50",
-        },
-        {
-          category: "Amplifier Child 2",
-          percentage: "40%",
-          count: "150",
-        },
-        {
-          category: "Amplifier Child 3",
-          percentage: "60%",
-          count: "100",
-          _children: [
-            {
-              category: "Amplifier Child 3 Child 1",
-              percentage: "50%",
-              count: "30",
-            },
-            {
-              category: "Amplifier Child 3 Child 2",
-              percentage: "70%",
-              count: "70",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      category: "Screws",
-      percentage: "65%",
-      count: "1300",
-    },
-    {
-      category: "Bolts",
-      percentage: "90%",
-      count: "1800",
-      _children: [
-        {
-          category: "Bolts Child 1",
-          percentage: "90%",
-          count: "1800",
-        },
-      ],
-    },
-    {
-      category: "Microprocessor",
-      percentage: "40%",
-      count: "4000",
-    },
-  ];
-
-  const tableData2 = [
-    {
-      category: "Amplifier",
-      percentage: "20%",
-      country: "USA",
-      _children: [
-        {
-          category: "Amplifier Child 1",
-          percentage: "30%",
-          country: "Taiwan",
-        },
-        {
-          category: "Amplifier Child 2",
-          percentage: "40%",
-          country: "USA",
-        },
-        {
-          category: "Amplifier Child 3",
-          percentage: "60%",
-          country: "USA",
-          _children: [
-            {
-              category: "Amplifier Child 3 Child 1",
-              percentage: "50%",
-              country: "USA",
-            },
-            {
-              category: "Amplifier Child 3 Child 2",
-              percentage: "70%",
-              country: "Germany",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      category: "Screws",
-      percentage: "65%",
-      country: "Germany",
-    },
-    {
-      category: "Bolts",
-      percentage: "90%",
-      country: "Germany",
-      _children: [
-        {
-          category: "Bolts Child 1",
-          percentage: "90%",
-          country: "Germany",
-        },
-      ],
-    },
-    {
-      category: "Microprocessor",
-      percentage: "40%",
-      country: "Germany",
-    },
-  ];
-
-  const tableData3 = [
-    {
-      category: "Amplifier",
-      percentage: "20%",
-      country: "USA,China",
-      _children: [
-        {
-          category: "Amplifier Child 1",
-          percentage: "30%",
-          country: "Taiwan,France",
-        },
-        {
-          category: "Amplifier Child 2",
-          percentage: "40%",
-          country: "USA,Taiwan",
-        },
-        {
-          category: "Amplifier Child 3",
-          percentage: "60%",
-          country: "USA",
-          _children: [
-            {
-              category: "Amplifier Child 3 Child 1",
-              percentage: "50%",
-              country: "USA,Germany",
-            },
-            {
-              category: "Amplifier Child 3 Child 2",
-              percentage: "70%",
-              country: "Germany",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      category: "Screws",
-      percentage: "65%",
-      country: "Germany",
-    },
-    {
-      category: "Bolts",
-      percentage: "90%",
-      country: "Germany",
-      _children: [
-        {
-          category: "Bolts Child 1",
-          percentage: "90%",
-          country: "Germany",
-        },
-      ],
-    },
-    {
-      category: "Microprocessor",
-      percentage: "40%",
-      country: "Germany",
-    },
-  ];
-
-  const columns = [
-    { title: "Category Name", field: "category", width: 200, responsive: 0 },
-    { title: "Percentage", field: "percentage", width: 150 },
-    { title: "Count", field: "count", width: 150, responsive: 2 },
-  ];
-
-  const columnsQuery2 = [
-    { title: "Category Name", field: "category", width: 200, responsive: 0 },
-    { title: "Percentage", field: "percentage", width: 150 },
-    { title: "Country", field: "country", width: 150, responsive: 2 },
-  ];
-
-  const columnsQuery3 = [
-    { title: "Category Name", field: "category", width: 200, responsive: 0 },
-    // { title: 'Percentage', field: 'percentage', width: 150 },
-    { title: "Countries", field: "country", width: 150, responsive: 2 },
-  ];
+  // const tableData3 = [
+  //   {
+  //     category: "Amplifier",
+  //     percentage: "20%",
+  //     country: "USA,China",
+  //     _children: [
+  //       {
+  //         category: "Amplifier Child 1",
+  //         percentage: "30%",
+  //         country: "Taiwan,France",
+  //       },
+  //       {
+  //         category: "Amplifier Child 2",
+  //         percentage: "40%",
+  //         country: "USA,Taiwan",
+  //       },
+  //       {
+  //         category: "Amplifier Child 3",
+  //         percentage: "60%",
+  //         country: "USA",
+  //         _children: [
+  //           {
+  //             category: "Amplifier Child 3 Child 1",
+  //             percentage: "50%",
+  //             country: "USA,Germany",
+  //           },
+  //           {
+  //             category: "Amplifier Child 3 Child 2",
+  //             percentage: "70%",
+  //             country: "Germany",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     category: "Screws",
+  //     percentage: "65%",
+  //     country: "Germany",
+  //   },
+  //   {
+  //     category: "Bolts",
+  //     percentage: "90%",
+  //     country: "Germany",
+  //     _children: [
+  //       {
+  //         category: "Bolts Child 1",
+  //         percentage: "90%",
+  //         country: "Germany",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     category: "Microprocessor",
+  //     percentage: "40%",
+  //     country: "Germany",
+  //   },
+  // ];
 
   const countriesList = useSelector(
     (state) => state?.countries?.countriesList?.data
   );
-  
+
   const categoriesList = useSelector(
     (state) => state.categories.categoriesList
   );
 
+  const queryOneData = useSelector((state) => state.report.queryOne);
+
+  const queryTwoData = useSelector((state) => state.report.queryTwo);
+
+  const queryThreeData = useSelector((state) => state.report.queryThree);
+
+  const queryFourData = useSelector((state) => state.report.queryFour);
 
   const dispatch = useDispatch();
 
   const [queryOne, setQueryOne] = useState("");
+  const [queryTwo, setQueryTwo] = useState("");
+  const [queryTwoBN, setQueryTwoBN] = useState(20);
+  const [queryFour, setQueryFour] = useState("");
+
+  console.log(queryTwoBN, "queryOneData");
 
   return (
     <Grid fontSize={20}>
@@ -234,36 +165,18 @@ const Report = () => {
       <Grid item xs={12}>
         <span>
           If we lost access to{" "}
-          <Autocomplete
-            id="country-select-demo"
-            sx={{
-              display: "inline-block",
-              width: 200,
-              verticalAlign: "middle",
-            }}
+          <CountrySelect
             options={countriesList}
-            autoHighlight
-            getOptionLabel={(option) => option.country}
+            onChange={(e, value) => {
+              setQueryOne(value);
+            }}
             renderOption={(props, option) => (
               <div {...props}>
                 {option.country} ({option.country_code})
               </div>
             )}
-            // value={queryOne}
-            onChange={(e,value) => {
-              setQueryOne(value.country_code)}}
-            size="small"
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Choose a country"
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: "new-password", // disable autocomplete and autofill
-                }}
-              />
-            )}
-          />{" "}
+            getOptionLabel={(option) => option.country}
+          />
           as a supplier, what would be the impact?
         </span>
         <span style={{ marginLeft: "20px" }}>
@@ -272,7 +185,7 @@ const Report = () => {
             color="success"
             onClick={() => {
               const par = {
-                countryCode: [queryOne],
+                countryCode: [queryOne.country_code],
               };
               dispatch(reportActions.fetchQueryOneData(par));
             }}
@@ -286,8 +199,12 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle="If we lost access to China as a supplier, the following categories will be effected."
-          tableData={tableData}
+          tableTitle={
+            queryOne.country
+              ? `If we lost access to ${queryOne.country} as a supplier, the following categories will be effected.`
+              : ""
+          }
+          tableData={queryOneData}
           columns={columns}
         ></NestedTable>
       </Grid>
@@ -299,51 +216,35 @@ const Report = () => {
       <Grid item xs={12}>
         <span>
           If we lost access to{" "}
-          <Autocomplete
-            id="country-select-demo"
-            sx={{
-              display: "inline-block",
-              width: 200,
-              verticalAlign: "middle",
+          <CountrySelect
+            options={countriesList}
+            onChange={(e, value) => {
+              setQueryTwo(value);
             }}
-            options={countries}
-            autoHighlight
-            getOptionLabel={(option) => option.label}
             renderOption={(props, option) => (
               <div {...props}>
-                {option.label} ({option.code})
+                {option.country} ({option.country_code})
               </div>
             )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                size="small"
-                label="Choose a country"
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: "new-password", // disable autocomplete and autofill
-                }}
-              />
-            )}
+            getOptionLabel={(option) => option.country}
           />{" "}
           as a supplier, what are the safe
-          <TextField
-            type="number"
-            InputProps={{
-              inputProps: {
-                max: 100,
-                min: 0,
-              },
-            }}
-            size="small"
-            defaultValue={20}
-            label="Percentage"
-          />
+          <BNTextField setState={setQueryTwoBN} />
           (=reliability) alternatives?
         </span>
 
         <span style={{ marginLeft: "20px" }}>
-          <Button variant="contained" color="success">
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              const par = {
+                countryCode: ["", queryTwo.country_code],
+                bottleneckPercentage: queryTwoBN,
+              };
+              dispatch(reportActions.fetchQueryTwoData(par));
+            }}
+          >
             Generate Report
           </Button>
         </span>
@@ -355,7 +256,7 @@ const Report = () => {
       <Grid item xs={12}>
         <NestedTable
           tableTitle="If we lost access to China as a supplier, the following safe alternatives are?"
-          tableData={tableData2}
+          tableData={queryTwoData}
           columns={columnsQuery2}
         ></NestedTable>
       </Grid>
@@ -368,51 +269,16 @@ const Report = () => {
         <span>
           What are the most vulnerable categories? (one or two countries that
           hold monopoly in that following categories)
-          {/* <Autocomplete
-            id="country-select-demo"
-            sx={{
-              display: 'inline-block',
-              width: 200,
-              verticalAlign: 'middle',
-            }}
-            options={countries}
-            autoHighlight
-            getOptionLabel={(option) => option.label}
-            renderOption={(props, option) => (
-              <div {...props}>
-                {option.label} ({option.code})
-              </div>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                size="small"
-                label="Choose a country"
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: 'new-password', // disable autocomplete and autofill
-                }}
-              />
-            )}
-          />{' '}
-          as a supplier, what are the safe */}
-          {/* <TextField
-            type="number"
-            InputProps={{
-              inputProps: {
-                max: 100,
-                min: 0,
-              },
-            }}
-            size="small"
-            defaultValue={20}
-            label="Percentage"
-          />
-          (=reliability) alternatives? */}
         </span>
 
         <span style={{ marginLeft: "20px" }}>
-          <Button variant="contained" color="success">
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              dispatch(reportActions.fetchQueryThreeData({ isMonopoly: true }));
+            }}
+          >
             Generate Report
           </Button>
         </span>
@@ -424,7 +290,7 @@ const Report = () => {
       <Grid item xs={12}>
         <NestedTable
           tableTitle="What are the most vulnerable categories?"
-          tableData={tableData2}
+          tableData={queryThreeData}
           columns={columnsQuery3}
         ></NestedTable>
       </Grid>
@@ -436,51 +302,30 @@ const Report = () => {
       <Grid item xs={12}>
         <span>
           What are the countries that must become unavailable for
-          <Autocomplete
-            id="country-select-demo"
-            sx={{
-              display: "inline-block",
-              width: 200,
-              verticalAlign: "middle",
+          <CountrySelect
+            options={categoriesList}
+            onChange={(e, value) => {
+              setQueryFour(value);
             }}
-            options={countries}
-            autoHighlight
-            getOptionLabel={(option) => option.label}
-            renderOption={(props, option) => (
-              <div {...props}>
-                {option.label} ({option.code})
-              </div>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                size="small"
-                label="Choose a category"
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: "new-password", // disable autocomplete and autofill
-                }}
-              />
-            )}
+            renderOption={(props, option) => <div {...props}>{option}</div>}
+            getOptionLabel={(option) => option}
           />{" "}
           category to become a potential bottleneck
-          <TextField
-            type="number"
-            InputProps={{
-              inputProps: {
-                max: 100,
-                min: 0,
-              },
-            }}
-            size="small"
-            defaultValue={90}
-            label="Percentage"
-          />
-          ?
+          <BNTextField defaultValue={90} setState={setQueryTwoBN} />?
         </span>
 
         <span style={{ marginLeft: "20px" }}>
-          <Button variant="contained" color="success">
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              const par = {
+                categoryHierarchy: [queryFour],
+                bottleneckPercentage: queryTwoBN,
+              };
+              dispatch(reportActions.fetchQueryFourData(par));
+            }}
+          >
             Generate Report
           </Button>
         </span>
@@ -492,7 +337,7 @@ const Report = () => {
       <Grid item xs={12}>
         <NestedTable
           tableTitle="What are the countries that must become unavailable for category Amplifier to become a potential bottleneck? "
-          tableData={tableData3}
+          tableData={queryFourData}
           columns={columnsQuery3}
         ></NestedTable>
       </Grid>

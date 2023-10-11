@@ -11,10 +11,11 @@ const handleErrors = (error) =>{
 export const apiCall = async (apiConfig, promisePayload) => {
   try {
     let url = apiConfig.url||`${process.env.REACT_APP_API_BASE_URL}${apiConfig.apiPath}`;
+    console.log(url,"url")
 
     const requestConfig = {
       url,
-      method: apiConfig.action,
+      method: apiConfig.action || 'GET',
       data: apiConfig.data,
       headers: apiConfig.headers || defaultHeader(),
       params: apiConfig.params,

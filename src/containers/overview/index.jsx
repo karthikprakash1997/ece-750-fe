@@ -284,7 +284,7 @@ const Overview = () => {
             minHeight={500}
             height={600}
             boxShadow={3}
-            minWidth={200}
+            minWidth={220}
             borderRadius={2}
             // margin={2}
             // marginRight={2}

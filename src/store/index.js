@@ -20,14 +20,14 @@ const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
 // const persistedMapDataReducer = persistReducer(persistConfig, mapDataReducer);
 const persistedCountriesReducer = persistReducer(persistConfig, countriesReducer);
 const persistedCategoriesReducer = persistReducer(persistConfig, categoriesReducer);
-// const persistedAnotherReducer = persistReducer(persistConfig, anotherReducer);
+const persistedReportReducer = persistReducer(persistConfig, reportReducer);
 
 const rootReducer = combineReducers({
   overview: persistedOverviewReducer,
   mapData: mapDataReducer,
   countries: persistedCountriesReducer,
   categories: persistedCategoriesReducer,
-  report: reportReducer
+  report: persistedReportReducer
   // another: persistedAnotherReducer,
   // Add more persisted reducers here if needed
 });
