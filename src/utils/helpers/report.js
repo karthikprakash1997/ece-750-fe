@@ -1,4 +1,4 @@
-import { COUNTRY_DETAILS } from "./common";
+import {  countryCodeTocountries } from "./common";
 
 export const countryCodeConversion = (data) => {
   return data.map((it) => {
