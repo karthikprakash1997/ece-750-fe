@@ -211,6 +211,7 @@ const Report = () => {
           tableTitle={`If we lost access to ${queryOne.country} as a supplier, the following categories will be effected.`}
           tableData={queryOneData}
           columns={columns}
+          isCountry={false}
         ></NestedTable>
       </Grid>
 

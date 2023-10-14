@@ -92,15 +92,14 @@ import 'jspdf-autotable';
 import { Button } from '@mui/material';
 import { countryCodeConversion } from '../../../utils/helpers/report';
 
-const NestedTable = ({ tableTitle, tableData, columns }) => {
+const NestedTable = ({ tableTitle, tableData, columns, isCountry=true }) => {
   const elRef = useRef();
   let tabulator = null;
-  console.log(JSON.parse(JSON.stringify(countryCodeConversion(tableData))), "tableData")
 
   useEffect(() => {
     // Instantiate Tabulator when the component is mounted
     tabulator = new Tabulator(elRef.current, {
-      data: JSON.parse(JSON.stringify(countryCodeConversion(tableData))),
+      data: JSON.parse(JSON.stringify(isCountry ? countryCodeConversion(tableData): tableData)),
       dataTree: true,
       dataTreeStartExpanded: true,
       columns: JSON.parse(JSON.stringify(columns)),
