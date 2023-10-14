@@ -6,13 +6,27 @@ import { reportActions } from "../../slices/report";
 
 const columns = [
   { title: "Category Name", field: "category", width: 600 },
-  { title: "Percentage", field: "percentage", type: "numeric", width: 150 },
-  { title: "Count", field: "count", type: "numeric", width: 250 },
+  {
+    title: "Percentage in category inaccessible",
+    field: "percentage",
+    type: "numeric",
+    width: 150,
+  },
+  {
+    title: "Parts in category inaccessible",
+    field: "count",
+    type: "numeric",
+    width: 250,
+  },
 ];
 
 const columnsQuery2 = [
   { title: "Category Name", field: "category", width: 600, responsive: 0 },
-  { title: "Percentage", field: "percentage", width: 150 },
+  {
+    title: "Percentage contribution to category",
+    field: "percentage",
+    width: 150,
+  },
   { title: "Countries", field: "countries", width: 250, responsive: 2 },
 ];
 
@@ -136,10 +150,6 @@ const Report = () => {
     (state) => state?.countries?.countriesList?.data
   );
 
-  const categoriesList = useSelector(
-    (state) => state.categories.categoriesList
-  );
-
   const queryOneData = useSelector((state) => state.report.queryOne);
 
   const queryTwoData = useSelector((state) => state.report.queryTwo);
@@ -153,9 +163,8 @@ const Report = () => {
   const [queryOne, setQueryOne] = useState("");
   const [queryTwo, setQueryTwo] = useState("");
   const [queryTwoBN, setQueryTwoBN] = useState(20);
-  const [queryFour, setQueryFour] = useState("");
-
-  console.log(queryTwoBN, "queryOneData");
+  const [queryThreeBN, setQueryThreeBN] = useState(80);
+  const [queryFourBN, setQueryFourBN] = useState(90);
 
   return (
     <Grid fontSize={20}>
@@ -199,11 +208,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle={
-            queryOne.country
-              ? `If we lost access to ${queryOne.country} as a supplier, the following categories will be effected.`
-              : ""
-          }
+          tableTitle={`If we lost access to ${queryOne.country} as a supplier, the following categories will be effected.`}
           tableData={queryOneData}
           columns={columns}
         ></NestedTable>
@@ -228,9 +233,9 @@ const Report = () => {
             )}
             getOptionLabel={(option) => option.country}
           />{" "}
-          as a supplier, what are the safe
+          as a supplier, what are the safe (=reliability) alternatives?
+          (Bottleneck percentage)
           <BNTextField setState={setQueryTwoBN} />
-          (=reliability) alternatives?
         </span>
 
         <span style={{ marginLeft: "20px" }}>
@@ -255,7 +260,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle="If we lost access to China as a supplier, the following safe alternatives are?"
+          tableTitle={`If we lost access to ${queryTwo.country} as a supplier, the following safe alternatives are?`}
           tableData={queryTwoData}
           columns={columnsQuery2}
         ></NestedTable>
@@ -267,8 +272,9 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <span>
-          What are the most vulnerable categories? (one or two countries that
-          hold monopoly in that following categories)
+          What are the most vulnerable categories?
+          <BNTextField defaultValue={90} setState={setQueryThreeBN} /> % (One
+          country having more than X% of market share for a particular category)
         </span>
 
         <span style={{ marginLeft: "20px" }}>
@@ -276,7 +282,11 @@ const Report = () => {
             variant="contained"
             color="success"
             onClick={() => {
-              dispatch(reportActions.fetchQueryThreeData({ isMonopoly: true }));
+              dispatch(
+                reportActions.fetchQueryThreeData({
+                  bottleneckPercentage: queryThreeBN,
+                })
+              );
             }}
           >
             Generate Report
@@ -289,7 +299,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle="What are the most vulnerable categories?"
+          tableTitle=" What are the most vulnerable categories? (One country having more than 90% of market share for a particular category)"
           tableData={queryThreeData}
           columns={columnsQuery3}
         ></NestedTable>
@@ -301,27 +311,17 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <span>
-          What are the countries that must become unavailable for
-          <CountrySelect
-            options={categoriesList}
-            onChange={(e, value) => {
-              setQueryFour(value);
-            }}
-            renderOption={(props, option) => <div {...props}>{option}</div>}
-            getOptionLabel={(option) => option}
-          />{" "}
-          category to become a potential bottleneck
-          <BNTextField defaultValue={90} setState={setQueryTwoBN} />?
+          What countries create a part bottleneck at{" "}
+          <BNTextField defaultValue={90} setState={setQueryFourBN} /> %
+          marketshare?
         </span>
-
         <span style={{ marginLeft: "20px" }}>
           <Button
             variant="contained"
             color="success"
             onClick={() => {
               const par = {
-                categoryHierarchy: [queryFour],
-                bottleneckPercentage: queryTwoBN,
+                bottleneckPercentage: queryFourBN,
               };
               dispatch(reportActions.fetchQueryFourData(par));
             }}
@@ -336,7 +336,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle="What are the countries that must become unavailable for category Amplifier to become a potential bottleneck? "
+          tableTitle={`What countries create a part bottleneck at ${queryFourBN}% market share`}
           tableData={queryFourData}
           columns={columnsQuery3}
         ></NestedTable>

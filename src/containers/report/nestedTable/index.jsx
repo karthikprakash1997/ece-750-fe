@@ -90,15 +90,17 @@ import 'tabulator-tables/dist/css/tabulator.min.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Button } from '@mui/material';
+import { countryCodeConversion } from '../../../utils/helpers/report';
 
 const NestedTable = ({ tableTitle, tableData, columns }) => {
   const elRef = useRef();
   let tabulator = null;
+  console.log(JSON.parse(JSON.stringify(countryCodeConversion(tableData))), "tableData")
 
   useEffect(() => {
     // Instantiate Tabulator when the component is mounted
     tabulator = new Tabulator(elRef.current, {
-      data: JSON.parse(JSON.stringify(tableData)),
+      data: JSON.parse(JSON.stringify(countryCodeConversion(tableData))),
       dataTree: true,
       dataTreeStartExpanded: true,
       columns: JSON.parse(JSON.stringify(columns)),
