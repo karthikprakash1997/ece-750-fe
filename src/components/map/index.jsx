@@ -178,6 +178,7 @@ const Map = () => {
 
   useEffect(() => {
     if (selectedCountry?.length && selectedCategory?.length) {
+      // console.log(selected)
       const par = {
         countryCode: selectedCountry.split(","),
         categoryHierarchy: selectedCategory.split(","),
@@ -399,7 +400,7 @@ const Map = () => {
       },
       {
         type: "mapline",
-        // data: shippingData,
+        data: shippingData,
         // data: [
         //   {
         //     geometry: {

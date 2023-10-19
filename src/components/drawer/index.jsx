@@ -59,10 +59,10 @@ export const SideDrawer = () => {
 
   useEffect(() => {
     if (!categoryFilter?.length && selectedCategory?.length) {
-      setCategoryFilter(selectedCategory);
+      setCategoryFilter(selectedCategory?.split(','));
     }
     if (!countryFilter?.length && selectedCountry?.length) {
-      setCountryFilter(selectedCountry);
+      setCountryFilter(selectedCountry?.split(','));
     }
   }, []); //eslint-disable-line
 
@@ -75,12 +75,12 @@ export const SideDrawer = () => {
       // thresholdFilter,
     };
 
-    const stringifiedFilters = JSON.stringify(filters);
+    // const stringifiedFilters = JSON.stringify(filters);
 
-    // const combinedFilters = encodeURIComponent(stringifiedFilters);
+    // // const combinedFilters = encodeURIComponent(stringifiedFilters);
 
-    // Store the combined filter object in local storage
-    localStorage.setItem('combinedFilters', stringifiedFilters);
+    // // Store the combined filter object in local storage
+    // localStorage.setItem('combinedFilters', stringifiedFilters);
 
     // Append the selected filter to the URL
     addSearchParams(filters);
