@@ -7,6 +7,7 @@ import countriesReducer from '../slices/filter/countriesSlice';
 import categoriesReducer from '../slices/filter/categoriesSlice';
 import mapDataReducer from '../slices/overview/mapDataSlice';
 import reportReducer from '../slices/report/reportSlice';
+import shippingReducer from '../slices/dashboard/shippingSlice';
 
 // import anotherReducer from '../slices/another'; // Import your other reducer
 
@@ -21,13 +22,16 @@ const persistedOverviewReducer = persistReducer(persistConfig, overviewReducer);
 const persistedCountriesReducer = persistReducer(persistConfig, countriesReducer);
 const persistedCategoriesReducer = persistReducer(persistConfig, categoriesReducer);
 const persistedReportReducer = persistReducer(persistConfig, reportReducer);
+const persistedShippingReducer = persistReducer(persistConfig, shippingReducer);
+// const persistedAnotherReducer = persistReducer(persistConfig, anotherReducer);
 
 const rootReducer = combineReducers({
   overview: persistedOverviewReducer,
   mapData: mapDataReducer,
   countries: persistedCountriesReducer,
   categories: persistedCategoriesReducer,
-  report: persistedReportReducer
+  report: persistedReportReducer,
+  shipping: persistedShippingReducer
   // another: persistedAnotherReducer,
   // Add more persisted reducers here if needed
 });

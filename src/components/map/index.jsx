@@ -180,8 +180,8 @@ const Map = () => {
     if (selectedCountry?.length && selectedCategory?.length) {
       // console.log(selected)
       const par = {
-        countryCode: selectedCountry.split(","),
-        categoryHierarchy: selectedCategory.split(","),
+        countryCode: selectedCountry.split(','),
+        categoryHierarchy: selectedCategory.split(','),
       };
       dispatch(mapDataActions.fetchMapData(par));
     }
