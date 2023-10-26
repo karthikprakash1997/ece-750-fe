@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
-import Highcharts from 'highcharts';
-import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
+import { useEffect, useRef, useState } from "react";
+import Highcharts from "highcharts";
+import NoDataToDisplay from "highcharts/modules/no-data-to-display";
 NoDataToDisplay(Highcharts);
 
 const data = [
   {
-    name: 'United States of America',
+    name: "United States of America",
     value: 1477,
   },
   {
-    name: 'Brazil',
+    name: "Brazil",
     value: 490,
   },
 ];
@@ -21,7 +21,7 @@ const getGraticule = () => {
   for (let x = -180; x <= 180; x += 15) {
     data.push({
       geometry: {
-        type: 'LineString',
+        type: "LineString",
         coordinates:
           x % 90 === 0
             ? [
@@ -45,7 +45,7 @@ const getGraticule = () => {
     }
     data.push({
       geometry: {
-        type: 'LineString',
+        type: "LineString",
         coordinates,
       },
       lineWidth: y === 0 ? 2 : undefined,
@@ -61,7 +61,7 @@ export const MapV2 = ({ identifier, options, classStr }) => {
 
   const getApiData = async () => {
     const mapData = await fetch(
-      'https://code.highcharts.com/mapdata/custom/world.topo.json',
+      "https://code.highcharts.com/mapdata/custom/world.topo.json",
     ).then((response) => response.json());
     setMapOptions({ mapData, data: getGraticule() });
   };
@@ -81,7 +81,7 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         // width:"",
         // map: 'countries/ie/ie-all'
         // height: '39%',
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         margin: 0,
         // height: 600,
         // events:{
@@ -121,22 +121,22 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         enabled: false,
       },
       tooltip: {
-        headerFormat: '',
+        headerFormat: "",
       },
       mapNavigation: {
         enabled: true,
         enableDoubleClickZoomTo: true,
         buttonOptions: {
-          verticalAlign: 'bottom',
-          align: 'right',
+          verticalAlign: "bottom",
+          align: "right",
         },
       },
       colorAxis: {
         min: 0,
         stops: [
-          [0, '#EFEFFF'],
-          [0.5, '#F50505'],
-          [1, Highcharts.color('#f50505').brighten(-0.5).get()],
+          [0, "#EFEFFF"],
+          [0.5, "#F50505"],
+          [1, Highcharts.color("#f50505").brighten(-0.5).get()],
           // [0, '#3DED97'],
           // [0.5, '#234F1E' as any],
           // [1, Highcharts.color('#234F1E').brighten(-0.5).get()]
@@ -147,7 +147,7 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         projection: {
           // name: props.projection
           // projectedBounds: 'world',
-          name: 'Miller',
+          name: "Miller",
         },
         // zoom: 2.2,
         // center: [10, 58],
@@ -174,13 +174,13 @@ export const MapV2 = ({ identifier, options, classStr }) => {
         //   : []),
         {
           // Use the gb-all map with no data as a basemap
-          name: 'Basemap',
-          id: 'data',
+          name: "Basemap",
+          id: "data",
           mapData: mapOptioin.mapData,
           data: [
-            ['in', 5],
-            ['au', 10],
-            ['us', 97],
+            ["in", 5],
+            ["au", 10],
+            ["us", 97],
           ],
           point: {
             events: {
@@ -194,87 +194,87 @@ export const MapV2 = ({ identifier, options, classStr }) => {
           // }
           // mapData: mapOptioin,
           // borderColor: '#A0A0A0',
-          nullColor: '#9A7B4F',
+          nullColor: "#9A7B4F",
         },
         {
-          type: 'mapline',
+          type: "mapline",
           data: [
             {
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [48.516388, 15.552727], // Yemen
                   [110.004444, -7.491667], // Java
                 ],
               },
-              className: 'animated-line',
-              color: '#666',
+              className: "animated-line",
+              color: "#666",
             },
             {
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [48.516388, 15.552727], // Yemen
                   [55.5325, -21.114444], // La reunion
                 ],
               },
-              className: 'animated-line',
-              color: '#666',
+              className: "animated-line",
+              color: "#666",
             },
             {
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [55.5325, -21.114444], // La reunion
                   [-43.2, -22.9], // Brazil
                 ],
               },
-              className: 'animated-line',
-              color: '#666',
+              className: "animated-line",
+              color: "#666",
             },
             {
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [48.516388, 15.552727], // Yemen
                   [78, 21], // India
                 ],
               },
-              className: 'animated-line',
-              color: '#666',
+              className: "animated-line",
+              color: "#666",
             },
             {
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [110.004444, -7.491667], // Java
                   [4.9, 52.366667], // Amsterdam
                 ],
               },
-              className: 'animated-line',
-              color: '#666',
+              className: "animated-line",
+              color: "#666",
             },
             {
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [-3, 55], // UK
                   [-61.030556, 14.681944], // Antilles
                 ],
               },
-              className: 'animated-line',
-              color: '#666',
+              className: "animated-line",
+              color: "#666",
             },
             {
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [2.352222, 48.856613], // Paris
                   [-53, 4], // Guyane
                 ],
               },
-              className: 'animated-line',
-              color: '#666',
+              className: "animated-line",
+              color: "#666",
             },
           ],
           lineWidth: 2,

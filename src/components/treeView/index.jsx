@@ -1,10 +1,10 @@
-import React from 'react';
-import TreeView from '@mui/lab/TreeView';
-import TreeItem from '@mui/lab/TreeItem';
-import Checkbox from '@mui/material/Checkbox';
-import { getCategories } from '../../utils/helpers/filter';
-import { categoriesActions } from '../../slices';
-import { useSelector } from 'react-redux';
+import React from "react";
+import TreeView from "@mui/lab/TreeView";
+import TreeItem from "@mui/lab/TreeItem";
+import Checkbox from "@mui/material/Checkbox";
+import { getCategories } from "../../utils/helpers/filter";
+import { categoriesActions } from "../../slices";
+import { useSelector } from "react-redux";
 
 export const RichObjectTreeView = ({
   search,

@@ -3,19 +3,19 @@
   stroke-dashoffset: 10;
   animation: dash 5s linear infinite;
   stroke: black;
-  content: '▶︎';
+  content: "▶︎";
 }
 
 .animated-line::after {
-  content: '▶︎';
+  content: "▶︎";
 }
 
 @keyframes dash {
   from {
-      stroke-dashoffset: 100;
+    stroke-dashoffset: 100;
   }
 
   to {
-      stroke-dashoffset: 20;
+    stroke-dashoffset: 20;
   }
 }

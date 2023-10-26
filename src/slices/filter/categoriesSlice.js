@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Define the initial state
 const initialState = {
@@ -8,26 +8,27 @@ const initialState = {
   error: null,
 };
 
-
 export const fetchCategories = createAsyncThunk(
-  'filter/fetchCategories',
+  "filter/fetchCategories",
   async () => {
     try {
-      const response = await fetch(`https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/categories`);
+      const response = await fetch(
+        `https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/categories`,
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch categories');
+        throw new Error("Failed to fetch categories");
       }
       const data = await response.json();
       return data;
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 // Create a slice
 const categoriesSlice = createSlice({
-  name: 'categories',
+  name: "categories",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

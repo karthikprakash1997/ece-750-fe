@@ -13,10 +13,10 @@ const ProtectedRoute = ({ isAuthenticated = false, redirectPath = "/" }) => {
 
   const dispatch = useDispatch();
   const categoriesList = useSelector(
-    (state) => state.categories.categoriesList
+    (state) => state.categories.categoriesList,
   );
   const countriesList = useSelector(
-    (state) => state?.countries?.countriesList?.data
+    (state) => state?.countries?.countriesList?.data,
   );
 
   useEffect(() => {
