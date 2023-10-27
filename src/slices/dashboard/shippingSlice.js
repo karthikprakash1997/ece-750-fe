@@ -26,7 +26,7 @@ export const fetchShippingData = createAsyncThunk(
 
       // const response = await fetch("https://dev-api-nrcan.esg.uwaterloo.ca/api/overview?countryCode=[\"JP\", \"TW\"]&categoryHierarchy=[\"Magnetics/Transformers/Telecom Transformers\", \"Magnetics/Transformers/Current Transformers\",\"RF and Microwave/RF ICs/Up-Down Converters and Mixers\"]");
       if (!response.ok) {
-        throw new Error("Failed to fetch shipping dara");
+        throw new Error("Failed to fetch shipping data");
       }
       const data = await response.json();
       return data;
