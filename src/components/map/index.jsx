@@ -125,6 +125,24 @@ const Map = () => {
           };
           acc.push(mapPointResult2);
         }
+
+        if(index===state.mapData?.mapData?.length-1){
+          const mapPointResult3 =  {
+            name: 'Canada',
+            geometry: {
+              type: "Point",
+              coordinates: [-74.3,45.5], // Yemen
+            },
+            // custom: {
+            //   arrival: 1414,
+            // },
+            dataLabels: {
+              align: "right",
+            },
+          }
+          acc.push(mapPointResult3)
+
+        }
       });
       return acc;
     }, []),
