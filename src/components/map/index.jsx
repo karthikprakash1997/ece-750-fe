@@ -68,9 +68,10 @@ const Map = () => {
                 [curr.longitude, curr.latitude],
                 it.countryCode === "US"
                   ? [-74, 40]
-                  : it.countryCode === "CN"
-                  ? [119.48, 32.54]
-                  : [it.coordinates[1], it.coordinates[0]],
+                //   : it.countryCode === "CN"
+                //   ? [119.48, 32.54]
+                  : 
+                  [it.coordinates[1], it.coordinates[0]],
                 [-74.3,45.5], //canada
               ],
             },
@@ -78,45 +79,6 @@ const Map = () => {
             color: "#666",
           };
           acc.push(result);
-
-          // if(!acc.mapPoints.some(datum=>datum.name===curr.Name)){
-          //   const mapPointResult =  {
-          //     name: curr.Name,
-          //     geometry: {
-          //       type: "Point",
-          //       coordinates: [curr.longitude, curr.latitude], // Yemen
-          //     },
-          //     // custom: {
-          //     //   arrival: 1414,
-          //     // },
-          //     dataLabels: {
-          //       align: "right",
-          //     },
-          //   }
-          //   acc.mapPoints.push(mapPointResult)
-          // }
-
-          
-          // if(!acc.mapPoints.some(datum=>datum.name===it.Name)){
-          //   const mapPointResult2 =  {
-          //     name: it.Name,
-          //     geometry: {
-          //       type: "Point",
-          //       coordinates: it.countryCode === "US"
-          //       ? [-74, 40]
-          //       : it.countryCode === "CN"
-          //       ? [119.48, 32.54]
-          //       : [it.coordinates[1], it.coordinates[0]], // Yemen
-          //     },
-          //     // custom: {
-          //     //   arrival: 1414,
-          //     // },
-          //     dataLabels: {
-          //       align: "right",
-          //     },
-          //   }
-          //   acc.mapPoints.push(mapPointResult2)
-          // }
       
         });
       return acc;
@@ -124,7 +86,7 @@ const Map = () => {
   );
 
   const shippingDataMapPoint = useSelector((state) =>
-    (state?.mapData?.mapData || []).reduce((acc, curr) => {
+    (state?.mapData?.mapData || []).reduce((acc, curr, index) => {
       console.log(curr?.Shipping,"curr.Shipping")
       curr?.Shipping?.filter((ship) => ship.Name !== null)
         ?.forEach((it) => {
@@ -152,11 +114,13 @@ const Map = () => {
               name: it.Name,
               geometry: {
                 type: "Point",
-                coordinates: it.countryCode === "US"
+                coordinates: 
+                it.countryCode === "US"
                 ? [-74, 40]
-                : it.countryCode === "CN"
-                ? [119.48, 32.54]
-                : [it.coordinates[1], it.coordinates[0]], // Yemen
+                // : it.countryCode === "CN"
+                // ? [119.48, 32.54]
+                : 
+                [it.coordinates[1], it.coordinates[0]],
               },
               // custom: {
               //   arrival: 1414,
@@ -166,6 +130,24 @@ const Map = () => {
               },
             }
             acc.push(mapPointResult2)
+          }
+
+          if(index===state.mapData?.mapData?.length-1){
+            const mapPointResult3 =  {
+              name: 'Canada',
+              geometry: {
+                type: "Point",
+                coordinates: [-74.3,45.5], // Yemen
+              },
+              // custom: {
+              //   arrival: 1414,
+              // },
+              dataLabels: {
+                align: "right",
+              },
+            }
+            acc.push(mapPointResult3)
+
           }
         });
       return acc;
@@ -301,7 +283,7 @@ const Map = () => {
           align: "left",
           verticalAlign: "middle",
         },
-        // data: shippingDataMapPoint,
+        data: shippingDataMapPoint,
         // data: [
         //   {
         //     name: "Yemen",
