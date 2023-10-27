@@ -1,14 +1,14 @@
-import { Box, Grid, Typography } from '@mui/material';
-import { FaTools } from 'react-icons/fa';
-import { SiGoogleanalytics } from 'react-icons/si';
-import { BsGlobeAmericas, BsClock } from 'react-icons/bs';
-import { MdNumbers } from 'react-icons/md';
+import { Box, Grid, Typography } from "@mui/material";
+import { FaTools } from "react-icons/fa";
+import { SiGoogleanalytics } from "react-icons/si";
+import { BsGlobeAmericas, BsClock } from "react-icons/bs";
+import { MdNumbers } from "react-icons/md";
 
-import StatsCards from '../../../components/statCards';
-import PieChart from '../../../components/charts/pieChart';
-import { formatNumberWithAbbreviation } from '../../../utils/numberFormatter';
-import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
-import { FlagIcon } from 'react-flag-kit';
+import StatsCards from "../../../components/statCards";
+import PieChart from "../../../components/charts/pieChart";
+import { formatNumberWithAbbreviation } from "../../../utils/numberFormatter";
+import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
+import { FlagIcon } from "react-flag-kit";
 
 const Stats = () => {
   // const DataCount = () => (
@@ -17,37 +17,37 @@ const Stats = () => {
 
   const statsCardData = [
     {
-      title: 'Data Count',
-      tooltipText: 'Text for tooltip',
+      title: "Data Count",
+      tooltipText: "Text for tooltip",
       subTitle: (
         <Box
-          display={'flex'}
+          display={"flex"}
           columnGap={1}
-          alignItems={'center'}
-          alignContent={'center'}
+          alignItems={"center"}
+          alignContent={"center"}
         >
           <Typography variant="body1" marginLeft={0.5}>
             Updated Just Now
           </Typography>
-          <BsClock fontSize={'0.75rem'} style={{ marginTop: 3 }} />
+          <BsClock fontSize={"0.75rem"} style={{ marginTop: 3 }} />
         </Box>
       ),
       Content: (
         <>
           <Typography margin={1} variant="h4">
             {formatNumberWithAbbreviation(100000)}
-          </Typography>{' '}
+          </Typography>{" "}
         </>
       ),
       Icon: <MdNumbers size={25} color="white" />,
-      background: 'linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25))',
+      background: "linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25))",
     },
     {
-      title: 'Origin Analysis',
-      tooltipText: 'Text for tooltip',
+      title: "Origin Analysis",
+      tooltipText: "Text for tooltip",
       subTitle: (
-        <Box display={'flex'} columnGap={1} alignItems={'center'}>
-          <Typography component={'div'} variant="body2" color="textSecondary">
+        <Box display={"flex"} columnGap={1} alignItems={"center"}>
+          <Typography component={"div"} variant="body2" color="textSecondary">
             Percentage Change: 10%
           </Typography>
           <BiSolidDownArrow color="red" />
@@ -58,7 +58,7 @@ const Stats = () => {
           props={{
             height: 80,
             width: 80,
-            colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
+            colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
             plotOptions: {
               pie: {
                 size: 50,
@@ -66,8 +66,8 @@ const Stats = () => {
               series: {
                 // borderWidth: 0,
                 // colorByPoint: true,
-                type: 'pie',
-                size: '100%',
+                type: "pie",
+                size: "100%",
                 // innerSize: '%',
                 dataLabels: {
                   enabled: false,
@@ -77,11 +77,11 @@ const Stats = () => {
             },
             series: [
               {
-                type: 'pie',
+                type: "pie",
                 // name: startYear,
                 data: [
-                  { name: 'Available', y: 80 },
-                  { name: 'Unavailable', y: 20 },
+                  { name: "Available", y: 80 },
+                  { name: "Unavailable", y: 20 },
                 ],
               },
             ],
@@ -89,14 +89,14 @@ const Stats = () => {
         />
       ),
       Icon: <SiGoogleanalytics size={25} color="white" />,
-      background: 'linear-gradient(195deg, #49a3f1, #1A73E8)',
+      background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
     },
     {
-      title: 'Origin Count',
-      tooltipText: 'Text for tooltip',
+      title: "Origin Count",
+      tooltipText: "Text for tooltip",
       subTitle: (
-        <Box display={'flex'} columnGap={1} alignItems={'center'}>
-          <Typography component={'div'} variant="body2" color="textSecondary">
+        <Box display={"flex"} columnGap={1} alignItems={"center"}>
+          <Typography component={"div"} variant="body2" color="textSecondary">
             Top Rank: USA
           </Typography>
           <FlagIcon code="US" size={12} />
@@ -106,18 +106,18 @@ const Stats = () => {
         <>
           <Typography margin={1} variant="h4">
             {formatNumberWithAbbreviation(100)}
-          </Typography>{' '}
+          </Typography>{" "}
         </>
       ),
       Icon: <BsGlobeAmericas size={25} color="white" />,
-      background: 'linear-gradient(195deg, #66BB6A, #43A047)',
+      background: "linear-gradient(195deg, #66BB6A, #43A047)",
     },
     {
-      title: 'Parts Count',
-      tooltipText: 'Text for tooltip',
+      title: "Parts Count",
+      tooltipText: "Text for tooltip",
       subTitle: (
-        <Box display={'flex'} columnGap={1} alignItems={'center'}>
-          <Typography component={'div'} variant="body2" color="textSecondary">
+        <Box display={"flex"} columnGap={1} alignItems={"center"}>
+          <Typography component={"div"} variant="body2" color="textSecondary">
             Total categories: 5
           </Typography>
           <BiSolidUpArrow color="green" />
@@ -129,12 +129,12 @@ const Stats = () => {
             height: 80,
             width: 80,
             title: {
-              text: '45',
-              align: 'center',
-              verticalAlign: 'middle',
+              text: "45",
+              align: "center",
+              verticalAlign: "middle",
               // y: 30
             },
-            colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
+            colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
             plotOptions: {
               pie: {
                 size: 50,
@@ -142,9 +142,9 @@ const Stats = () => {
               series: {
                 borderWidth: 0,
                 colorByPoint: true,
-                type: 'pie',
-                size: '100%',
-                innerSize: '80%',
+                type: "pie",
+                size: "100%",
+                innerSize: "80%",
                 // dataLabels: {
                 //   enabled: false,
                 //   crop: false,
@@ -159,13 +159,13 @@ const Stats = () => {
             },
             series: [
               {
-                type: 'pie',
+                type: "pie",
                 data: [
-                  { name: 'Category A', y: 45 },
-                  { name: 'Category B', y: 25 },
-                  { name: 'Category C', y: 15 },
-                  { name: 'Category D', y: 10 },
-                  { name: 'Category E', y: 5 },
+                  { name: "Category A", y: 45 },
+                  { name: "Category B", y: 25 },
+                  { name: "Category C", y: 15 },
+                  { name: "Category D", y: 10 },
+                  { name: "Category E", y: 5 },
                 ],
               },
             ],
@@ -173,7 +173,7 @@ const Stats = () => {
         />
       ),
       Icon: <FaTools size={25} color="white" />,
-      background: 'linear-gradient(195deg, #EC407A, #D81B60)',
+      background: "linear-gradient(195deg, #EC407A, #D81B60)",
     },
   ];
 

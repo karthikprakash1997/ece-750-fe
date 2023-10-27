@@ -8,22 +8,22 @@ import {
   Typography,
   Button,
   Paper,
-} from '@mui/material';
-import { useState } from 'react';
+} from "@mui/material";
+import { useState } from "react";
 
-import MapView from './mapView';
-import DetailView from './detailedView';
-import { RichObjectTreeView } from '../../../components';
-import { CountrySelect } from '../../../components/countrySelect';
+import MapView from "./mapView";
+import DetailView from "./detailedView";
+import { RichObjectTreeView } from "../../../components";
+import { CountrySelect } from "../../../components/countrySelect";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '25%',
-  height: '60%',
-  bgcolor: 'white',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "25%",
+  height: "60%",
+  bgcolor: "white",
   // border: '2px solid #000',
   boxShadow: 24,
   borderRadius: 2,
@@ -33,7 +33,7 @@ const style = {
 const CentralSection = () => {
   const [modelState, setModelState] = useState({
     isOpen: false,
-    modelType: 'filter',
+    modelType: "filter",
   });
 
   const [tabs, setTabs] = useState(0);
@@ -67,10 +67,10 @@ const CentralSection = () => {
         <Fade in={modelState.isOpen}>
           <div>
             <Box sx={style}>
-              {modelState.modelType === 'filter' ? (
+              {modelState.modelType === "filter" ? (
                 <>
                   <Typography variant="h6"> Filter </Typography>
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                     <Tabs
                       value={tabs}
                       onChange={(_1, newValue) => setTabs(newValue)}
@@ -80,14 +80,14 @@ const CentralSection = () => {
                       <Tab label="Country" />
                     </Tabs>
                   </Box>
-                  <Grid width={'100%'} height={'70%'}>
+                  <Grid width={"100%"} height={"70%"}>
                     <Paper
                       style={{
-                        height: '100%',
-                        width: '100%',
-                        overflowY: 'auto',
+                        height: "100%",
+                        width: "100%",
+                        overflowY: "auto",
                         borderRadius: 0,
-                        boxShadow: 'none',
+                        boxShadow: "none",
                         // '&::-webkit-scrollbar': {
                         //   width: '0.4em'
                         // },
@@ -104,9 +104,9 @@ const CentralSection = () => {
                   </Grid>
                   <Grid
                     marginTop={2}
-                    display={'flex'}
-                    justifyContent={'flex-end'}
-                    alignItems={'self-end'}
+                    display={"flex"}
+                    justifyContent={"flex-end"}
+                    alignItems={"self-end"}
                     columnGap={1}
                   >
                     <Button

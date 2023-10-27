@@ -1,11 +1,11 @@
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { FlagIcon } from 'react-flag-kit';
-import { Box } from '@mui/material';
-import { countriesActions } from '../../slices';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { FlagIcon } from "react-flag-kit";
+import { Box } from "@mui/material";
+import { countriesActions } from "../../slices";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const CountrySelect = ({
   search,
@@ -40,24 +40,24 @@ export const CountrySelect = ({
   return (
     <FormGroup>
       {countriesList?.map((element) => {
-        if (element['country'] === 'Antarctica') return null;
+        if (element["country"] === "Antarctica") return null;
         return (
           <Box
-            key={element['country_code']}
-            display={'flex'}
+            key={element["country_code"]}
+            display={"flex"}
             columnGap={0.25}
-            alignItems={'center'}
+            alignItems={"center"}
           >
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={countryFilter.includes(element['country_code'])}
-                  onChange={() => handleCheckboxChange(element['country_code'])}
+                  checked={countryFilter.includes(element["country_code"])}
+                  onChange={() => handleCheckboxChange(element["country_code"])}
                 />
               }
-              label={element['country']}
+              label={element["country"]}
             />
-            <FlagIcon country code={element['country_code']} size={20} />
+            <FlagIcon country code={element["country_code"]} size={20} />
           </Box>
         );
       })}

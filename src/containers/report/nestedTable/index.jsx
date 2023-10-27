@@ -84,22 +84,26 @@
 
 // export default NestedTable;
 
-import React, { useEffect, useRef } from 'react';
-import { TabulatorFull as Tabulator } from 'tabulator-tables';
-import 'tabulator-tables/dist/css/tabulator.min.css';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import { Button } from '@mui/material';
-import { countryCodeConversion } from '../../../utils/helpers/report';
+import React, { useEffect, useRef } from "react";
+import { TabulatorFull as Tabulator } from "tabulator-tables";
+import "tabulator-tables/dist/css/tabulator.min.css";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import { Button } from "@mui/material";
+import { countryCodeConversion } from "../../../utils/helpers/report";
 
-const NestedTable = ({ tableTitle, tableData, columns, isCountry=true }) => {
+const NestedTable = ({ tableTitle, tableData, columns, isCountry = true }) => {
   const elRef = useRef();
   let tabulator = null;
 
   useEffect(() => {
     // Instantiate Tabulator when the component is mounted
     tabulator = new Tabulator(elRef.current, {
-      data: JSON.parse(JSON.stringify(isCountry ? countryCodeConversion(tableData): tableData)),
+      data: JSON.parse(
+        JSON.stringify(
+          isCountry ? countryCodeConversion(tableData) : tableData,
+        ),
+      ),
       dataTree: true,
       dataTreeStartExpanded: true,
       columns: JSON.parse(JSON.stringify(columns)),
@@ -132,12 +136,12 @@ const NestedTable = ({ tableTitle, tableData, columns, isCountry=true }) => {
       startY: 10,
       head: [columns.map((col) => col.title)],
       body: tableData.map((row) => columns.map((col) => row[col.dataKey])),
-      theme: 'striped',
+      theme: "striped",
       styles: { cellPadding: 1.5, fontSize: 10 },
       margin: { top: 15 },
       didDrawPage: (data) => {
         // Add page numbers
-        doc.text('Page ' + data.pageNumber, 190, 285);
+        doc.text("Page " + data.pageNumber, 190, 285);
       },
     };
 
@@ -145,7 +149,7 @@ const NestedTable = ({ tableTitle, tableData, columns, isCountry=true }) => {
     doc.autoTable(autoTableConfig);
 
     // Save the PDF
-    doc.save('table.pdf');
+    doc.save("table.pdf");
   };
 
   return (
@@ -157,10 +161,9 @@ const NestedTable = ({ tableTitle, tableData, columns, isCountry=true }) => {
         </Button>
       </h4>
 
-      <div ref={elRef} style={{ width: 'fit-content' }}></div>
+      <div ref={elRef} style={{ width: "fit-content" }}></div>
     </div>
   );
-}
+};
 
 export default NestedTable;
-

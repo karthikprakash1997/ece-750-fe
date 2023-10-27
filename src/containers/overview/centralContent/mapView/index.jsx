@@ -1,30 +1,30 @@
-import { Box, Button, ButtonGroup, Grid, Typography } from '@mui/material';
-import { useLayoutEffect, useState } from 'react';
-import { BiFilter } from 'react-icons/bi';
+import { Box, Button, ButtonGroup, Grid, Typography } from "@mui/material";
+import { useLayoutEffect, useState } from "react";
+import { BiFilter } from "react-icons/bi";
 
-import Map from '../../../../components/map';
+import Map from "../../../../components/map";
 // import { ChartComponent } from '../../../../components/mapV1';
 
 const MapView = ({ handleModelChange }) => {
   const [view, setView] = useState({
-    backgroundColor: '#4b96af',
-    projection: 'WebMercator',
+    backgroundColor: "#4b96af",
+    projection: "WebMercator",
   });
   const handleChange = (isTwoDClicked) => {
     if (
-      (isTwoDClicked && view.projection === 'WebMercator') ||
-      (!isTwoDClicked && view.projection === 'Orthographic')
+      (isTwoDClicked && view.projection === "WebMercator") ||
+      (!isTwoDClicked && view.projection === "Orthographic")
     )
       return;
     else if (isTwoDClicked) {
       setView({
-        backgroundColor: '#4b96af',
-        projection: 'WebMercator',
+        backgroundColor: "#4b96af",
+        projection: "WebMercator",
       });
     } else {
       setView({
-        backgroundColor: '#000000',
-        projection: 'Orthographic',
+        backgroundColor: "#000000",
+        projection: "Orthographic",
       });
     }
   };
@@ -44,16 +44,16 @@ const MapView = ({ handleModelChange }) => {
       >
         <Box
           style={{
-            display: 'flex',
-            columnGap: '1rem',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            display: "flex",
+            columnGap: "1rem",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
           <Typography variant="h5" color="white" padding={1}>
-            {view.projection === 'WebMercator' ? 'Map View' : 'Globe View'}
+            {view.projection === "WebMercator" ? "Map View" : "Globe View"}
           </Typography>
-          <Grid paddingRight={1} display={'flex'} columnGap={2}>
+          <Grid paddingRight={1} display={"flex"} columnGap={2}>
             <ButtonGroup
               color="inherit"
               size="small"
@@ -61,13 +61,13 @@ const MapView = ({ handleModelChange }) => {
               aria-label="outlined button group"
             >
               <Button
-                color={view.projection !== 'WebMercator' ? 'inherit' : 'error'}
+                color={view.projection !== "WebMercator" ? "inherit" : "error"}
                 onClick={() => handleChange(true)}
               >
                 2D
               </Button>
               <Button
-                color={view.projection === 'WebMercator' ? 'inherit' : 'error'}
+                color={view.projection === "WebMercator" ? "inherit" : "error"}
                 onClick={() => handleChange(false)}
               >
                 3D
@@ -76,9 +76,9 @@ const MapView = ({ handleModelChange }) => {
             <BiFilter
               size={30}
               color="white"
-              cursor={'pointer'}
+              cursor={"pointer"}
               onClick={() =>
-                handleModelChange({ isOpen: true, modelType: 'filter' })
+                handleModelChange({ isOpen: true, modelType: "filter" })
               }
             />
           </Grid>

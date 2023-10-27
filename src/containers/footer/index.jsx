@@ -1,10 +1,10 @@
-import { Box, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 
 const Footer = () => {
   const theme = useTheme();
 
   return (
-    <Grid bgcolor={'transparent'} margin={1}>
+    <Grid bgcolor={"transparent"} margin={1}>
       {/* <Grid height={30} marginLeft={1} marginBottom={1}>
         <Box padding={1} paddingLeft={3} style={{ display: 'flex', columnGap: '1rem', alignItems: 'center' }}>
           <Typography variant="h6">
@@ -13,7 +13,7 @@ const Footer = () => {
         </Box>
       </Grid> */}
       <Typography
-        sx={{ fontWeight: 'bold', fontStyle: 'italic' }}
+        sx={{ fontWeight: "bold", fontStyle: "italic" }}
         variant="subtitle2"
         marginBottom={1}
       >

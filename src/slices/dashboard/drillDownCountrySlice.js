@@ -1,25 +1,24 @@
-// countriesSlice.js
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Define the initial state
 const initialState = {
-  countriesList: [],
+  countryDrillDownData: [],
+  stats: {},
   isLoading: false,
   isError: false,
   error: null,
 };
 
 // Create a thunk action for fetching countries
-export const fetchCountries = createAsyncThunk(
-  "filter/fetchCountries",
+export const fetchCountryDrillDownData = createAsyncThunk(
+  "dashboard/drilldown/country",
   async () => {
     try {
       const response = await fetch(
-        `https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/countries`,
+        `${process.env.REACT_APP_API_BASE_URL}/drilldown/country`,
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch countries");
+        throw new Error("Failed to fetch country drilldown data");
       }
       const data = await response.json();
       return data;
@@ -30,23 +29,24 @@ export const fetchCountries = createAsyncThunk(
 );
 
 // Create a slice
-const countriesSlice = createSlice({
-  name: "countries",
+const countryDrillDownDataSlice = createSlice({
+  name: "countryDrillDownData",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCountries.pending, (state) => {
+      .addCase(fetchCountryDrillDownData.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
         state.error = null;
       })
-      .addCase(fetchCountries.fulfilled, (state, action) => {
+      .addCase(fetchCountryDrillDownData.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
-        state.countriesList = action.payload;
+        state.countryDrillDownData = action.payload.results;
+        state.stats = action.payload.stats;
       })
-      .addCase(fetchCountries.rejected, (state, action) => {
+      .addCase(fetchCountryDrillDownData.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.error.message;
@@ -54,9 +54,9 @@ const countriesSlice = createSlice({
   },
 });
 
-export const countriesActions = {
-  ...countriesSlice.actions,
-  fetchCountries,
+export const countryDrillDownDataActions = {
+  ...countryDrillDownDataSlice.actions,
+  fetchCountryDrillDownData,
 };
 
-export default countriesSlice.reducer;
+export default countryDrillDownDataSlice.reducer;

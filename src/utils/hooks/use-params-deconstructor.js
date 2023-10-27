@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useMemo } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 export const useParamsDeconstructor = (initialValue) => {
   const location = useLocation();
@@ -11,24 +11,24 @@ export const useParamsDeconstructor = (initialValue) => {
   }, [location.search]);
 
   const selectedCategory = useMemo(() => {
-    return queryParams?.selectedCategory
-  }, [queryParams?.selectedCategory])
+    return queryParams?.selectedCategory;
+  }, [queryParams?.selectedCategory]);
 
   const selectedCountry = useMemo(() => {
-    return queryParams?.selectedCountry
-  }, [queryParams?.selectedCountry])
+    return queryParams?.selectedCountry;
+  }, [queryParams?.selectedCountry]);
 
   const selectedChart = useMemo(() => {
-    return queryParams?.selectedChart
-  }, [queryParams?.selectedChart])
+    return queryParams?.selectedChart;
+  }, [queryParams?.selectedChart]);
 
   const selectedFilter = useMemo(() => {
-    return queryParams?.selectedFilter
-  }, [queryParams?.selectedFilter])
+    return queryParams?.selectedFilter;
+  }, [queryParams?.selectedFilter]);
 
   const filter = useMemo(() => {
-    return queryParams?.filter
-  }, [queryParams?.filter])
+    return queryParams?.filter;
+  }, [queryParams?.filter]);
 
   const addSearchParams = (urlParams) => {
     navigate({ search: `?${new URLSearchParams(urlParams).toString()}` });
@@ -39,7 +39,11 @@ export const useParamsDeconstructor = (initialValue) => {
   // }, [navigate, location.search]);
 
   const handleRouteChange = (pathname, urlParams) => {
-    pathname && navigate({ pathname, search: `?${new URLSearchParams(urlParams).toString()}` });
+    pathname &&
+      navigate({
+        pathname,
+        search: `?${new URLSearchParams(urlParams).toString()}`,
+      });
   };
 
   // const currentRoute = useMemo(() => {
@@ -64,6 +68,6 @@ export const useParamsDeconstructor = (initialValue) => {
     selectedCategory,
     selectedFilter,
     selectedChart,
-    selectedCountry
+    selectedCountry,
   };
 };

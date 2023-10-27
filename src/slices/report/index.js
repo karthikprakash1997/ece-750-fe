@@ -1,1 +1,1 @@
-export * from "./reportSlice"
+export * from "./reportSlice";
