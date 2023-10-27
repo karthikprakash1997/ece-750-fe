@@ -13,35 +13,30 @@ highchartsMap(Highcharts);
 // Function to process curr.Shipping data
 function processShipping(acc, curr) {
   if (Array.isArray(curr.Shipping)) {
-    curr.Shipping
-      .filter((ship) => ship.Name !== null)
-      .forEach((it) => {
-        const result = {
-          geometry: {
-            type: "LineString",
-            coordinates: [
-              [curr.longitude, curr.latitude],
-              it.countryCode === "US"
-                ? [-74, 40]
-                : it.countryCode === "CN"
-                ? [119.48, 32.54]
-                : [it.coordinates[1], it.coordinates[0]],
-              [-74.3, 45.5], // Canada
-            ],
-          },
-          className: "animated-line",
-          color: "#666",
-        };
+    curr.Shipping.filter((ship) => ship.Name !== null).forEach((it) => {
+      const result = {
+        geometry: {
+          type: "LineString",
+          coordinates: [
+            [curr.longitude, curr.latitude],
+            it.countryCode === "US"
+              ? [-74, 40]
+              : it.countryCode === "CN"
+              ? [119.48, 32.54]
+              : [it.coordinates[1], it.coordinates[0]],
+            [-74.3, 45.5], // Canada
+          ],
+        },
+        className: "animated-line",
+        color: "#666",
+      };
 
-        acc.push(result);
-      });
+      acc.push(result);
+    });
   } else {
     console.log("curr.Shipping is not an array:", curr.Shipping);
   }
 }
-
-
-
 
 const Map = () => {
   const chartRef = useRef(null);
@@ -52,124 +47,121 @@ const Map = () => {
     state?.mapData?.mapData?.map((item) => [
       item.countryCode.toLowerCase(),
       item.count,
-    ])
+    ]),
   );
 
   const shippingData = useSelector((state) =>
     (state?.mapData?.mapData || []).reduce((acc, curr) => {
-      console.log(curr?.Shipping,"curr.Shipping")
-      curr?.Shipping?.filter((ship) => ship.Name !== null)
-        ?.forEach((it) => {
-          // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
-          const result = {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [curr.longitude, curr.latitude],
-                it.countryCode === "US"
-                  ? [-74, 40]
-                  : it.countryCode === "CN"
-                  ? [119.48, 32.54]
-                  : [it.coordinates[1], it.coordinates[0]],
-                [-74.3,45.5], //canada
-              ],
-            },
-            className: "animated-line",
-            color: "#666",
-          };
-          acc.push(result);
+      console.log(curr?.Shipping, "curr.Shipping");
+      curr?.Shipping?.filter((ship) => ship.Name !== null)?.forEach((it) => {
+        // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
+        const result = {
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [curr.longitude, curr.latitude],
+              it.countryCode === "US"
+                ? [-74, 40]
+                : it.countryCode === "CN"
+                ? [119.48, 32.54]
+                : [it.coordinates[1], it.coordinates[0]],
+              [-74.3, 45.5], //canada
+            ],
+          },
+          className: "animated-line",
+          color: "#666",
+        };
+        acc.push(result);
 
-          // if(!acc.mapPoints.some(datum=>datum.name===curr.Name)){
-          //   const mapPointResult =  {
-          //     name: curr.Name,
-          //     geometry: {
-          //       type: "Point",
-          //       coordinates: [curr.longitude, curr.latitude], // Yemen
-          //     },
-          //     // custom: {
-          //     //   arrival: 1414,
-          //     // },
-          //     dataLabels: {
-          //       align: "right",
-          //     },
-          //   }
-          //   acc.mapPoints.push(mapPointResult)
-          // }
+        // if(!acc.mapPoints.some(datum=>datum.name===curr.Name)){
+        //   const mapPointResult =  {
+        //     name: curr.Name,
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: [curr.longitude, curr.latitude], // Yemen
+        //     },
+        //     // custom: {
+        //     //   arrival: 1414,
+        //     // },
+        //     dataLabels: {
+        //       align: "right",
+        //     },
+        //   }
+        //   acc.mapPoints.push(mapPointResult)
+        // }
 
-          
-          // if(!acc.mapPoints.some(datum=>datum.name===it.Name)){
-          //   const mapPointResult2 =  {
-          //     name: it.Name,
-          //     geometry: {
-          //       type: "Point",
-          //       coordinates: it.countryCode === "US"
-          //       ? [-74, 40]
-          //       : it.countryCode === "CN"
-          //       ? [119.48, 32.54]
-          //       : [it.coordinates[1], it.coordinates[0]], // Yemen
-          //     },
-          //     // custom: {
-          //     //   arrival: 1414,
-          //     // },
-          //     dataLabels: {
-          //       align: "right",
-          //     },
-          //   }
-          //   acc.mapPoints.push(mapPointResult2)
-          // }
-      
-        });
+        // if(!acc.mapPoints.some(datum=>datum.name===it.Name)){
+        //   const mapPointResult2 =  {
+        //     name: it.Name,
+        //     geometry: {
+        //       type: "Point",
+        //       coordinates: it.countryCode === "US"
+        //       ? [-74, 40]
+        //       : it.countryCode === "CN"
+        //       ? [119.48, 32.54]
+        //       : [it.coordinates[1], it.coordinates[0]], // Yemen
+        //     },
+        //     // custom: {
+        //     //   arrival: 1414,
+        //     // },
+        //     dataLabels: {
+        //       align: "right",
+        //     },
+        //   }
+        //   acc.mapPoints.push(mapPointResult2)
+        // }
+      });
       return acc;
-    }, [])
+    }, []),
   );
 
   const shippingDataMapPoint = useSelector((state) =>
     (state?.mapData?.mapData || []).reduce((acc, curr) => {
-      console.log(curr?.Shipping,"curr.Shipping")
-      curr?.Shipping?.filter((ship) => ship.Name !== null)
-        ?.forEach((it) => {
-          // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
+      console.log(curr?.Shipping, "curr.Shipping");
+      curr?.Shipping?.filter((ship) => ship.Name !== null)?.forEach((it) => {
+        // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
 
-          if(!acc.some(datum=>datum.name===curr.Name)){
-            const mapPointResult =  {
-              name: curr.Name,
-              geometry: {
-                type: "Point",
-                coordinates: [curr.longitude, curr.latitude], // Yemen
-              },
-              // custom: {
-              //   arrival: 1414,
-              // },
-              dataLabels: {
-                align: "right",
-              },
-            }
-            acc.push(mapPointResult)
-          }
-          
-          if(!acc.some(datum=>datum.name===it.Name)){
-            const mapPointResult2 =  {
-              name: it.Name,
-              geometry: {
-                type: "Point",
-                coordinates: it.countryCode === "US"
-                ? [-74, 40]
-                : it.countryCode === "CN"
-                ? [119.48, 32.54]
-                : [it.coordinates[1], it.coordinates[0]], // Yemen
-              },
-              // custom: {
-              //   arrival: 1414,
-              // },
-              dataLabels: {
-                align: "right",
-              },
-            }
-            acc.push(mapPointResult2)
-          }
-        });
+        if (!acc.some((datum) => datum.name === curr.Name)) {
+          const mapPointResult = {
+            name: curr.Name,
+            geometry: {
+              type: "Point",
+              coordinates: [curr.longitude, curr.latitude], // Yemen
+            },
+            // custom: {
+            //   arrival: 1414,
+            // },
+            dataLabels: {
+              align: "right",
+            },
+          };
+          acc.push(mapPointResult);
+        }
+
+        if (!acc.some((datum) => datum.name === it.Name)) {
+          const mapPointResult2 = {
+            name: it.Name,
+            geometry: {
+              type: "Point",
+              coordinates:
+                it.countryCode === "US"
+                  ? [-74, 40]
+                  : it.countryCode === "CN"
+                  ? [119.48, 32.54]
+                  : [it.coordinates[1], it.coordinates[0]], // Yemen
+            },
+            // custom: {
+            //   arrival: 1414,
+            // },
+            dataLabels: {
+              align: "right",
+            },
+          };
+          acc.push(mapPointResult2);
+        }
+      });
       return acc;
-    }, [])
+    }, []),
   );
 
   useEffect(() => {
@@ -180,8 +172,8 @@ const Map = () => {
     if (selectedCountry?.length && selectedCategory?.length) {
       // console.log(selected)
       const par = {
-        countryCode: selectedCountry.split(','),
-        categoryHierarchy: selectedCategory.split(','),
+        countryCode: selectedCountry.split(","),
+        categoryHierarchy: selectedCategory.split(","),
       };
       dispatch(mapDataActions.fetchMapData(par));
     }

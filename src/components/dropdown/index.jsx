@@ -1,8 +1,8 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export const BasicSelect = ({ handleChange, menuItems, value }) => {
   // const [age, setAge] = React.useState('');
@@ -16,9 +16,9 @@ export const BasicSelect = ({ handleChange, menuItems, value }) => {
       sx={{
         minWidth: 120,
         width: 240,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         borderRadius: 2,
-        border: 'none',
+        border: "none",
         boxShadow: 4,
       }}
     >
