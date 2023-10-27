@@ -1,1 +1,1 @@
-export * from './use-params-deconstructor';
+export * from "./use-params-deconstructor";

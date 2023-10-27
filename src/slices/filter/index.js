@@ -1,2 +1,2 @@
-export * from "./countriesSlice"
-export * from "./categoriesSlice"
+export * from "./countriesSlice";
+export * from "./categoriesSlice";

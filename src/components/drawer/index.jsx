@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import Drawer from '@mui/material/Drawer';
-import { TextField } from '@mui/material';
-import { useParamsDeconstructor } from '../../utils/hooks';
-import { Button, Grid, Slider, Typography } from '@mui/material';
-import { BiSolidCategory } from 'react-icons/bi';
-import { BsGlobeAmericas, BsSliders } from 'react-icons/bs';
-import { RichObjectTreeView } from '../treeView';
-import { CountrySelect } from '../countrySelect';
+import React, { useState, useEffect } from "react";
+import Drawer from "@mui/material/Drawer";
+import { TextField } from "@mui/material";
+import { useParamsDeconstructor } from "../../utils/hooks";
+import { Button, Grid, Slider, Typography } from "@mui/material";
+import { BiSolidCategory } from "react-icons/bi";
+import { BsGlobeAmericas, BsSliders } from "react-icons/bs";
+import { RichObjectTreeView } from "../treeView";
+import { CountrySelect } from "../countrySelect";
 
 // const Root = styled("div")(({ theme }) => ({
 //   height: "100%",
@@ -18,18 +18,18 @@ import { CountrySelect } from '../countrySelect';
 
 const FILTER_BUTTON = [
   {
-    title: 'Category',
-    value: 'category',
+    title: "Category",
+    value: "category",
     icon: <BiSolidCategory size={20} color="black" />,
   },
   {
-    title: 'Country',
-    value: 'country',
+    title: "Country",
+    value: "country",
     icon: <BsGlobeAmericas size={20} color="black" />,
   },
   {
-    title: 'Threshold',
-    value: 'threshold',
+    title: "Threshold",
+    value: "threshold",
     icon: <BsSliders size={20} color="black" />,
   },
 ];
@@ -55,14 +55,14 @@ export const SideDrawer = () => {
   const [thresholdFilter, setThresholdFilter] = useState(
     queryParams?.thresholdFilter || 0,
   );
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!categoryFilter?.length && selectedCategory?.length) {
-      setCategoryFilter(selectedCategory?.split(','));
+      setCategoryFilter(selectedCategory?.split(","));
     }
     if (!countryFilter?.length && selectedCountry?.length) {
-      setCountryFilter(selectedCountry?.split(','));
+      setCountryFilter(selectedCountry?.split(","));
     }
   }, []); //eslint-disable-line
 
@@ -88,9 +88,9 @@ export const SideDrawer = () => {
 
   const handleCancelClick = () => {
     // Reset filter states from local storage
-    const savedFilters = JSON.parse(localStorage.getItem('combinedFilters'));
+    const savedFilters = JSON.parse(localStorage.getItem("combinedFilters"));
     if (savedFilters) {
-      setCategoryFilter(savedFilters.categoryFilter || '');
+      setCategoryFilter(savedFilters.categoryFilter || "");
       setCountryFilter(savedFilters.countryFilter || []);
       setThresholdFilter(savedFilters.thresholdFilter || 0);
     }
@@ -140,7 +140,7 @@ export const SideDrawer = () => {
       style={{ height: 200 }}
       PaperProps={{
         style: {
-          overflowY: 'inherit',
+          overflowY: "inherit",
           // height:750
           // overflowX:'auto'
         },
@@ -151,32 +151,32 @@ export const SideDrawer = () => {
         <Typography marginLeft={2} variant="h5">
           {FILTER_BUTTON.find((it) => it.value === selectedFilter)?.title}
         </Typography>
-        <Grid margin={2} display={'flex'} width={400}>
+        <Grid margin={2} display={"flex"} width={400}>
           <Grid marginLeft={-10.2}>
             <Grid
               // variant="contained"
               // aria-label="outlined secondary button group"
               // color="secondary"
-              display={'inline-flex'}
-              flexDirection={'column'}
-              justifyContent={'center'}
-              alignContent={'center'}
+              display={"inline-flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignContent={"center"}
               // back
               // orientation="vertical"
               sx={{
                 // borderLeft:1,
-                backgroundColor: 'transparent',
+                backgroundColor: "transparent",
                 borderRadius: 2,
-                boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.15)',
+                boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.15)",
               }}
             >
               {FILTER_BUTTON.map((it) => (
                 <Button
                   sx={{
                     backgroundColor:
-                      selectedFilter === it.value ? 'red' : 'white',
-                    ':hover': { backgroundColor: 'white' },
-                    border: 'ButtonFace',
+                      selectedFilter === it.value ? "red" : "white",
+                    ":hover": { backgroundColor: "white" },
+                    border: "ButtonFace",
                     margin: 0.2,
                   }}
                   key={it.title}
@@ -188,7 +188,7 @@ export const SideDrawer = () => {
             </Grid>
           </Grid>
           <Grid
-            style={{ overflowY: 'scroll' }}
+            style={{ overflowY: "scroll" }}
             marginLeft={3}
             width={400}
             height={550}
@@ -222,7 +222,7 @@ export const SideDrawer = () => {
             )}
             {selectedFilter === FILTER_BUTTON[2].value && (
               <Slider
-                getAriaLabel={() => 'Temperature range'}
+                getAriaLabel={() => "Temperature range"}
                 value={thresholdFilter}
                 onChange={(event, newValue) => setThresholdFilter(newValue)}
                 valueLabelDisplay="auto"
@@ -232,8 +232,8 @@ export const SideDrawer = () => {
           </Grid>
         </Grid>
         <Grid
-          display={'flex'}
-          justifyContent={'center'}
+          display={"flex"}
+          justifyContent={"center"}
           columnGap={2}
           margin={2}
         >

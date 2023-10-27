@@ -5,20 +5,20 @@ import {
   // FormGroup,
   Grid,
   useTheme,
-} from '@mui/material';
+} from "@mui/material";
 
-import Stats from '../../components/stats';
-import Map from '../../components/map';
-import { SiGoogleanalytics } from 'react-icons/si';
-import { BsGlobeAmericas } from 'react-icons/bs';
-import { FaTools } from 'react-icons/fa';
+import Stats from "../../components/stats";
+import Map from "../../components/map";
+import { SiGoogleanalytics } from "react-icons/si";
+import { BsGlobeAmericas } from "react-icons/bs";
+import { FaTools } from "react-icons/fa";
 
-import { useState } from 'react';
-import PieChart from '../../components/charts/pieChart';
-import { AiOutlineClose } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
-import { COUNTRY_DETAILS } from '../../utils/helpers/common';
-import { useParamsDeconstructor } from '../../utils/hooks';
+import { useState } from "react";
+import PieChart from "../../components/charts/pieChart";
+import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { COUNTRY_DETAILS } from "../../utils/helpers/common";
+import { useParamsDeconstructor } from "../../utils/hooks";
 
 const Overview = () => {
   const theme = useTheme();
@@ -36,13 +36,13 @@ const Overview = () => {
 
   const statsCardData = [
     {
-      title: 'Data Count',
-      tooltipText: 'Text for tooltip',
+      title: "Data Count",
+      tooltipText: "Text for tooltip",
       value: stats?.data_count || 0,
     },
     {
-      title: 'Origin Count',
-      tooltipText: 'Text for tooltip',
+      title: "Origin Count",
+      tooltipText: "Text for tooltip",
       value: stats?.origins || 0,
       // Content: (
       //   <>
@@ -52,11 +52,11 @@ const Overview = () => {
       //   </>
       // ),
       Icon: <BsGlobeAmericas size={25} color="white" />,
-      background: 'linear-gradient(195deg, #66BB6A, #43A047)',
+      background: "linear-gradient(195deg, #66BB6A, #43A047)",
     },
     {
-      title: 'Category Count',
-      tooltipText: 'Text for tooltip',
+      title: "Category Count",
+      tooltipText: "Text for tooltip",
       value: stats?.cat_count || 0,
       // Content: (
       //   <PieChart
@@ -108,20 +108,20 @@ const Overview = () => {
       //   />
       // ),
       Icon: <FaTools size={25} color="white" />,
-      background: 'linear-gradient(195deg, #EC407A, #D81B60)',
+      background: "linear-gradient(195deg, #EC407A, #D81B60)",
     },
     {
-      title: 'Top Rank',
-      tooltipText: 'Text for tooltip',
+      title: "Top Rank",
+      tooltipText: "Text for tooltip",
       value:
         COUNTRY_DETAILS.find((it) => it.alpha2 === stats?.top_rank?.countryCode)
-          ?.country || 'None',
+          ?.country || "None",
       Icon: <SiGoogleanalytics size={25} color="white" />,
-      background: 'linear-gradient(195deg, #49a3f1, #1A73E8)',
+      background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
     },
     {
-      title: 'Category Analysis',
-      tooltipText: 'Text for tooltip',
+      title: "Category Analysis",
+      tooltipText: "Text for tooltip",
       // value:123,
       Content: (
         <PieChart
@@ -132,14 +132,14 @@ const Overview = () => {
               text: `${(
                 (stats?.cat_count / selectedCategory?.length) * 100 || 0
               ).toFixed(0)}%`,
-              align: 'center',
-              verticalAlign: 'middle',
+              align: "center",
+              verticalAlign: "middle",
               style: {
                 fontSize: 15,
               },
               // y: 30
             },
-            colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
+            colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
             plotOptions: {
               pie: {
                 size: 52,
@@ -147,9 +147,9 @@ const Overview = () => {
               series: {
                 borderWidth: 0,
                 colorByPoint: true,
-                type: 'pie',
-                size: '100%',
-                innerSize: '80%',
+                type: "pie",
+                size: "100%",
+                innerSize: "80%",
                 // dataLabels: {
                 //   enabled: false,
                 //   crop: false,
@@ -164,14 +164,14 @@ const Overview = () => {
             },
             series: [
               {
-                type: 'pie',
+                type: "pie",
                 data: [
                   {
-                    name: 'Selected Categories',
+                    name: "Selected Categories",
                     y: stats?.cat_count / selectedCategory?.length || 0,
                   },
                   {
-                    name: 'Recieved Categories',
+                    name: "Recieved Categories",
                     y: 1 - stats?.cat_count / selectedCategory?.length || 0,
                   },
                 ],
@@ -184,8 +184,8 @@ const Overview = () => {
       // background: "linear-gradient(195deg, #EC407A, #D81B60)",
     },
     {
-      title: 'Origin Analysis',
-      tooltipText: 'Text for tooltip',
+      title: "Origin Analysis",
+      tooltipText: "Text for tooltip",
       // value:123,
       Content: (
         <PieChart
@@ -196,14 +196,14 @@ const Overview = () => {
               text: `${(
                 (stats?.origins / selectedCountry?.length) * 100 || 0
               ).toFixed(0)}%`,
-              align: 'center',
-              verticalAlign: 'middle',
+              align: "center",
+              verticalAlign: "middle",
               style: {
                 fontSize: 15,
               },
               // y: 30
             },
-            colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
+            colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
             plotOptions: {
               pie: {
                 size: 52,
@@ -211,9 +211,9 @@ const Overview = () => {
               series: {
                 borderWidth: 0,
                 colorByPoint: true,
-                type: 'pie',
-                size: '100%',
-                innerSize: '80%',
+                type: "pie",
+                size: "100%",
+                innerSize: "80%",
                 // dataLabels: {
                 //   enabled: false,
                 //   crop: false,
@@ -228,14 +228,14 @@ const Overview = () => {
             },
             series: [
               {
-                type: 'pie',
+                type: "pie",
                 data: [
                   {
-                    name: 'Selected Categories',
+                    name: "Selected Categories",
                     y: stats?.origins / selectedCountry?.length || 0,
                   },
                   {
-                    name: 'Recieved Categories',
+                    name: "Recieved Categories",
                     y: 1 - stats?.origins / selectedCountry?.length || 0,
                   },
                 ],
@@ -250,11 +250,11 @@ const Overview = () => {
   ];
   // const height = screen.availHeight - 125; //eslint-disable-line
   return (
-    <Grid container position={'relative'} minHeight={690}>
+    <Grid container position={"relative"} minHeight={690}>
       <Grid
         style={{
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
           top: 0,
           left: 0,
           zIndex: 1,
@@ -264,16 +264,16 @@ const Overview = () => {
         <Map />
       </Grid>
       <Grid
-        position={'absolute'}
+        position={"absolute"}
         zIndex={2}
         marginY={1}
         marginX={3}
-        display={'flex'}
-        justifyContent={'space-between'}
+        display={"flex"}
+        justifyContent={"space-between"}
       >
         {!openDrawer ? (
           <Button
-            sx={{ height: 'fit-content' }}
+            sx={{ height: "fit-content" }}
             variant="contained"
             color="secondary"
             onClick={handleClick}
@@ -291,8 +291,8 @@ const Overview = () => {
             // margintop={1}
           >
             <Grid
-              display={'flex'}
-              justifyContent={'flex-end'}
+              display={"flex"}
+              justifyContent={"flex-end"}
               paddingTop={1}
               paddingRight={1}
             >

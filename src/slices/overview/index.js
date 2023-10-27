@@ -1,2 +1,2 @@
-export * from "./overviewSlice"
-export * from "./mapDataSlice"
+export * from "./overviewSlice";
+export * from "./mapDataSlice";

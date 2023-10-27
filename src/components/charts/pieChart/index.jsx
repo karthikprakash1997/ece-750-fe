@@ -1,12 +1,12 @@
-import { HighchartsReact } from 'highcharts-react-official';
-import * as Highcharts from 'highcharts';
+import { HighchartsReact } from "highcharts-react-official";
+import * as Highcharts from "highcharts";
 
 const PieChart = ({ props }) => {
   const chartOptions = {
     chart: {
-      type: 'pie',
-      width: props.height || '100%', // Set the width of the chart
-      height: props.width || '100%', // Set the height of the chart
+      type: "pie",
+      width: props.height || "100%", // Set the width of the chart
+      height: props.width || "100%", // Set the height of the chart
       borderRadius: 12,
       // zoom: 2
     },
@@ -21,9 +21,9 @@ const PieChart = ({ props }) => {
       enabled: false,
     },
     legend: {
-      align: 'bottom',
-      verticalAlign: 'bottom',
-      layout: 'vertical',
+      align: "bottom",
+      verticalAlign: "bottom",
+      layout: "vertical",
       x: 0,
       y: 100,
     },

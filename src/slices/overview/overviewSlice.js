@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiCall } from '../../utils/helpers/common'; // Assuming you have your API utility function
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { apiCall } from "../../utils/helpers/common"; // Assuming you have your API utility function
 
 const initialState = {
   isMapTopologyFetching: false,
@@ -10,22 +10,22 @@ const initialState = {
 
 // Async thunk for fetching map topology data
 export const fetchMapTopologyData = createAsyncThunk(
-  'overview/fetchMapTopologyData',
+  "overview/fetchMapTopologyData",
   async () => {
     try {
       const response = await apiCall({
-        url: 'https://code.highcharts.com/mapdata/custom/world.topo.json',
-        action: 'GET',
+        url: "https://code.highcharts.com/mapdata/custom/world.topo.json",
+        action: "GET",
       });
       return response.data;
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 const overviewSlice = createSlice({
-  name: 'overview',
+  name: "overview",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

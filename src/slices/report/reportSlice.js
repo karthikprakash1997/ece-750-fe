@@ -28,7 +28,7 @@ export const fetchQueryOneData = createAsyncThunk(
         .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
         .join("&");
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/report/queryOne?${queryString}`
+        `${process.env.REACT_APP_API_BASE_URL}/report/queryOne?${queryString}`,
       );
       if (!response.ok) {
         throw new Error("Failed to fetch map dara");
@@ -38,7 +38,7 @@ export const fetchQueryOneData = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 export const fetchQueryTwoData = createAsyncThunk(
@@ -49,7 +49,7 @@ export const fetchQueryTwoData = createAsyncThunk(
         .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
         .join("&");
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/report/queryTwo?${queryString}`
+        `${process.env.REACT_APP_API_BASE_URL}/report/queryTwo?${queryString}`,
       );
       if (!response.ok) {
         throw new Error("Failed to fetch map dara");
@@ -59,7 +59,7 @@ export const fetchQueryTwoData = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 export const fetchQueryThreeData = createAsyncThunk(
@@ -70,7 +70,7 @@ export const fetchQueryThreeData = createAsyncThunk(
         .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
         .join("&");
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/report/queryThree?${queryString}`
+        `${process.env.REACT_APP_API_BASE_URL}/report/queryThree?${queryString}`,
       );
       if (!response.ok) {
         throw new Error("Failed to fetch map dara");
@@ -80,7 +80,7 @@ export const fetchQueryThreeData = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 export const fetchQueryFourData = createAsyncThunk(
@@ -91,7 +91,7 @@ export const fetchQueryFourData = createAsyncThunk(
         .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
         .join("&");
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/report/queryFour?${queryString}`
+        `${process.env.REACT_APP_API_BASE_URL}/report/queryFour?${queryString}`,
       );
       if (!response.ok) {
         throw new Error("Failed to fetch map dara");
@@ -101,7 +101,7 @@ export const fetchQueryFourData = createAsyncThunk(
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 // Create a slice
