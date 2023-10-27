@@ -43,9 +43,16 @@ const DrilldownPieChart = ({ props }) => {
   const chartOptions = {
     chart: {
       type: "pie",
+      height: 600,
+      width: 1000,
       borderRadius: 12,
       backgroundColor: "transparent",
       // zoom: 2
+    },
+    plotOptions: {
+        pie: {
+            size: 500
+        }
     },
     title: props?.title || {
       text: undefined, // No title
