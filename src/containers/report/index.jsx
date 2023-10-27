@@ -300,7 +300,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle=" What are the most vulnerable categories? (One country having more than 90% of market share for a particular category)"
+          tableTitle={`What are the most vulnerable categories? (One country having more than ${queryThreeBN}% of market share for a particular category)`}
           tableData={queryThreeData}
           columns={columnsQuery3}
         ></NestedTable>
