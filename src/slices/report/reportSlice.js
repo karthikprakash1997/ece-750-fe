@@ -2,10 +2,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Define the initial state
 const initialState = {
-  queryOne: [],
-  queryTwo: [],
-  queryThree: [],
-  queryFour: [],
+  queryOne: "",
+  queryTwo: "",
+  queryTwoBN: 20,
+  queryThreeBN: 80,
+  queryFourBN: 90,
+  queryOneTitle:"",
+  queryTwoTitle:"",
+  queryThreeTitle:"",
+  queryFourTitle:"",
+  queryOneData: [],
+  queryTwoData: [],
+  queryThreeData: [],
+  queryFourData: [],
   isLoadingQ1: false,
   isErrorQ1: false,
   errorQ1: null,
@@ -108,7 +117,23 @@ export const fetchQueryFourData = createAsyncThunk(
 const reportSlice = createSlice({
   name: "reportQueryOne",
   initialState,
-  reducers: {},
+  reducers: {
+    setQueryOne: (state, action) => {
+      state.queryOne = action.payload;
+    },
+    setQueryTwo: (state, action) => {
+      state.queryTwo = action.payload;
+    },
+    setQueryTwoBN: (state, action) => {
+      state.queryTwoBN = action.payload;
+    },
+    setQueryThreeBN: (state, action) => {
+      state.queryThreeBN = action.payload;
+    },
+    setQueryFourBN: (state, action) => {
+      state.queryFourBN = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQueryOneData.pending, (state) => {
@@ -119,7 +144,8 @@ const reportSlice = createSlice({
       .addCase(fetchQueryOneData.fulfilled, (state, action) => {
         state.isLoadingQ2 = false;
         state.isErrorQ1 = false;
-        state.queryOne = action.payload.result || [];
+        state.queryOneData = action.payload.result || [];
+        state.queryOneTitle = `If we lost access to ${state.queryOne.country} as a supplier, the following categories will be effected.`
       })
       .addCase(fetchQueryOneData.rejected, (state, action) => {
         state.isLoadingQ2 = false;
@@ -134,7 +160,8 @@ const reportSlice = createSlice({
       .addCase(fetchQueryTwoData.fulfilled, (state, action) => {
         state.isLoadingQ2 = false;
         state.isErrorQ2 = false;
-        state.queryTwo = action.payload.result;
+        state.queryTwoData = action.payload.result;
+        state.queryTwoTitle = `If we lost access to ${state.queryTwo.country} as a supplier, the following countries are the safe alternatives`
       })
       .addCase(fetchQueryTwoData.rejected, (state, action) => {
         state.isLoadingQ2 = false;
@@ -149,7 +176,8 @@ const reportSlice = createSlice({
       .addCase(fetchQueryFourData.fulfilled, (state, action) => {
         state.isLoadingQ4 = false;
         state.isErrorQ4 = false;
-        state.queryFour = action.payload.result;
+        state.queryFourData = action.payload.result;
+        state.queryFourTitle = `What countries create a part bottleneck at ${state.queryFourBN}% market share`
       })
       .addCase(fetchQueryFourData.rejected, (state, action) => {
         state.isLoadingQ4 = false;
@@ -164,7 +192,8 @@ const reportSlice = createSlice({
       .addCase(fetchQueryThreeData.fulfilled, (state, action) => {
         state.isLoadingQ3 = false;
         state.isErrorQ3 = false;
-        state.queryThree = action.payload.result;
+        state.queryThreeData = action.payload.result;
+        state.queryThreeTitle = `What are the most vulnerable categories? (One country having more than ${state.queryThreeBN}% of market share for a particular category)`
       })
       .addCase(fetchQueryThreeData.rejected, (state, action) => {
         state.isLoadingQ3 = false;

@@ -1,7 +1,6 @@
 import { Grid, Button, Autocomplete, TextField } from "@mui/material";
 import NestedTable from "./nestedTable";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import { reportActions } from "../../slices/report";
 
 const columns = [
@@ -27,13 +26,14 @@ const columnsQuery2 = [
     field: "percentage",
     width: 150,
   },
-  { title: "Countries", field: "countries", width: 250, responsive: 2 },
+  { title: "Countries", field: "countries", width: 450, responsive: 2 },
+  { title: "Percentage contribution of the selected country to the category", field: "percentageLost", width: 150, responsive: 2 },
 ];
 
 const columnsQuery3 = [
   { title: "Category Name", field: "category", width: 600, responsive: 0 },
   // { title: 'Percentage', field: 'percentage', width: 150 },
-  { title: "Countries", field: "countries", width: 250, responsive: 2 },
+  { title: "Countries", field: "countries", width: 750, responsive: 2 },
 ];
 
 const CountrySelect = ({ options, onChange, renderOption, getOptionLabel }) => {
@@ -150,21 +150,24 @@ const Report = () => {
     (state) => state?.countries?.countriesList?.data,
   );
 
-  const queryOneData = useSelector((state) => state.report.queryOne);
+  const queryOneData = useSelector((state) => state.report.queryOneData);
+  const queryTwoData = useSelector((state) => state.report.queryTwoData);
+  const queryThreeData = useSelector((state) => state.report.queryThreeData);
+  const queryFourData = useSelector((state) => state.report.queryFourData);
 
-  const queryTwoData = useSelector((state) => state.report.queryTwo);
+  const queryOne = useSelector((state) => state.report.queryOne);
+  const queryTwo = useSelector((state) => state.report.queryTwo);
+  const queryThreeBN = useSelector((state) => state.report.queryThreeBN);
+  const queryFourBN = useSelector((state) => state.report.queryFourBN);
+  const queryTwoBN = useSelector((state) => state.report.queryTwoBN);
 
-  const queryThreeData = useSelector((state) => state.report.queryThree);
+  const queryOneTitle = useSelector((state) => state.report.queryOneTitle);
+  const queryTwoTitle = useSelector((state) => state.report.queryTwoTitle);
+  const queryThreeTitle = useSelector((state) => state.report.queryThreeTitle);
+  const queryFourTitle = useSelector((state) => state.report.queryFourTitle);
 
-  const queryFourData = useSelector((state) => state.report.queryFour);
 
   const dispatch = useDispatch();
-
-  const [queryOne, setQueryOne] = useState("");
-  const [queryTwo, setQueryTwo] = useState("");
-  const [queryTwoBN, setQueryTwoBN] = useState(20);
-  const [queryThreeBN, setQueryThreeBN] = useState(80);
-  const [queryFourBN, setQueryFourBN] = useState(90);
 
   return (
     <Grid fontSize={20}>
@@ -177,7 +180,7 @@ const Report = () => {
           <CountrySelect
             options={countriesList}
             onChange={(e, value) => {
-              setQueryOne(value);
+              dispatch(reportActions.setQueryOne(value));
             }}
             renderOption={(props, option) => (
               <div {...props}>
@@ -208,7 +211,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle={`If we lost access to ${queryOne.country} as a supplier, the following categories will be effected.`}
+          tableTitle={queryOneTitle}
           tableData={queryOneData}
           columns={columns}
           isCountry={false}
@@ -225,7 +228,7 @@ const Report = () => {
           <CountrySelect
             options={countriesList}
             onChange={(e, value) => {
-              setQueryTwo(value);
+              dispatch(reportActions.setQueryTwo(value));
             }}
             renderOption={(props, option) => (
               <div {...props}>
@@ -234,9 +237,8 @@ const Report = () => {
             )}
             getOptionLabel={(option) => option.country}
           />{" "}
-          as a supplier, what are the safe (=reliability) alternatives?
-          (Bottleneck percentage)
-          <BNTextField setState={setQueryTwoBN} />
+          as a supplier, what are the safe/reliable alternatives 
+          with at least  <BNTextField setState={value => dispatch(reportActions.setQueryTwoBN(value))} /> % market share?
         </span>
 
         <span style={{ marginLeft: "20px" }}>
@@ -261,7 +263,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle={`If we lost access to ${queryTwo.country} as a supplier, the following safe alternatives are?`}
+          tableTitle={queryTwoTitle}
           tableData={queryTwoData}
           columns={columnsQuery2}
         ></NestedTable>
@@ -274,8 +276,7 @@ const Report = () => {
       <Grid item xs={12}>
         <span>
           What are the most vulnerable categories?
-          <BNTextField defaultValue={90} setState={setQueryThreeBN} /> % (One
-          country having more than X% of market share for a particular category)
+          (Each listed country having more than  <BNTextField defaultValue={90} setState={value => dispatch(reportActions.setQueryThreeBN(value))} /> % market share in the selected category)
         </span>
 
         <span style={{ marginLeft: "20px" }}>
@@ -300,7 +301,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle={`What are the most vulnerable categories? (One country having more than ${queryThreeBN}% of market share for a particular category)`}
+          tableTitle={queryThreeTitle}
           tableData={queryThreeData}
           columns={columnsQuery3}
         ></NestedTable>
@@ -313,7 +314,7 @@ const Report = () => {
       <Grid item xs={12}>
         <span>
           What countries create a part bottleneck at{" "}
-          <BNTextField defaultValue={90} setState={setQueryFourBN} /> %
+          <BNTextField defaultValue={90} setState={value => dispatch(reportActions.setQueryFourBN(value))} /> %
           marketshare?
         </span>
         <span style={{ marginLeft: "20px" }}>
@@ -337,7 +338,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12}>
         <NestedTable
-          tableTitle={`What countries create a part bottleneck at ${queryFourBN}% market share`}
+          tableTitle={queryFourTitle}
           tableData={queryFourData}
           columns={columnsQuery3}
         ></NestedTable>
