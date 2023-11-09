@@ -66,12 +66,12 @@ const AppBar = () => {
           {/* <AiFillHome size={30} /> */}
           {/* <FlagIcon country code={'CA'} size={20} /> */}
           <img
-            height={20}
-            width={30}
-            src={window.location.origin + `/assets/CANADA.png`}
-            alt="Canada"
+            height={40}
+            width={150}
+            src={window.location.origin + `/assets/uwaterloo.png`}
+            alt="University of Waterloo"
           />
-          <Typography variant="h6">NRCan</Typography>
+          <Typography variant="h6">Natural Resources Supply Chain Dashboard</Typography>
         </Box>
       </Grid>
       <Grid

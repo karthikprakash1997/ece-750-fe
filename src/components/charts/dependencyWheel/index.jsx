@@ -57,6 +57,14 @@ const DependencyWheel = () => {
           },
           distance: 10,
         },
+        tooltip: {
+          nodeFormatter: function() {
+              return `<span><b>${this.getSum()}</b> parts manufactored in <b>${this.id}</b> are shipped via other countries.</span>`
+            },
+          pointFormatter: function() {
+            return `<span><b>${this.from}</b> ships <b>${this.weight}</b> parts to <b>${this.to}</b></span>`
+          },
+        },
         size: "95%",
       },
     ],
