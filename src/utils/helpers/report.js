@@ -7,7 +7,7 @@ export const countryCodeConversion = (data) => {
       countries: it.countries.map(
         (country) =>
           countryCodeTocountries.find((dataum) => dataum.code === country)
-            ?.name || "Null",
+            ?.name || "Unknown",
       ),
     };
   });

@@ -8,6 +8,37 @@ const handleErrors = (error) => {
   console.error(error);
 };
 
+export const customLinkFormatter = (cell)=>{
+  const value = cell.getValue();
+  return `<a href=https://www.arrow.com/en/${value.replace(/ /g, '-').replace(/[A-Z]/g, (match) => match.toLowerCase()).replace(/,/g, '')} target="_blank">${value}</a>`;
+}
+
+// export function customTooltipFormatter(cell, formatterParams, onRendered) {
+//   // cell - the cell component
+//   // formatterParams - additional parameters you can pass to the formatter
+//   // onRendered - a callback to be called when the cell is rendered
+
+//   // Get the data for the cell
+//   var value = cell.getValue();
+//   console.log(cell, value)
+
+//   // Define the URL for your custom link based on the data
+
+//   // Create the HTML link element
+//   var linkElement = document.createElement('a');
+//   linkElement.href = `https://www.arrow.com/en/${value.replace(/ /g, '-').replace(/[A-Z]/g, (match) => match.toLowerCase())}`;
+//   linkElement.textContent = cell.getValue(); // Use the cell value as the link text
+
+//   // Append the link to the cell
+//   cell.getElement().innerHTML = cell.getValue();
+//   cell.getElement().appendChild(linkElement);
+
+//   // Call the onRendered callback if provided
+//   // if (typeof onRendered === 'function') {
+//   //     onRendered();
+//   // }
+// }
+
 export const apiCall = async (apiConfig, promisePayload) => {
   try {
     let url =
@@ -1740,7 +1771,7 @@ export const COUNTRY_DETAILS = [
     longitude: 38,
   },
   {
-    country: "Taiwan, Province of China",
+    country: "Taiwan",
     alpha2: "TW",
     alpha3: "TWN",
     numeric: 158,
@@ -2214,7 +2245,7 @@ export const countryCodeTocountries = [
   { name: "Sweden", code: "SE" },
   { name: "Switzerland", code: "CH" },
   { name: "Syrian Arab Republic", code: "SY" },
-  { name: "Taiwan (Province of China)", code: "TW" },
+  { name: "Taiwan", code: "TW" },
   { name: "Tajikistan", code: "TJ" },
   { name: "United Republic of Tanzania", code: "TZ" },
   { name: "Thailand", code: "TH" },

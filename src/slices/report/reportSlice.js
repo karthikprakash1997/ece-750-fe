@@ -212,3 +212,4 @@ export const reportActions = {
 };
 
 export default reportSlice.reducer;
+// inputString.replace(/ /g, '-').replace(/[A-Z]/g, (match) => match.toLowerCase())

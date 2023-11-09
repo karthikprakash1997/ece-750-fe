@@ -106,7 +106,8 @@ const NestedTable = ({ tableTitle, tableData, columns, isCountry = true }) => {
       ),
       dataTree: true,
       dataTreeStartExpanded: true,
-      columns: JSON.parse(JSON.stringify(columns)),
+      // columns: JSON.parse(JSON.stringify(columns)),
+      columns: columns,
     });
 
     // Cleanup Tabulator instance when the component unmounts
@@ -116,7 +117,7 @@ const NestedTable = ({ tableTitle, tableData, columns, isCountry = true }) => {
         tabulator = null;
       }
     };
-  }, [tableData, columns]);
+  }, [tableData,tableTitle, columns]); // eslint-disable-line
 
   const handleExportPDF = () => {
     // Create a new jsPDF instance
