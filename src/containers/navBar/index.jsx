@@ -71,7 +71,7 @@ const AppBar = () => {
             src={window.location.origin + `/assets/uWaterloo.png`}
             alt="University of Waterloo"
           />
-          <Typography variant="h6">Natural Resources Supply Chain Dashboard</Typography>
+          <Typography variant="h6">Supply Chain Dashboard</Typography>
         </Box>
       </Grid>
       <Grid
