@@ -68,7 +68,7 @@ const AppBar = () => {
           <img
             height={40}
             width={150}
-            src={window.location.origin + `/assets/uwaterloo.png`}
+            src={window.location.origin + `/assets/uWaterloo.png`}
             alt="University of Waterloo"
           />
           <Typography variant="h6">Natural Resources Supply Chain Dashboard</Typography>
