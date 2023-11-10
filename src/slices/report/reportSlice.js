@@ -193,7 +193,8 @@ const reportSlice = createSlice({
         state.isLoadingQ3 = false;
         state.isErrorQ3 = false;
         state.queryThreeData = action.payload.result;
-        state.queryThreeTitle = `What are the most vulnerable categories? (One country having more than ${state.queryThreeBN}% of market share for a particular category)`
+        state.queryThreeTitle = `What are the most vulnerable categories? (Each listed country
+          having more than ${state.queryThreeBN}% global production in the selected category)`
       })
       .addCase(fetchQueryThreeData.rejected, (state, action) => {
         state.isLoadingQ3 = false;

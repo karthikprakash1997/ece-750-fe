@@ -79,14 +79,20 @@ const columnsQuery3 = [
   {
     title: "Countries",
     field: "countries",
-    width: 750,
+    width: 650,
     responsive: 2,
     headerTooltip: true,
   },
-  { title: "Percentage", field: "percentage", width: 150, headerTooltip: true },
+  { title: "Percentage", field: "percentage", width: 100, headerTooltip: true },
 ];
 
-const CountrySelect = ({ options, onChange, renderOption, getOptionLabel,value }) => {
+const CountrySelect = ({
+  options,
+  onChange,
+  renderOption,
+  getOptionLabel,
+  value,
+}) => {
   return (
     <Autocomplete
       id="country-select-demo"
@@ -116,7 +122,7 @@ const CountrySelect = ({ options, onChange, renderOption, getOptionLabel,value }
   );
 };
 
-const BNTextField = ({ setState, defaultValue,value }) => {
+const BNTextField = ({ setState, defaultValue, value }) => {
   return (
     <TextField
       type="number"
@@ -226,9 +232,9 @@ const Report = () => {
       value: "q1",
       component: () => (
         <>
-          <Grid item xs={12}>
-            <h3>Query 1</h3>
-          </Grid>
+          {/* <Grid item xs={12}>
+            <h4 style={{marginBottom:"-20px"}} >Query 1</h4>
+          </Grid> */}
           <Grid item xs={12}>
             <span>
               If we lost access to{" "}
@@ -263,7 +269,7 @@ const Report = () => {
             </span>
           </Grid>
           <Grid item xs={12}>
-            <h3>Report</h3>
+            <h4 style={{marginBottom:"-20px"}} >Report</h4>
           </Grid>
           <Grid item xs={12}>
             <NestedTable
@@ -281,9 +287,9 @@ const Report = () => {
       value: "q2",
       component: () => (
         <>
-          <Grid item xs={12}>
-            <h3>Query 2</h3>
-          </Grid>
+          {/* <Grid item xs={12}>
+            <h4 style={{marginBottom:"-20px"}} >Query 2</h4>
+          </Grid> */}
           <Grid item xs={12}>
             <span>
               If we lost access to{" "}
@@ -328,7 +334,7 @@ const Report = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <h3>Report</h3>
+            <h4 style={{marginBottom:"-20px"}} >Report</h4>
           </Grid>
           <Grid item xs={12}>
             <NestedTable
@@ -345,9 +351,9 @@ const Report = () => {
       value: "q3",
       component: () => (
         <>
-          <Grid item xs={12}>
-            <h3>Query 3</h3>
-          </Grid>
+          {/* <Grid item xs={12}>
+            <h4 style={{marginBottom:"-20px"}} >Query 3</h4>
+          </Grid> */}
           <Grid item xs={12}>
             <span>
               What are the most vulnerable categories? (Each listed country
@@ -362,7 +368,7 @@ const Report = () => {
               % global production in the selected category)
             </span>
 
-            <span style={{ marginLeft: "20px" }}>
+            <span style={{ marginLeft: "15px" }}>
               <Button
                 variant="contained"
                 color="success"
@@ -380,7 +386,7 @@ const Report = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <h3>Report</h3>
+            <h4 style={{marginBottom:"-20px"}} >Report</h4>
           </Grid>
           <Grid item xs={12}>
             <NestedTable
@@ -397,9 +403,9 @@ const Report = () => {
       value: "q4",
       component: () => (
         <>
-          <Grid item xs={12}>
-            <h3>Query 4</h3>
-          </Grid>
+          {/* <Grid item xs={12}> */}
+            {/* <h4 style={{marginBottom:"-20px"}} >Query 4</h4>
+          </Grid> */}
           <Grid item xs={12}>
             <span>
               What countries create a part bottleneck at{" "}
@@ -429,7 +435,7 @@ const Report = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <h3>Report</h3>
+            <h4 style={{marginBottom:"-20px"}} >Report</h4>
           </Grid>
           <Grid item xs={12}>
             <NestedTable
@@ -446,14 +452,22 @@ const Report = () => {
   return (
     <>
       <Grid
-        width={"40%"}
-        marginRight={2}
+        // width={"40%"}
+        // marginRight={2}
         display={"flex"}
         alignItems={"center"}
-        justifyContent={"space-between"}
+        justifyContent={"center"}
+        marginTop={5}
         height={40}
       >
-        <Grid display={"flex"} alignItems={"center"} columnGap={8}>
+        <Grid
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          columnGap={8}
+          sx={{ backgroundColor: "white", boxShadow: 5, borderRadius: 1 }}
+          width={"95%"}
+        >
           {QUERY.map((it) => (
             <Box
               sx={
@@ -478,8 +492,19 @@ const Report = () => {
           ))}
         </Grid>
       </Grid>
-      <Grid fontSize={20}>
-        {QUERY.find((it) => it.value === selectedQuery).component()}
+      <Grid
+        paddingLeft={3}
+        display={"flex"}
+        // alignItems={""}
+        fontSize={20}
+        sx={{ backgroundColor: "white", boxShadow: 5, borderRadius: 1 }}
+        width={"95%"}
+        height={'75vh'}
+        margin={5}
+      >
+        <Grid marginTop={3}>
+          {QUERY.find((it) => it.value === selectedQuery).component()}
+        </Grid>
       </Grid>
     </>
   );
