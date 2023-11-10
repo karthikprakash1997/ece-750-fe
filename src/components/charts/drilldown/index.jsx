@@ -4,7 +4,7 @@ import highchartsDrilldown from "highcharts/modules/drilldown";
 import { drillDownMap } from "./mapping";
 import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   categoryDrillDownDataActions,
@@ -14,6 +14,7 @@ import {
 highchartsDrilldown(Highcharts);
 
 const DrilldownPieChart = ({ props }) => {
+  const drillDownChartRef = useRef();
   const [isCountryDrillDown, setIsCountryDrillDown] = useState(false);
   const [bothDataFetched, setBothDataFetched] = useState(false);
 
@@ -37,6 +38,9 @@ const DrilldownPieChart = ({ props }) => {
   }, [dispatch, isCountryDrillDown]);
 
   const handleCountryDrillDownToggle = () => {
+    while (drillDownChartRef.current.chart.drilldownLevels.length > 0) {
+      drillDownChartRef.current.chart.drillUp();
+    }
     setIsCountryDrillDown(!isCountryDrillDown);
   };
 
@@ -73,14 +77,18 @@ const DrilldownPieChart = ({ props }) => {
       formatter() {
         const formatterCallback = this;
         // if (formatterCallback && formatterCallback?.points?.length) {
-        return `${formatterCallback.point.name}:${formatterCallback.point.y}`;
+        return `
+          ${formatterCallback.point.name} contributes ${formatterCallback.point.percentage.toFixed(2)}% by manufacturing ${formatterCallback.point.y} parts
+        `;
         // }
         // return '';
       },
     },
     series: [
       {
-        name: "Categories",
+        name: isCountryDrillDown
+          ? "Countries"
+          : "Categories",
         colorByPoint: true,
         data: isCountryDrillDown
           ? countryDrillDownParent
@@ -98,7 +106,7 @@ const DrilldownPieChart = ({ props }) => {
   return (
     <>
       <div>
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+        <HighchartsReact highcharts={Highcharts} options={chartOptions} ref={drillDownChartRef}/>
         <div>
           <Stack direction="row" spacing={1} alignItems="center">
             Category wise drill down

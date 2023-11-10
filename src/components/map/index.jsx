@@ -198,6 +198,9 @@ const Map = () => {
     },
     tooltip: {
       headerFormat: "",
+			formatter: function () {
+        return `${this.key} manufactures ${this.point.value.toLocaleString()} parts`;
+			}
     },
     mapNavigation: {
       enabled: true,
