@@ -22,8 +22,8 @@ const Footer = () => {
       <img
         height={40}
         width={100}
-        src={window.location.origin + `/assets/uwaterloo.jpg`}
-        alt="Canada"
+        src={window.location.origin + `/assets/uWaterloo.png`}
+        alt="University of Waterloo"
       />
     </Grid>
   );
