@@ -4,17 +4,21 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   queryOne: "",
   queryTwo: "",
+  queryFive: "",
   queryTwoBN: 20,
   queryThreeBN: 80,
   queryFourBN: 90,
+  queryFiveBN: 90,
   queryOneTitle:"",
   queryTwoTitle:"",
   queryThreeTitle:"",
   queryFourTitle:"",
+  queryFiveTitle:"",
   queryOneData: [],
   queryTwoData: [],
   queryThreeData: [],
   queryFourData: [],
+  queryFiveData: [],
   isLoadingQ1: false,
   isErrorQ1: false,
   errorQ1: null,
@@ -27,6 +31,9 @@ const initialState = {
   isLoadingQ4: false,
   isErrorQ4: false,
   errorQ4: null,
+  isLoadingQ5: false,
+  isErrorQ5: false,
+  errorQ5: null,
 };
 
 export const fetchQueryOneData = createAsyncThunk(
@@ -113,6 +120,27 @@ export const fetchQueryFourData = createAsyncThunk(
   },
 );
 
+export const fetchQueryFiveData = createAsyncThunk(
+  "report/queryFive",
+  async (queryParams) => {
+    try {
+      const queryString = Object.keys(queryParams)
+        .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
+        .join("&");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/report/queryTwo?${queryString}`,
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch map dara");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+);
+
 // Create a slice
 const reportSlice = createSlice({
   name: "reportQueryOne",
@@ -124,6 +152,9 @@ const reportSlice = createSlice({
     setQueryTwo: (state, action) => {
       state.queryTwo = action.payload;
     },
+    setQueryFive: (state, action) => {
+      state.queryFive = action.payload;
+    },
     setQueryTwoBN: (state, action) => {
       state.queryTwoBN = action.payload;
     },
@@ -132,6 +163,9 @@ const reportSlice = createSlice({
     },
     setQueryFourBN: (state, action) => {
       state.queryFourBN = action.payload;
+    },
+    setQueryFiveBN: (state, action) => {
+      state.queryFiveBN = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -145,7 +179,7 @@ const reportSlice = createSlice({
         state.isLoadingQ2 = false;
         state.isErrorQ1 = false;
         state.queryOneData = action.payload.result || [];
-        state.queryOneTitle = `If we lost access to ${state.queryOne.country} as a supplier, the following categories will be effected.`
+        state.queryOneTitle = `If we lost access to ${state.queryOne.country} as a supplier, the following categories will be affected.`
       })
       .addCase(fetchQueryOneData.rejected, (state, action) => {
         state.isLoadingQ2 = false;
@@ -161,7 +195,7 @@ const reportSlice = createSlice({
         state.isLoadingQ2 = false;
         state.isErrorQ2 = false;
         state.queryTwoData = action.payload.result;
-        state.queryTwoTitle = `If we lost access to ${state.queryTwo.country} as a supplier, the following countries are the safe alternatives`
+        state.queryTwoTitle = `If we lost access to ${state.queryTwo.country} as a supplier, the following countries are the alternatives with ${state.queryTwoBN}% global production`
       })
       .addCase(fetchQueryTwoData.rejected, (state, action) => {
         state.isLoadingQ2 = false;
@@ -177,7 +211,7 @@ const reportSlice = createSlice({
         state.isLoadingQ4 = false;
         state.isErrorQ4 = false;
         state.queryFourData = action.payload.result;
-        state.queryFourTitle = `What countries create a part bottleneck at ${state.queryFourBN}% market share`
+        state.queryFourTitle = `Countries that create a part bottleneck at ${state.queryFourBN}% global production.`
       })
       .addCase(fetchQueryFourData.rejected, (state, action) => {
         state.isLoadingQ4 = false;
@@ -193,14 +227,31 @@ const reportSlice = createSlice({
         state.isLoadingQ3 = false;
         state.isErrorQ3 = false;
         state.queryThreeData = action.payload.result;
-        state.queryThreeTitle = `What are the most vulnerable categories? (Each listed country
-          having more than ${state.queryThreeBN}% global production in the selected category)`
+        state.queryThreeTitle = `Most vulnerable categories with each listed country
+          having more than ${state.queryThreeBN}% global production in the selected category`
       })
       .addCase(fetchQueryThreeData.rejected, (state, action) => {
         state.isLoadingQ3 = false;
         state.isErrorQ3 = true;
         state.errorQ3 = action.error.message;
-      });
+      })
+      .addCase(fetchQueryFiveData.pending, (state) => {
+        state.isLoadingQ5 = true;
+        state.isErrorQ5 = false;
+        state.errorQ5 = null;
+      })
+      .addCase(fetchQueryFiveData.fulfilled, (state, action) => {
+        state.isLoadingQ5 = false;
+        state.isErrorQ5 = false;
+        state.queryFiveData = action.payload.result;
+        state.queryFiveTitle = `Most vulnerable categories with each listed country
+          having more than ${state.queryThreeBN}% global production in the selected category`
+      })
+      .addCase(fetchQueryFiveData.rejected, (state, action) => {
+        state.isLoadingQ5 = false;
+        state.isErrorQ5 = true;
+        state.errorQ5 = action.error.message;
+      })
   },
 });
 
@@ -208,6 +259,7 @@ export const reportActions = {
   ...reportSlice.actions,
   fetchQueryOneData,
   fetchQueryTwoData,
+  fetchQueryFiveData,
   fetchQueryFourData,
   fetchQueryThreeData,
 };

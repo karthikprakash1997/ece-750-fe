@@ -10,7 +10,13 @@ import NestedTable from "./nestedTable";
 import { useDispatch, useSelector } from "react-redux";
 import { reportActions } from "../../slices/report";
 import { useState } from "react";
-import { customLinkFormatter } from "../../utils/helpers/common";
+import {
+  customLinkFormatter,
+  queryFourIconFormatter,
+  queryOneIconFormatter,
+  queryThreeIconFormatter,
+  queryTwoIconFormatter,
+} from "../../utils/helpers/report";
 
 const columns = [
   {
@@ -34,6 +40,13 @@ const columns = [
     headerTooltip: true,
     width: 250,
   },
+  {
+    title: "Info",
+    formatter: queryOneIconFormatter,
+    field: "info",
+    width: 60,
+    hozAlign: "center",
+  },
 ];
 
 const columnsQuery2 = [
@@ -48,22 +61,29 @@ const columnsQuery2 = [
   {
     title: "Percentage contribution to category",
     field: "percentage",
-    width: 150,
+    width: 80,
     headerTooltip: true,
   },
   {
     title: "Countries",
     field: "countries",
-    width: 450,
+    width: 550,
     responsive: 2,
     headerTooltip: true,
   },
   {
     title: "Percentage contribution of the selected country to the category",
     field: "percentageLost",
-    width: 150,
+    width: 80,
     responsive: 2,
     headerTooltip: true,
+  },
+  {
+    title: "Info",
+    field: "info",
+    formatter: queryTwoIconFormatter,
+    width: 60,
+    hozAlign: "center",
   },
 ];
 
@@ -79,11 +99,82 @@ const columnsQuery3 = [
   {
     title: "Countries",
     field: "countries",
-    width: 650,
+    width: 600,
     responsive: 2,
     headerTooltip: true,
   },
-  { title: "Percentage", field: "percentage", width: 100, headerTooltip: true },
+  { title: "Percentage", field: "percentage", width: 80, headerTooltip: true },
+  {
+    title: "Info",
+    field: "info",
+    formatter: queryThreeIconFormatter,
+    width: 60,
+    hozAlign: "center",
+  },
+];
+
+const columnsQuery4 = [
+  {
+    title: "Category Name",
+    field: "category",
+    width: 600,
+    responsive: 0,
+    formatter: customLinkFormatter,
+    headerTooltip: true,
+  },
+  {
+    title: "Countries",
+    field: "countries",
+    width: 600,
+    responsive: 2,
+    headerTooltip: true,
+  },
+  // { title: "Percentage", field: "percentage", width: 80, headerTooltip: true },
+  {
+    title: "Info",
+    field: "info",
+    formatter: queryFourIconFormatter,
+    width: 60,
+    hozAlign: "center",
+  },
+];
+
+const columnsQuery5 = [
+  {
+    title: "Category Name",
+    field: "category",
+    width: 600,
+    formatter: customLinkFormatter,
+    headerTooltip: true,
+  },
+  {
+    title: "Countries",
+    field: "countries",
+    width: 300,
+    responsive: 2,
+    headerTooltip: true,
+  },
+  {
+    title: "Percentage in category inaccessible",
+    field: "percentage",
+    type: "numeric",
+    headerTooltip: true,
+    width: 150,
+  },
+  {
+    title: "Parts in category inaccessible",
+    field: "count",
+    type: "numeric",
+    headerTooltip: true,
+    width: 250,
+  },
+  {
+    title: "Info",
+    formatter: queryOneIconFormatter,
+    field: "info",
+    width: 60,
+    hozAlign: "center",
+  },
 ];
 
 const CountrySelect = ({
@@ -211,17 +302,22 @@ const Report = () => {
   const queryTwoData = useSelector((state) => state.report.queryTwoData);
   const queryThreeData = useSelector((state) => state.report.queryThreeData);
   const queryFourData = useSelector((state) => state.report.queryFourData);
+  const queryFiveData = useSelector((state) => state.report.queryFiveData);
 
   const queryOne = useSelector((state) => state.report.queryOne);
   const queryTwo = useSelector((state) => state.report.queryTwo);
   const queryThreeBN = useSelector((state) => state.report.queryThreeBN);
   const queryFourBN = useSelector((state) => state.report.queryFourBN);
   const queryTwoBN = useSelector((state) => state.report.queryTwoBN);
+  const queryFiveBN = useSelector((state) => state.report.queryFiveBN);
+
 
   const queryOneTitle = useSelector((state) => state.report.queryOneTitle);
   const queryTwoTitle = useSelector((state) => state.report.queryTwoTitle);
   const queryThreeTitle = useSelector((state) => state.report.queryThreeTitle);
   const queryFourTitle = useSelector((state) => state.report.queryFourTitle);
+  const queryFiveTitle = useSelector((state) => state.report.queryFiveTitle);
+  
 
   const dispatch = useDispatch();
   const [selectedQuery, setSelectedQuery] = useState("q1");
@@ -235,7 +331,7 @@ const Report = () => {
           {/* <Grid item xs={12}>
             <h4 style={{marginBottom:"-20px"}} >Query 1</h4>
           </Grid> */}
-          <Grid item xs={12}>
+          <Grid container justifyContent="space-between" xs={12}>
             <span>
               If we lost access to{" "}
               <CountrySelect
@@ -253,25 +349,24 @@ const Report = () => {
               />
               as a supplier, what would be the impact?
             </span>
-            <span style={{ marginLeft: "20px" }}>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => {
-                  const par = {
-                    countryCode: [queryOne.country_code],
-                  };
-                  dispatch(reportActions.fetchQueryOneData(par));
-                }}
-              >
-                Generate Report
-              </Button>
-            </span>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ marginRight: 3 }}
+              onClick={() => {
+                const par = {
+                  countryCode: [queryOne.country_code],
+                };
+                dispatch(reportActions.fetchQueryOneData(par));
+              }}
+            >
+              Generate Report
+            </Button>
           </Grid>
           <Grid item xs={12}>
-            <h4 style={{marginBottom:"-20px"}} >Report</h4>
+            <h4 style={{ marginBottom: "-20px" }}>Report</h4>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} overflow={"auto"}>
             <NestedTable
               tableTitle={queryOneTitle}
               tableData={queryOneData}
@@ -290,7 +385,7 @@ const Report = () => {
           {/* <Grid item xs={12}>
             <h4 style={{marginBottom:"-20px"}} >Query 2</h4>
           </Grid> */}
-          <Grid item xs={12}>
+          <Grid container justifyContent="space-between" xs={12}>
             <span>
               If we lost access to{" "}
               <CountrySelect
@@ -316,25 +411,24 @@ const Report = () => {
               % global production?
             </span>
 
-            <span style={{ marginLeft: "20px" }}>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => {
-                  const par = {
-                    countryCode: ["", queryTwo.country_code],
-                    bottleneckPercentage: queryTwoBN,
-                  };
-                  dispatch(reportActions.fetchQueryTwoData(par));
-                }}
-              >
-                Generate Report
-              </Button>
-            </span>
+            <Button
+              variant="contained"
+              sx={{ marginRight: 3 }}
+              color="success"
+              onClick={() => {
+                const par = {
+                  countryCode: ["", queryTwo.country_code],
+                  bottleneckPercentage: queryTwoBN,
+                };
+                dispatch(reportActions.fetchQueryTwoData(par));
+              }}
+            >
+              Generate Report
+            </Button>
           </Grid>
 
           <Grid item xs={12}>
-            <h4 style={{marginBottom:"-20px"}} >Report</h4>
+            <h4 style={{ marginBottom: "-20px" }}>Report</h4>
           </Grid>
           <Grid item xs={12}>
             <NestedTable
@@ -354,9 +448,9 @@ const Report = () => {
           {/* <Grid item xs={12}>
             <h4 style={{marginBottom:"-20px"}} >Query 3</h4>
           </Grid> */}
-          <Grid item xs={12}>
+          <Grid container justifyContent="space-between" xs={12}>
             <span>
-              What are the most vulnerable categories? (Each listed country
+              What are the most vulnerable categories? Each listed country
               having more than{" "}
               <BNTextField
                 defaultValue={90}
@@ -365,28 +459,26 @@ const Report = () => {
                   dispatch(reportActions.setQueryThreeBN(value))
                 }
               />{" "}
-              % global production in the selected category)
+              % global production in the selected category.
             </span>
-
-            <span style={{ marginLeft: "15px" }}>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => {
-                  dispatch(
-                    reportActions.fetchQueryThreeData({
-                      bottleneckPercentage: queryThreeBN,
-                    })
-                  );
-                }}
-              >
-                Generate Report
-              </Button>
-            </span>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ marginRight: 3 }}
+              onClick={() => {
+                dispatch(
+                  reportActions.fetchQueryThreeData({
+                    bottleneckPercentage: queryThreeBN,
+                  })
+                );
+              }}
+            >
+              Generate Report
+            </Button>
           </Grid>
 
           <Grid item xs={12}>
-            <h4 style={{marginBottom:"-20px"}} >Report</h4>
+            <h4 style={{ marginBottom: "-20px" }}>Report</h4>
           </Grid>
           <Grid item xs={12}>
             <NestedTable
@@ -404,9 +496,9 @@ const Report = () => {
       component: () => (
         <>
           {/* <Grid item xs={12}> */}
-            {/* <h4 style={{marginBottom:"-20px"}} >Query 4</h4>
+          {/* <h4 style={{marginBottom:"-20px"}} >Query 4</h4>
           </Grid> */}
-          <Grid item xs={12}>
+          <Grid container justifyContent="space-between" xs={12}>
             <span>
               What countries create a part bottleneck at{" "}
               <BNTextField
@@ -416,32 +508,92 @@ const Report = () => {
                   dispatch(reportActions.setQueryFourBN(value))
                 }
               />{" "}
-              % marketshare?
+              % global production?
             </span>
-            <span style={{ marginLeft: "20px" }}>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => {
-                  const par = {
-                    bottleneckPercentage: queryFourBN,
-                  };
-                  dispatch(reportActions.fetchQueryFourData(par));
-                }}
-              >
-                Generate Report
-              </Button>
-            </span>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ marginRight: 3 }}
+              onClick={() => {
+                const par = {
+                  bottleneckPercentage: queryFourBN,
+                };
+                dispatch(reportActions.fetchQueryFourData(par));
+              }}
+            >
+              Generate Report
+            </Button>
           </Grid>
 
           <Grid item xs={12}>
-            <h4 style={{marginBottom:"-20px"}} >Report</h4>
+            <h4 style={{ marginBottom: "-20px" }}>Report</h4>
           </Grid>
           <Grid item xs={12}>
             <NestedTable
               tableTitle={queryFourTitle}
               tableData={queryFourData}
-              columns={columnsQuery3}
+              columns={columnsQuery4}
+            ></NestedTable>
+          </Grid>
+        </>
+      ),
+    },
+    {
+      title: "Regional Conflict",
+      value: "q5",
+      component: () => (
+        <>
+          {/* <Grid item xs={12}> */}
+          {/* <h4 style={{marginBottom:"-20px"}} >Query 4</h4>
+          </Grid> */}
+          <Grid container justifyContent="space-between" xs={12}>
+            <span>
+              What categories are affected by at least
+              <BNTextField
+                setState={(value) =>
+                  dispatch(reportActions.setQueryFiveBNBN(value))
+                }
+                value={queryTwoBN}
+              />{" "}
+              % if
+              <CountrySelect
+                options={countriesList}
+                value={queryTwo}
+                onChange={(e, value) => {
+                  dispatch(reportActions.setQueryFive(value));
+                }}
+                renderOption={(props, option) => (
+                  <div {...props}>
+                    {option.country} ({option.country_code})
+                  </div>
+                )}
+                getOptionLabel={(option) => option.country}
+              />{" "}
+              Neighbouring countries become unavailable
+            </span>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ marginRight: 3 }}
+              onClick={() => {
+                const par = {
+                  bottleneckPercentage: queryFiveBN,
+                };
+                dispatch(reportActions.fetchQueryFiveData(par));
+              }}
+            >
+              Generate Report
+            </Button>
+          </Grid>
+
+          <Grid item xs={12}>
+            <h4 style={{ marginBottom: "-20px" }}>Report</h4>
+          </Grid>
+          <Grid item xs={12}>
+            <NestedTable
+              tableTitle={queryFiveTitle}
+              tableData={queryFiveData}
+              columns={columnsQuery5}
             ></NestedTable>
           </Grid>
         </>
@@ -457,7 +609,7 @@ const Report = () => {
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        marginTop={5}
+        marginTop={3}
         height={40}
       >
         <Grid
@@ -495,14 +647,14 @@ const Report = () => {
       <Grid
         paddingLeft={3}
         display={"flex"}
-        // alignItems={""}
         fontSize={20}
         sx={{ backgroundColor: "white", boxShadow: 5, borderRadius: 1 }}
         width={"95%"}
-        height={'75vh'}
+        height={"80vh"}
         margin={5}
+        marginTop={3}
       >
-        <Grid marginTop={3}>
+        <Grid marginTop={3} width={"100%"}>
           {QUERY.find((it) => it.value === selectedQuery).component()}
         </Grid>
       </Grid>
