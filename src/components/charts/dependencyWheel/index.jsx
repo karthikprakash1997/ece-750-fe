@@ -58,11 +58,13 @@ const DependencyWheel = () => {
           distance: 10,
         },
         tooltip: {
-          nodeFormatter: function() {
-              return `<span><b>${this.getSum()}</b> parts manufactored in <b>${this.id}</b> are shipped via other countries.</span>`
-            },
-          pointFormatter: function() {
-            return `<span><b>${this.from}</b> ships <b>${this.weight}</b> parts to <b>${this.to}</b></span>`
+          nodeFormatter: function () {
+            return `<span><b>${
+              this.id
+            }</b> sells <b>${this.getSum()}</b> parts which are sold through the other countries.</span>`;
+          },
+          pointFormatter: function () {
+            return `<span><b>${this.from}</b> sells <b>${this.weight}</b> parts which are sold through the <b>${this.to}</b>.</span>`;
           },
         },
         size: "95%",
@@ -71,7 +73,11 @@ const DependencyWheel = () => {
   };
   return (
     <>
-      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+      {shippingList.length > 0 ? (
+        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+      ) : (
+        <h1>No data present change the filter on the right side.</h1>
+      )}
     </>
   );
 };

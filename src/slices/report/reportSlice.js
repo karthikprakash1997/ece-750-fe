@@ -9,11 +9,11 @@ const initialState = {
   queryThreeBN: 80,
   queryFourBN: 90,
   queryFiveBN: 90,
-  queryOneTitle:"",
-  queryTwoTitle:"",
-  queryThreeTitle:"",
-  queryFourTitle:"",
-  queryFiveTitle:"",
+  queryOneTitle: "",
+  queryTwoTitle: "",
+  queryThreeTitle: "",
+  queryFourTitle: "",
+  queryFiveTitle: "",
   queryOneData: [],
   queryTwoData: [],
   queryThreeData: [],
@@ -179,7 +179,7 @@ const reportSlice = createSlice({
         state.isLoadingQ2 = false;
         state.isErrorQ1 = false;
         state.queryOneData = action.payload.result || [];
-        state.queryOneTitle = `If we lost access to ${state.queryOne.country} as a supplier, the following categories will be affected.`
+        state.queryOneTitle = `If we lost access to ${state.queryOne.country} as a supplier, the following categories will be affected.`;
       })
       .addCase(fetchQueryOneData.rejected, (state, action) => {
         state.isLoadingQ2 = false;
@@ -195,7 +195,7 @@ const reportSlice = createSlice({
         state.isLoadingQ2 = false;
         state.isErrorQ2 = false;
         state.queryTwoData = action.payload.result;
-        state.queryTwoTitle = `If we lost access to ${state.queryTwo.country} as a supplier, the following countries are the alternatives with ${state.queryTwoBN}% global production`
+        state.queryTwoTitle = `If we lost access to ${state.queryTwo.country} as a supplier, the following countries are the alternatives with ${state.queryTwoBN}% global production`;
       })
       .addCase(fetchQueryTwoData.rejected, (state, action) => {
         state.isLoadingQ2 = false;
@@ -211,7 +211,7 @@ const reportSlice = createSlice({
         state.isLoadingQ4 = false;
         state.isErrorQ4 = false;
         state.queryFourData = action.payload.result;
-        state.queryFourTitle = `Countries that create a part bottleneck at ${state.queryFourBN}% global production.`
+        state.queryFourTitle = `Countries that create a part bottleneck at ${state.queryFourBN}% global production.`;
       })
       .addCase(fetchQueryFourData.rejected, (state, action) => {
         state.isLoadingQ4 = false;
@@ -228,7 +228,7 @@ const reportSlice = createSlice({
         state.isErrorQ3 = false;
         state.queryThreeData = action.payload.result;
         state.queryThreeTitle = `Most vulnerable categories with each listed country
-          having more than ${state.queryThreeBN}% global production in the selected category`
+          having more than ${state.queryThreeBN}% global production in the selected category`;
       })
       .addCase(fetchQueryThreeData.rejected, (state, action) => {
         state.isLoadingQ3 = false;
@@ -245,13 +245,13 @@ const reportSlice = createSlice({
         state.isErrorQ5 = false;
         state.queryFiveData = action.payload.result;
         state.queryFiveTitle = `Most vulnerable categories with each listed country
-          having more than ${state.queryThreeBN}% global production in the selected category`
+          having more than ${state.queryThreeBN}% global production in the selected category`;
       })
       .addCase(fetchQueryFiveData.rejected, (state, action) => {
         state.isLoadingQ5 = false;
         state.isErrorQ5 = true;
         state.errorQ5 = action.error.message;
-      })
+      });
   },
 });
 

@@ -295,7 +295,7 @@ const Report = () => {
   // ];
 
   const countriesList = useSelector(
-    (state) => state?.countries?.countriesList?.data
+    (state) => state?.countries?.countriesList?.data,
   );
 
   const queryOneData = useSelector((state) => state.report.queryOneData);
@@ -311,13 +311,11 @@ const Report = () => {
   const queryTwoBN = useSelector((state) => state.report.queryTwoBN);
   const queryFiveBN = useSelector((state) => state.report.queryFiveBN);
 
-
   const queryOneTitle = useSelector((state) => state.report.queryOneTitle);
   const queryTwoTitle = useSelector((state) => state.report.queryTwoTitle);
   const queryThreeTitle = useSelector((state) => state.report.queryThreeTitle);
   const queryFourTitle = useSelector((state) => state.report.queryFourTitle);
   const queryFiveTitle = useSelector((state) => state.report.queryFiveTitle);
-  
 
   const dispatch = useDispatch();
   const [selectedQuery, setSelectedQuery] = useState("q1");
@@ -469,7 +467,7 @@ const Report = () => {
                 dispatch(
                   reportActions.fetchQueryThreeData({
                     bottleneckPercentage: queryThreeBN,
-                  })
+                  }),
                 );
               }}
             >
