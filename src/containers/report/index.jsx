@@ -9,9 +9,12 @@ import {
 import NestedTable from "./nestedTable";
 import { useDispatch, useSelector } from "react-redux";
 import { reportActions } from "../../slices/report";
+import borderCountries from "../../utils/helpers/regionalConflict.json";
 import { useState } from "react";
 import {
+  // countryBorders,
   customLinkFormatter,
+  queryFiveIconFormatter,
   queryFourIconFormatter,
   queryOneIconFormatter,
   queryThreeIconFormatter,
@@ -170,7 +173,7 @@ const columnsQuery5 = [
   },
   {
     title: "Info",
-    formatter: queryOneIconFormatter,
+    formatter: queryFiveIconFormatter,
     field: "info",
     width: 60,
     hozAlign: "center",
@@ -182,14 +185,16 @@ const CountrySelect = ({
   onChange,
   renderOption,
   getOptionLabel,
+  width = 200,
   value,
+  label = "Choose a country",
 }) => {
   return (
     <Autocomplete
       id="country-select-demo"
       sx={{
         display: "inline-block",
-        width: 200,
+        width,
         verticalAlign: "middle",
       }}
       options={options}
@@ -202,10 +207,10 @@ const CountrySelect = ({
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Choose a country"
+          label={label}
           inputProps={{
             ...params.inputProps,
-            autoComplete: "new-password", // disable autocomplete and autofill
+            // autoComplete: "new-password", // disable autocomplete and autofill
           }}
         />
       )}
@@ -310,18 +315,16 @@ const Report = () => {
   const queryFourBN = useSelector((state) => state.report.queryFourBN);
   const queryTwoBN = useSelector((state) => state.report.queryTwoBN);
   const queryFiveBN = useSelector((state) => state.report.queryFiveBN);
-
+  const queryFive = useSelector((state) => state.report.queryFive);
 
   const queryOneTitle = useSelector((state) => state.report.queryOneTitle);
   const queryTwoTitle = useSelector((state) => state.report.queryTwoTitle);
   const queryThreeTitle = useSelector((state) => state.report.queryThreeTitle);
   const queryFourTitle = useSelector((state) => state.report.queryFourTitle);
   const queryFiveTitle = useSelector((state) => state.report.queryFiveTitle);
-  
 
   const dispatch = useDispatch();
   const [selectedQuery, setSelectedQuery] = useState("q1");
-
   const QUERY = [
     {
       title: "Query 1",
@@ -539,7 +542,7 @@ const Report = () => {
       ),
     },
     {
-      title: "Regional Conflict",
+      title: "Regional Conflict - Specific",
       value: "q5",
       component: () => (
         <>
@@ -551,25 +554,28 @@ const Report = () => {
               What categories are affected by at least
               <BNTextField
                 setState={(value) =>
-                  dispatch(reportActions.setQueryFiveBNBN(value))
+                  dispatch(reportActions.setQueryFiveBN(value))
                 }
-                value={queryTwoBN}
+                value={queryFiveBN}
               />{" "}
-              % if
+              % if neighbouring countries 
               <CountrySelect
-                options={countriesList}
-                value={queryTwo}
+                width={300}
+                options={borderCountries}
+                value={queryFive}
                 onChange={(e, value) => {
                   dispatch(reportActions.setQueryFive(value));
                 }}
                 renderOption={(props, option) => (
                   <div {...props}>
-                    {option.country} ({option.country_code})
+                    {/* {console.log(option)} */}
+                    {option.countries}
                   </div>
                 )}
-                getOptionLabel={(option) => option.country}
-              />{" "}
-              Neighbouring countries become unavailable
+                label="Choose a border country"
+                getOptionLabel={(option) => option.countries}
+              />{" "} 
+              become unavailable
             </span>
             <Button
               variant="contained"
@@ -578,6 +584,7 @@ const Report = () => {
               onClick={() => {
                 const par = {
                   bottleneckPercentage: queryFiveBN,
+                  countryCode: queryFive?.countryCodes
                 };
                 dispatch(reportActions.fetchQueryFiveData(par));
               }}

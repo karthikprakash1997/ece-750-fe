@@ -267,7 +267,7 @@ export const queryOneIconFormatter = (cell, formatterParams, onRendered) => {
   // Access the value from another cell (e.g., 'name' column)
   const rowValue = cell.getRow().getData();
 
-  const title = `In the event of losing Austria as a supplier, Category ${rowValue.category} would experience a ${rowValue.percentage}% impact, resulting in the loss of ${rowValue.count} parts.`;
+  const title = `In the event of losing Austria as a supplier, ${rowValue.percentage}% of category ${rowValue.category} would be affected resulting in a loss of ${rowValue.count} parts.`;
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
@@ -282,7 +282,7 @@ export const queryTwoIconFormatter = (cell, formatterParams, onRendered) => {
   // Access the value from another cell (e.g., 'name' column)
   const rowValue = cell.getRow().getData();
 
-  const title = `If Austria were to no longer be a supplier, Category ${rowValue.category} would have ${rowValue.countries} as alternative options, contributing ${rowValue.percentage}%.`;
+  const title = `In the event of loosing Austria as a supplier, countries ${rowValue.countries}  could serve as alternatives for the category ${rowValue.category} covering ${rowValue.percentage}% of the parts. (Cannot guarantee same parts)`;
 
   return `
   <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -311,7 +311,7 @@ export const queryThreeIconFormatter = (cell, formatterParams, onRendered) => {
   const rowValue = cell.getRow().getData();
 
   // const title = `${rowValue.countries} contribute about ${rowValue.percentage}% to the catogary ${rowValue.category}`
-  const title = `The contribution of ${rowValue.countries} to category ${rowValue.category} is approximately ${rowValue.percentage}%.`;
+  const title = `The country ${rowValue.countries} owns ${rowValue.percentage}% of global production of ${rowValue.category} category.`
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
@@ -327,7 +327,23 @@ export const queryFourIconFormatter = (cell, formatterParams, onRendered) => {
   const rowValue = cell.getRow().getData();
 
   // const title = `The countries ${rowValue.countries} create a part bottlect fo the category ${rowValue.category}.`
-  const title = `The countries ${rowValue.countries} contribute significantly to the parts in the category ${rowValue.category}.`;
+  const title = `
+  The countries ${rowValue.countries} jointly own Y% of the category ${rowValue.category}. (Unknown means a part has no country of manufacturing listed.)`;
+
+  return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+  <title>${title}</title>
+  <circle fill="#2196F3" cx="24" cy="24" r="21"></circle>
+  <rect x="22" y="22" fill="#fff" width="4" height="11"></rect>
+  <circle fill="#fff" cx="24" cy="16.5" r="2.5"></circle>
+</svg>
+`;
+};
+
+export const queryFiveIconFormatter = (cell, formatterParams, onRendered) => {
+  // Access the value from another cell (e.g., 'name' column)
+  const rowValue = cell.getRow().getData();
+
+  const title = `In the event of losing countries China & India as a supplier, ${rowValue.percentage}% of category ${rowValue.category} would be affected resulting in a loss of ${rowValue.count} parts.`;
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
@@ -347,7 +363,8 @@ export const countryBorders = () => {
   // }
 const jsonData =  cb.map((it) => {
     return {
-      countries: [it.country_name, it.country_border_name],
+      countriesArr: [it.country_name, it.country_border_name],
+      countries: `${it.country_name} - ${it.country_border_name}`,
       countryCodes: [it.country_code, it.country_border_code],
     };
   });
