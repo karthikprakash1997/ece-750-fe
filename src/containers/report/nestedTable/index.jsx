@@ -15,7 +15,9 @@ const NestedTable = ({ tableTitle, tableData, columns, isCountry = true }) => {
     // Instantiate Tabulator when the component is mounted
     tabulator = new Tabulator(elRef.current, {
       data: JSON.parse(
-        JSON.stringify(isCountry ? countryCodeConversion(tableData) : tableData)
+        JSON.stringify(
+          isCountry ? countryCodeConversion(tableData) : tableData,
+        ),
       ),
       dataTree: true,
       dataTreeStartExpanded: true,
@@ -68,27 +70,26 @@ const NestedTable = ({ tableTitle, tableData, columns, isCountry = true }) => {
 
   return (
     <>
-    <Grid width={"100%"} >
-      <Grid container justifyContent="space-between">
-        <Grid item>
-          <h4>{tableTitle} &nbsp;</h4>
-        </Grid>
-        <Grid item marginRight={3}>
-          <BiSolidDownload
-            variant="contained"
-            color="success"
-            onClick={handleExportPDF}
-          >
-            Export the table as PDF
-          </BiSolidDownload>
+      <Grid width={"100%"}>
+        <Grid container justifyContent="space-between">
+          <Grid item>
+            <h4>{tableTitle} &nbsp;</h4>
+          </Grid>
+          <Grid item marginRight={3}>
+            <BiSolidDownload
+              variant="contained"
+              color="success"
+              onClick={handleExportPDF}
+            >
+              Export the table as PDF
+            </BiSolidDownload>
+          </Grid>
         </Grid>
       </Grid>
-
-    </Grid>
-    <Grid overflow={'auto'} height={'55vh'}>
-      <div ref={elRef} style={{ width: "fit-content" }}></div>
-    </Grid>
-      </>
+      <Grid overflow={"auto"} height={"55vh"}>
+        <div ref={elRef} style={{ width: "fit-content" }}></div>
+      </Grid>
+    </>
   );
 };
 

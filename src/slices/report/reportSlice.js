@@ -255,11 +255,8 @@ const reportSlice = createSlice({
         state.isLoadingQ5 = false;
         state.isErrorQ5 = false;
         state.queryFiveData = action.payload.result;
-        state.queryFiveTitle = `
-        Categories that are affected by at least
-        ${state.queryFiveBN}% if neighbouring countries
-${state.queryFive.countries}
- become unavailable`;
+        state.queryFiveTitle = `Categories that are affected by at least
+        ${state.queryFiveBN}% if neighbouring countries ${state.queryFive.countries} become unavailable`;
       })
       .addCase(fetchQueryFiveData.rejected, (state, action) => {
         state.isLoadingQ5 = false;

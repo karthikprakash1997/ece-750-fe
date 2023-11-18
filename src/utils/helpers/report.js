@@ -6,7 +6,7 @@ export const countryCodeConversion = (data) => {
       countries: it.countries.map(
         (country) =>
           countryCodeTocountries.find((dataum) => dataum.code === country)
-            ?.name || "Unknown"
+            ?.name || "Unknown",
       ),
     };
   });
@@ -361,7 +361,7 @@ export const countryBorders = () => {
   //   "country_border_code": "FR",
   //   "country_border_name": "France"
   // }
-const jsonData =  cb.map((it) => {
+  const jsonData = cb.map((it) => {
     return {
       countriesArr: [it.country_name, it.country_border_name],
       countries: `${it.country_name} - ${it.country_border_name}`,
@@ -369,24 +369,23 @@ const jsonData =  cb.map((it) => {
     };
   });
 
-// Convert JSON object to a JSON string
-const jsonString = JSON.stringify(jsonData, null, 2); // The third parameter (2) is for indentation
+  // Convert JSON object to a JSON string
+  const jsonString = JSON.stringify(jsonData, null, 2); // The third parameter (2) is for indentation
 
-// Create a Blob containing the JSON data
-const blob = new Blob([jsonString], { type: 'application/json' });
+  // Create a Blob containing the JSON data
+  const blob = new Blob([jsonString], { type: "application/json" });
 
-// Create a download link
-const downloadLink = document.createElement('a');
-downloadLink.href = URL.createObjectURL(blob);
-downloadLink.download = 'output.json'; // Specify the filename
+  // Create a download link
+  const downloadLink = document.createElement("a");
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = "output.json"; // Specify the filename
 
-// Append the link to the document
-document.body.appendChild(downloadLink);
+  // Append the link to the document
+  document.body.appendChild(downloadLink);
 
-// Trigger the download
-downloadLink.click();
+  // Trigger the download
+  downloadLink.click();
 
-// Remove the link from the document
-document.body.removeChild(downloadLink);
-
+  // Remove the link from the document
+  document.body.removeChild(downloadLink);
 };

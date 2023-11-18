@@ -38,7 +38,7 @@ const DrilldownPieChart = ({ props }) => {
   }, [dispatch, isCountryDrillDown]);
 
   const handleCountryDrillDownToggle = () => {
-    while (drillDownChartRef.current.chart.drilldownLevels.length > 0) {
+    while (drillDownChartRef?.current?.chart?.drilldownLevels?.length > 0) {
       drillDownChartRef.current.chart.drillUp();
     }
     setIsCountryDrillDown(!isCountryDrillDown);
@@ -54,9 +54,9 @@ const DrilldownPieChart = ({ props }) => {
       // zoom: 2
     },
     plotOptions: {
-        pie: {
-            size: 500
-        }
+      pie: {
+        size: 500,
+      },
     },
     title: props?.title || {
       text: undefined, // No title
@@ -77,18 +77,18 @@ const DrilldownPieChart = ({ props }) => {
       formatter() {
         const formatterCallback = this;
         // if (formatterCallback && formatterCallback?.points?.length) {
-        return `
-          ${formatterCallback.point.name} contributes ${formatterCallback.point.percentage.toFixed(2)}% by manufacturing ${formatterCallback.point.y} parts
-        `;
+        return `<span><b>${
+          formatterCallback.point.name
+        }</b> make up <b>${formatterCallback.point.percentage.toFixed(
+          2,
+        )}%</b> with <b>${formatterCallback.point.y}</b> parts.</span>`;
         // }
         // return '';
       },
     },
     series: [
       {
-        name: isCountryDrillDown
-          ? "Countries"
-          : "Categories",
+        name: isCountryDrillDown ? "Countries" : "Categories",
         colorByPoint: true,
         data: isCountryDrillDown
           ? countryDrillDownParent
@@ -106,7 +106,11 @@ const DrilldownPieChart = ({ props }) => {
   return (
     <>
       <div>
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} ref={drillDownChartRef}/>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={chartOptions}
+          ref={drillDownChartRef}
+        />
         <div>
           <Stack direction="row" spacing={1} alignItems="center">
             Category wise drill down

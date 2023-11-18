@@ -52,40 +52,36 @@ const Map = () => {
 
   const shippingData = useSelector((state) =>
     (state?.mapData?.mapData || []).reduce((acc, curr) => {
-      console.log(curr?.Shipping,"curr.Shipping")
-      curr?.Shipping?.filter((ship) => ship.Name !== null)
-        ?.forEach((it) => {
-          // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
-          const result = {
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [curr.longitude, curr.latitude],
-                it.countryCode === "US"
-                  ? [-74, 40]
-                //   : it.countryCode === "CN"
-                //   ? [119.48, 32.54]
-                  : 
+      console.log(curr?.Shipping, "curr.Shipping");
+      curr?.Shipping?.filter((ship) => ship.Name !== null)?.forEach((it) => {
+        // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
+        const result = {
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [curr.longitude, curr.latitude],
+              it.countryCode === "US"
+                ? [-74, 40]
+                : //   : it.countryCode === "CN"
+                  //   ? [119.48, 32.54]
                   [it.coordinates[1], it.coordinates[0]],
-                [-74.3,45.5], //canada
-              ],
-            },
-            className: "animated-line",
-            color: "#666",
-          };
-          acc.push(result);
-      
-        });
+              [-74.3, 45.5], //canada
+            ],
+          },
+          className: "animated-line",
+          color: "#666",
+        };
+        acc.push(result);
+      });
       return acc;
     }, []),
   );
 
   const shippingDataMapPoint = useSelector((state) =>
     (state?.mapData?.mapData || []).reduce((acc, curr, index) => {
-      console.log(curr?.Shipping,"curr.Shipping")
-      curr?.Shipping?.filter((ship) => ship.Name !== null)
-        ?.forEach((it) => {
-          // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
+      console.log(curr?.Shipping, "curr.Shipping");
+      curr?.Shipping?.filter((ship) => ship.Name !== null)?.forEach((it) => {
+        // const coor = COUNTRY_DETAILS.find((it) => it.alpha2 === curr.countryCode);
 
         if (!acc.some((datum) => datum.name === curr.Name)) {
           const mapPointResult = {
@@ -126,12 +122,12 @@ const Map = () => {
           acc.push(mapPointResult2);
         }
 
-        if(index===state.mapData?.mapData?.length-1){
-          const mapPointResult3 =  {
-            name: 'Canada',
+        if (index === state.mapData?.mapData?.length - 1) {
+          const mapPointResult3 = {
+            name: "Canada",
             geometry: {
               type: "Point",
-              coordinates: [-74.3,45.5], // Yemen
+              coordinates: [-74.3, 45.5], // Yemen
             },
             // custom: {
             //   arrival: 1414,
@@ -139,9 +135,8 @@ const Map = () => {
             dataLabels: {
               align: "right",
             },
-          }
-          acc.push(mapPointResult3)
-
+          };
+          acc.push(mapPointResult3);
         }
       });
       return acc;
@@ -198,9 +193,11 @@ const Map = () => {
     },
     tooltip: {
       headerFormat: "",
-			formatter: function () {
-        return `${this.key} manufactures ${this.point.value.toLocaleString()} parts`;
-			}
+      formatter: function () {
+        return `${
+          this.key
+        } manufactures ${this.point.value.toLocaleString()} parts`;
+      },
     },
     mapNavigation: {
       enabled: true,

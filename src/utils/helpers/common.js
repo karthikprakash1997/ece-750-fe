@@ -1995,5 +1995,3 @@ export const COUNTRY_DETAILS = [
     longitude: 65,
   },
 ];
-
-

@@ -300,7 +300,7 @@ const Report = () => {
   // ];
 
   const countriesList = useSelector(
-    (state) => state?.countries?.countriesList?.data
+    (state) => state?.countries?.countriesList?.data,
   );
 
   const queryOneData = useSelector((state) => state.report.queryOneData);
@@ -472,7 +472,7 @@ const Report = () => {
                 dispatch(
                   reportActions.fetchQueryThreeData({
                     bottleneckPercentage: queryThreeBN,
-                  })
+                  }),
                 );
               }}
             >
