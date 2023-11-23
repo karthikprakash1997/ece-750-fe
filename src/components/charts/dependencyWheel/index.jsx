@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { shippingDataActions } from "../../../slices/dashboard";
 import { useParamsDeconstructor } from "../../../utils/hooks";
 import { useEffect } from "react";
-import CallMadeIcon from "@mui/icons-material/CallMade";
+import { GoArrowUpRight } from "react-icons/go";
 
 highcartsSankey(Highcharts);
 highcartsDependencyWheel(Highcharts);
@@ -79,7 +79,7 @@ const DependencyWheel = () => {
       ) : (
         <h1>
           No data present change the filter on the right side.
-          <CallMadeIcon style={{ width: "100px", height: "100px" }} />
+          <GoArrowUpRight style={{ width: "100px", height: "100px" }} />
         </h1>
       )}
     </>
