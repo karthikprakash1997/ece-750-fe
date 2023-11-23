@@ -75,15 +75,61 @@ const DrilldownPieChart = ({ props }) => {
     tooltip: {
       enabled: true,
       formatter() {
+        const drillDownLevels = this.series.chart.drilldownLevels;
         const formatterCallback = this;
-        // if (formatterCallback && formatterCallback?.points?.length) {
-        return `<span><b>${
-          formatterCallback.point.name
-        }</b> make up <b>${formatterCallback.point.percentage.toFixed(
-          2,
-        )}%</b> with <b>${formatterCallback.point.y}</b> parts.</span>`;
-        // }
-        // return '';
+        if (isCountryDrillDown) {
+          if (drillDownLevels && drillDownLevels.length > 0) {
+            return `<span><b>${
+              formatterCallback.point.name
+            }</b> are <b>${formatterCallback.point.percentage.toFixed(
+              2,
+            )}%</b> of <b>${drillDownLevels[0].pointOptions.name}'s</b>
+            ${
+              drillDownLevels.length == 1
+                ? "electronic"
+                : drillDownLevels[drillDownLevels.length - 1].pointOptions.name
+            } production with <b>${
+              formatterCallback.point.y
+            }</b> parts.</span>`;
+          } else {
+            return `<span><b>${
+              formatterCallback.point.name
+            }</b> owns <b>${formatterCallback.point.percentage.toFixed(
+              2,
+            )}%</b> of global electronic production with <b>${
+              formatterCallback.point.y
+            }</b> parts.</span>`;
+          }
+        } else {
+          if (
+            drillDownLevels &&
+            drillDownLevels?.length > 0 &&
+            !drillDownLevels[drillDownLevels.length - 1].lowerSeriesOptions
+              .data[0].drilldown
+          ) {
+            return `<span><b>${
+              formatterCallback.point.name
+            }</b> manufactures <b>${
+              formatterCallback.point.y
+            }</b> parts which is <b>${formatterCallback.point.percentage.toFixed(
+              2,
+            )}%</b> of all <b>${
+              drillDownLevels[drillDownLevels.length - 1].pointOptions.name
+            }</b> global production.</span>`;
+          } else {
+            return `<span><b>${
+              formatterCallback.point.name
+            }</b> make up <b>${formatterCallback.point.percentage.toFixed(
+              2,
+            )}%</b> of <b>${
+              drillDownLevels?.length > 0
+                ? drillDownLevels[drillDownLevels?.length - 1].pointOptions.name
+                : ""
+            }</b> global electronic production with <b>${
+              formatterCallback.point.y
+            }</b> parts.</span>`;
+          }
+        }
       },
     },
     series: [

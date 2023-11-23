@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { shippingDataActions } from "../../../slices/dashboard";
 import { useParamsDeconstructor } from "../../../utils/hooks";
 import { useEffect } from "react";
-import CallMadeIcon from '@mui/icons-material/CallMade';
+import CallMadeIcon from "@mui/icons-material/CallMade";
 
 highcartsSankey(Highcharts);
 highcartsDependencyWheel(Highcharts);
@@ -77,8 +77,10 @@ const DependencyWheel = () => {
       {shippingList.length > 0 ? (
         <HighchartsReact highcharts={Highcharts} options={chartOptions} />
       ) : (
-        <h1>No data present change the filter on the right side.<CallMadeIcon style={{ width: '100px', height: '100px' }}/></h1>
-
+        <h1>
+          No data present change the filter on the right side.
+          <CallMadeIcon style={{ width: "100px", height: "100px" }} />
+        </h1>
       )}
     </>
   );
