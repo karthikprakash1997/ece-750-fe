@@ -558,7 +558,7 @@ const Report = () => {
                 }
                 value={queryFiveBN}
               />{" "}
-              % if neighbouring countries 
+              % if neighbouring countries
               <CountrySelect
                 width={300}
                 options={borderCountries}
@@ -574,7 +574,7 @@ const Report = () => {
                 )}
                 label="Choose a border country"
                 getOptionLabel={(option) => option.countries}
-              />{" "} 
+              />{" "}
               become unavailable
             </span>
             <Button
@@ -584,7 +584,7 @@ const Report = () => {
               onClick={() => {
                 const par = {
                   bottleneckPercentage: queryFiveBN,
-                  countryCode: queryFive?.countryCodes
+                  countryCode: queryFive?.countryCodes,
                 };
                 dispatch(reportActions.fetchQueryFiveData(par));
               }}

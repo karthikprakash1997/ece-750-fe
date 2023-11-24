@@ -311,7 +311,7 @@ export const queryThreeIconFormatter = (cell, formatterParams, onRendered) => {
   const rowValue = cell.getRow().getData();
 
   // const title = `${rowValue.countries} contribute about ${rowValue.percentage}% to the catogary ${rowValue.category}`
-  const title = `The country ${rowValue.countries} owns ${rowValue.percentage}% of global production of ${rowValue.category} category.`
+  const title = `The country ${rowValue.countries} owns ${rowValue.percentage}% of global production of ${rowValue.category} category.`;
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
