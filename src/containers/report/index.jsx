@@ -12,6 +12,7 @@ import { reportActions } from "../../slices/report";
 import borderCountries from "../../utils/helpers/regionalConflict.json";
 import { useState } from "react";
 import {
+  countryBorders,
   // countryBorders,
   customLinkFormatter,
   queryFiveIconFormatter,
@@ -240,64 +241,6 @@ const BNTextField = ({ setState, defaultValue, value }) => {
 };
 
 const Report = () => {
-  // const tableData3 = [
-  //   {
-  //     category: "Amplifier",
-  //     percentage: "20%",
-  //     country: "USA,China",
-  //     _children: [
-  //       {
-  //         category: "Amplifier Child 1",
-  //         percentage: "30%",
-  //         country: "Taiwan,France",
-  //       },
-  //       {
-  //         category: "Amplifier Child 2",
-  //         percentage: "40%",
-  //         country: "USA,Taiwan",
-  //       },
-  //       {
-  //         category: "Amplifier Child 3",
-  //         percentage: "60%",
-  //         country: "USA",
-  //         _children: [
-  //           {
-  //             category: "Amplifier Child 3 Child 1",
-  //             percentage: "50%",
-  //             country: "USA,Germany",
-  //           },
-  //           {
-  //             category: "Amplifier Child 3 Child 2",
-  //             percentage: "70%",
-  //             country: "Germany",
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     category: "Screws",
-  //     percentage: "65%",
-  //     country: "Germany",
-  //   },
-  //   {
-  //     category: "Bolts",
-  //     percentage: "90%",
-  //     country: "Germany",
-  //     _children: [
-  //       {
-  //         category: "Bolts Child 1",
-  //         percentage: "90%",
-  //         country: "Germany",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     category: "Microprocessor",
-  //     percentage: "40%",
-  //     country: "Germany",
-  //   },
-  // ];
 
   const countriesList = useSelector(
     (state) => state?.countries?.countriesList?.data,
@@ -331,9 +274,6 @@ const Report = () => {
       value: "q1",
       component: () => (
         <>
-          {/* <Grid item xs={12}>
-            <h4 style={{marginBottom:"-20px"}} >Query 1</h4>
-          </Grid> */}
           <Grid container justifyContent="space-between" xs={12}>
             <span>
               If we lost access to{" "}
@@ -349,7 +289,7 @@ const Report = () => {
                   </div>
                 )}
                 getOptionLabel={(option) => option.country}
-              />
+              />{" "}
               as a supplier, what would be the impact?
             </span>
             <Button
@@ -551,14 +491,14 @@ const Report = () => {
           </Grid> */}
           <Grid container justifyContent="space-between" xs={12}>
             <span>
-              What categories are affected by at least
+              What categories are affected by at least{" "}
               <BNTextField
                 setState={(value) =>
                   dispatch(reportActions.setQueryFiveBN(value))
                 }
                 value={queryFiveBN}
               />{" "}
-              % if neighbouring countries 
+              % if neighbouring countries {" "}
               <CountrySelect
                 width={300}
                 options={borderCountries}

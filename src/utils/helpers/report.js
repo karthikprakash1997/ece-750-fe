@@ -1,4 +1,7 @@
 import cb from "./countryBorders.json";
+import {store} from '../../store';
+
+
 export const countryCodeConversion = (data) => {
   return data.map((it) => {
     return {
@@ -6,7 +9,7 @@ export const countryCodeConversion = (data) => {
       countries: it.countries.map(
         (country) =>
           countryCodeTocountries.find((dataum) => dataum.code === country)
-            ?.name || "Unknown",
+            ?.name || "Unknown"
       ),
     };
   });
@@ -263,11 +266,12 @@ const countryCodeTocountries = [
   { name: "Zimbabw", code: "ZN" },
 ];
 
-export const queryOneIconFormatter = (cell, formatterParams, onRendered) => {
+export const queryOneIconFormatter = (cell) => {
   // Access the value from another cell (e.g., 'name' column)
   const rowValue = cell.getRow().getData();
+  const country = store.getState('report').report.queryOne.country;
 
-  const title = `In the event of losing Austria as a supplier, ${rowValue.percentage}% of category ${rowValue.category} would be affected resulting in a loss of ${rowValue.count} parts.`;
+  const title = `In the event of losing ${country} as a supplier, ${rowValue.percentage}% of category ${rowValue.category} would be affected resulting in a loss of ${rowValue.count} parts.`;
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
@@ -278,11 +282,12 @@ export const queryOneIconFormatter = (cell, formatterParams, onRendered) => {
 `;
 };
 
-export const queryTwoIconFormatter = (cell, formatterParams, onRendered) => {
+export const queryTwoIconFormatter = (cell) => {
   // Access the value from another cell (e.g., 'name' column)
   const rowValue = cell.getRow().getData();
+  const country = store.getState('report').report.queryTwo.country;
 
-  const title = `In the event of loosing Austria as a supplier, countries ${rowValue.countries}  could serve as alternatives for the category ${rowValue.category} covering ${rowValue.percentage}% of the parts. (Cannot guarantee same parts)`;
+  const title = `In the event of losing ${country} as a supplier, countries ${rowValue.countries}  could serve as alternatives for the category ${rowValue.category} covering ${rowValue.percentage}% of the parts. (Cannot guarantee same parts)`;
 
   return `
   <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -306,12 +311,12 @@ export const queryTwoIconFormatter = (cell, formatterParams, onRendered) => {
   // `;
 };
 
-export const queryThreeIconFormatter = (cell, formatterParams, onRendered) => {
+export const queryThreeIconFormatter = (cell) => {
   // Access the value from another cell (e.g., 'name' column)
   const rowValue = cell.getRow().getData();
 
   // const title = `${rowValue.countries} contribute about ${rowValue.percentage}% to the catogary ${rowValue.category}`
-  const title = `The country ${rowValue.countries} owns ${rowValue.percentage}% of global production of ${rowValue.category} category.`
+  const title = `The country ${rowValue.countries} owns ${rowValue.percentage}% of global production of ${rowValue.category} category.`;
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
@@ -322,13 +327,15 @@ export const queryThreeIconFormatter = (cell, formatterParams, onRendered) => {
 `;
 };
 
-export const queryFourIconFormatter = (cell, formatterParams, onRendered) => {
+export const queryFourIconFormatter = (cell) => {
   // Access the value from another cell (e.g., 'name' column)
   const rowValue = cell.getRow().getData();
+  const perc = store.getState('report').report.queryFourBN;
+  
 
   // const title = `The countries ${rowValue.countries} create a part bottlect fo the category ${rowValue.category}.`
   const title = `
-  The countries ${rowValue.countries} jointly own Y% of the category ${rowValue.category}. (Unknown means a part has no country of manufacturing listed.)`;
+  The countries ${rowValue.countries} jointly own ${perc}% of the category ${rowValue.category}. (Unknown means a part has no country of manufacturing listed.)`;
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
@@ -339,11 +346,12 @@ export const queryFourIconFormatter = (cell, formatterParams, onRendered) => {
 `;
 };
 
-export const queryFiveIconFormatter = (cell, formatterParams, onRendered) => {
+export const queryFiveIconFormatter = (cell) => {
   // Access the value from another cell (e.g., 'name' column)
   const rowValue = cell.getRow().getData();
+  const country = store.getState('report').report.queryFive.countries;
 
-  const title = `In the event of losing countries China & India as a supplier, ${rowValue.percentage}% of category ${rowValue.category} would be affected resulting in a loss of ${rowValue.count} parts.`;
+  const title = `In the event of losing countries ${country} as a supplier, ${rowValue.percentage}% of category ${rowValue.category} would be affected resulting in a loss of ${rowValue.count} parts.`;
 
   return `<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
   <title>${title}</title>
@@ -362,11 +370,13 @@ export const countryBorders = () => {
   //   "country_border_name": "France"
   // }
   const jsonData = cb.map((it) => {
-    return {
-      countriesArr: [it.country_name, it.country_border_name],
-      countries: `${it.country_name} - ${it.country_border_name}`,
-      countryCodes: [it.country_code, it.country_border_code],
-    };
+    if (it.country_border_name) {
+      return {
+        countriesArr: [it.country_name, it.country_border_name],
+        countries: `${it.country_name} - ${it.country_border_name}`,
+        countryCodes: [it.country_code, it.country_border_code],
+      };
+    }
   });
 
   // Convert JSON object to a JSON string

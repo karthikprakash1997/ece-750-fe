@@ -109,28 +109,8 @@
       "UZ"
     ]
   },
-  {
-    "countriesArr": [
-      "Antigua and Barbuda",
-      ""
-    ],
-    "countries": "Antigua and Barbuda - ",
-    "countryCodes": [
-      "AG",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Anguilla",
-      ""
-    ],
-    "countries": "Anguilla - ",
-    "countryCodes": [
-      "AI",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "Albania",
@@ -263,17 +243,7 @@
       "ZM"
     ]
   },
-  {
-    "countriesArr": [
-      "Antarctica",
-      ""
-    ],
-    "countries": "Antarctica - ",
-    "countryCodes": [
-      "AQ",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Argentina",
@@ -329,17 +299,7 @@
       "UY"
     ]
   },
-  {
-    "countriesArr": [
-      "American Samoa",
-      ""
-    ],
-    "countries": "American Samoa - ",
-    "countryCodes": [
-      "AS",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Austria",
@@ -428,39 +388,9 @@
       "CH"
     ]
   },
-  {
-    "countriesArr": [
-      "Australia",
-      ""
-    ],
-    "countries": "Australia - ",
-    "countryCodes": [
-      "AU",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Aruba",
-      ""
-    ],
-    "countries": "Aruba - ",
-    "countryCodes": [
-      "AW",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Aland Islands",
-      ""
-    ],
-    "countries": "Aland Islands - ",
-    "countryCodes": [
-      "AX",
-      ""
-    ]
-  },
+  
+  
+  
   {
     "countriesArr": [
       "Azerbaijan",
@@ -549,17 +479,7 @@
       "RS"
     ]
   },
-  {
-    "countriesArr": [
-      "Barbados",
-      ""
-    ],
-    "countries": "Barbados - ",
-    "countryCodes": [
-      "BB",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Bangladesh",
@@ -747,17 +667,7 @@
       "TR"
     ]
   },
-  {
-    "countriesArr": [
-      "Bahrain",
-      ""
-    ],
-    "countries": "Bahrain - ",
-    "countryCodes": [
-      "BH",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Burundi",
@@ -835,28 +745,8 @@
       "TG"
     ]
   },
-  {
-    "countriesArr": [
-      "Saint Barthelemy",
-      ""
-    ],
-    "countries": "Saint Barthelemy - ",
-    "countryCodes": [
-      "BL",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Bermuda",
-      ""
-    ],
-    "countries": "Bermuda - ",
-    "countryCodes": [
-      "BM",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "Brunei Darussalam",
@@ -923,17 +813,7 @@
       "PE"
     ]
   },
-  {
-    "countriesArr": [
-      "Bonaire, Sint Eustatius and Saba",
-      ""
-    ],
-    "countries": "Bonaire, Sint Eustatius and Saba - ",
-    "countryCodes": [
-      "BQ",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Brazil",
@@ -1044,17 +924,7 @@
       "VE"
     ]
   },
-  {
-    "countriesArr": [
-      "Bahamas",
-      ""
-    ],
-    "countries": "Bahamas - ",
-    "countryCodes": [
-      "BS",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Bhutan",
@@ -1077,17 +947,7 @@
       "IN"
     ]
   },
-  {
-    "countriesArr": [
-      "Bouvet Island",
-      ""
-    ],
-    "countries": "Bouvet Island - ",
-    "countryCodes": [
-      "BV",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Botswana",
@@ -1220,17 +1080,7 @@
       "US"
     ]
   },
-  {
-    "countriesArr": [
-      "Cocos (Keeling) Islands",
-      ""
-    ],
-    "countries": "Cocos (Keeling) Islands - ",
-    "countryCodes": [
-      "CC",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Congo (the Democratic Republic of the)",
@@ -1561,17 +1411,7 @@
       "ML"
     ]
   },
-  {
-    "countriesArr": [
-      "Cook Islands",
-      ""
-    ],
-    "countries": "Cook Islands - ",
-    "countryCodes": [
-      "CK",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Chile",
@@ -1924,61 +1764,11 @@
       "PA"
     ]
   },
-  {
-    "countriesArr": [
-      "Cuba",
-      ""
-    ],
-    "countries": "Cuba - ",
-    "countryCodes": [
-      "CU",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Cabo Verde",
-      ""
-    ],
-    "countries": "Cabo Verde - ",
-    "countryCodes": [
-      "CV",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Curacao",
-      ""
-    ],
-    "countries": "Curacao - ",
-    "countryCodes": [
-      "CW",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Christmas Island",
-      ""
-    ],
-    "countries": "Christmas Island - ",
-    "countryCodes": [
-      "CX",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Cyprus",
-      ""
-    ],
-    "countries": "Cyprus - ",
-    "countryCodes": [
-      "CY",
-      ""
-    ]
-  },
+  
+  
+  
+  
+  
   {
     "countriesArr": [
       "Czechia",
@@ -2166,17 +1956,7 @@
       "DE"
     ]
   },
-  {
-    "countriesArr": [
-      "Dominica",
-      ""
-    ],
-    "countries": "Dominica - ",
-    "countryCodes": [
-      "DM",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Dominican Republic",
@@ -2573,50 +2353,10 @@
       "SE"
     ]
   },
-  {
-    "countriesArr": [
-      "Fiji",
-      ""
-    ],
-    "countries": "Fiji - ",
-    "countryCodes": [
-      "FJ",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Falkland Islands (Malvinas)",
-      ""
-    ],
-    "countries": "Falkland Islands (Malvinas) - ",
-    "countryCodes": [
-      "FK",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Micronesia (Federated States of)",
-      ""
-    ],
-    "countries": "Micronesia (Federated States of) - ",
-    "countryCodes": [
-      "FM",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Faroe Islands",
-      ""
-    ],
-    "countries": "Faroe Islands - ",
-    "countryCodes": [
-      "FO",
-      ""
-    ]
-  },
+  
+  
+  
+  
   {
     "countriesArr": [
       "France",
@@ -2749,17 +2489,7 @@
       "IE"
     ]
   },
-  {
-    "countriesArr": [
-      "Grenada",
-      ""
-    ],
-    "countries": "Grenada - ",
-    "countryCodes": [
-      "GD",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Georgia",
@@ -2826,17 +2556,7 @@
       "SR"
     ]
   },
-  {
-    "countriesArr": [
-      "Guernsey",
-      ""
-    ],
-    "countries": "Guernsey - ",
-    "countryCodes": [
-      "GG",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Ghana",
@@ -2881,17 +2601,7 @@
       "ES"
     ]
   },
-  {
-    "countriesArr": [
-      "Greenland",
-      ""
-    ],
-    "countries": "Greenland - ",
-    "countryCodes": [
-      "GL",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Gambia (the)",
@@ -2969,17 +2679,7 @@
       "SL"
     ]
   },
-  {
-    "countriesArr": [
-      "Guadeloupe",
-      ""
-    ],
-    "countries": "Guadeloupe - ",
-    "countryCodes": [
-      "GP",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Equatorial Guinea",
@@ -3046,17 +2746,7 @@
       "TR"
     ]
   },
-  {
-    "countriesArr": [
-      "South Georgia and the South Sandwich Islands",
-      ""
-    ],
-    "countries": "South Georgia and the South Sandwich Islands - ",
-    "countryCodes": [
-      "GS",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Guatemala",
@@ -3101,17 +2791,7 @@
       "MX"
     ]
   },
-  {
-    "countriesArr": [
-      "Guam",
-      ""
-    ],
-    "countries": "Guam - ",
-    "countryCodes": [
-      "GU",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Guinea-Bissau",
@@ -3178,17 +2858,7 @@
       "CN"
     ]
   },
-  {
-    "countriesArr": [
-      "Heard Island and McDonald Islands",
-      ""
-    ],
-    "countries": "Heard Island and McDonald Islands - ",
-    "countryCodes": [
-      "HM",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Honduras",
@@ -3464,17 +3134,7 @@
       "SY"
     ]
   },
-  {
-    "countriesArr": [
-      "Isle of Man",
-      ""
-    ],
-    "countries": "Isle of Man - ",
-    "countryCodes": [
-      "IM",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "India",
@@ -3541,17 +3201,7 @@
       "PK"
     ]
   },
-  {
-    "countriesArr": [
-      "British Indian Ocean Territory",
-      ""
-    ],
-    "countries": "British Indian Ocean Territory - ",
-    "countryCodes": [
-      "IO",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Iraq",
@@ -3695,17 +3345,7 @@
       "TM"
     ]
   },
-  {
-    "countriesArr": [
-      "Iceland",
-      ""
-    ],
-    "countries": "Iceland - ",
-    "countryCodes": [
-      "IS",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Italy",
@@ -3772,28 +3412,8 @@
       "VA"
     ]
   },
-  {
-    "countriesArr": [
-      "Jersey",
-      ""
-    ],
-    "countries": "Jersey - ",
-    "countryCodes": [
-      "JE",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Jamaica",
-      ""
-    ],
-    "countries": "Jamaica - ",
-    "countryCodes": [
-      "JM",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "Jordan",
@@ -3849,17 +3469,7 @@
       "SY"
     ]
   },
-  {
-    "countriesArr": [
-      "Japan",
-      ""
-    ],
-    "countries": "Japan - ",
-    "countryCodes": [
-      "JP",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Kenya",
@@ -3992,39 +3602,9 @@
       "VN"
     ]
   },
-  {
-    "countriesArr": [
-      "Kiribati",
-      ""
-    ],
-    "countries": "Kiribati - ",
-    "countryCodes": [
-      "KI",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Comoros",
-      ""
-    ],
-    "countries": "Comoros - ",
-    "countryCodes": [
-      "KM",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Saint Kitts and Nevis",
-      ""
-    ],
-    "countries": "Saint Kitts and Nevis - ",
-    "countryCodes": [
-      "KN",
-      ""
-    ]
-  },
+  
+  
+  
   {
     "countriesArr": [
       "Korea (Democratic People's Republic of)",
@@ -4091,17 +3671,7 @@
       "SA"
     ]
   },
-  {
-    "countriesArr": [
-      "Cayman Islands",
-      ""
-    ],
-    "countries": "Cayman Islands - ",
-    "countryCodes": [
-      "KY",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Kazakhstan",
@@ -4234,17 +3804,7 @@
       "SY"
     ]
   },
-  {
-    "countriesArr": [
-      "Saint Lucia",
-      ""
-    ],
-    "countries": "Saint Lucia - ",
-    "countryCodes": [
-      "LC",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Liechtenstein",
@@ -4267,17 +3827,7 @@
       "CH"
     ]
   },
-  {
-    "countriesArr": [
-      "Sri Lanka",
-      ""
-    ],
-    "countries": "Sri Lanka - ",
-    "countryCodes": [
-      "LK",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Liberia",
@@ -4630,28 +4180,8 @@
       "SX"
     ]
   },
-  {
-    "countriesArr": [
-      "Madagascar",
-      ""
-    ],
-    "countries": "Madagascar - ",
-    "countryCodes": [
-      "MG",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Marshall Islands",
-      ""
-    ],
-    "countries": "Marshall Islands - ",
-    "countryCodes": [
-      "MH",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "North Macedonia",
@@ -4861,28 +4391,8 @@
       "CN"
     ]
   },
-  {
-    "countriesArr": [
-      "Northern Mariana Islands",
-      ""
-    ],
-    "countries": "Northern Mariana Islands - ",
-    "countryCodes": [
-      "MP",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Martinique",
-      ""
-    ],
-    "countries": "Martinique - ",
-    "countryCodes": [
-      "MQ",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "Mauritania",
@@ -4927,50 +4437,10 @@
       "EH"
     ]
   },
-  {
-    "countriesArr": [
-      "Montserrat",
-      ""
-    ],
-    "countries": "Montserrat - ",
-    "countryCodes": [
-      "MS",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Malta",
-      ""
-    ],
-    "countries": "Malta - ",
-    "countryCodes": [
-      "MT",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Mauritius",
-      ""
-    ],
-    "countries": "Mauritius - ",
-    "countryCodes": [
-      "MU",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Maldives",
-      ""
-    ],
-    "countries": "Maldives - ",
-    "countryCodes": [
-      "MV",
-      ""
-    ]
-  },
+  
+  
+  
+  
   {
     "countriesArr": [
       "Malawi",
@@ -5180,17 +4650,7 @@
       "ZM"
     ]
   },
-  {
-    "countriesArr": [
-      "New Caledonia",
-      ""
-    ],
-    "countries": "New Caledonia - ",
-    "countryCodes": [
-      "NC",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Niger",
@@ -5268,17 +4728,7 @@
       "NG"
     ]
   },
-  {
-    "countriesArr": [
-      "Norfolk Island",
-      ""
-    ],
-    "countries": "Norfolk Island - ",
-    "countryCodes": [
-      "NF",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Nigeria",
@@ -5422,39 +4872,9 @@
       "IN"
     ]
   },
-  {
-    "countriesArr": [
-      "Nauru",
-      ""
-    ],
-    "countries": "Nauru - ",
-    "countryCodes": [
-      "NR",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Niue",
-      ""
-    ],
-    "countries": "Niue - ",
-    "countryCodes": [
-      "NU",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "New Zealand",
-      ""
-    ],
-    "countries": "New Zealand - ",
-    "countryCodes": [
-      "NZ",
-      ""
-    ]
-  },
+  
+  
+  
   {
     "countriesArr": [
       "Oman",
@@ -5565,17 +4985,7 @@
       "EC"
     ]
   },
-  {
-    "countriesArr": [
-      "French Polynesia",
-      ""
-    ],
-    "countries": "French Polynesia - ",
-    "countryCodes": [
-      "PF",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Papua New Guinea",
@@ -5587,17 +4997,7 @@
       "ID"
     ]
   },
-  {
-    "countriesArr": [
-      "Philippines",
-      ""
-    ],
-    "countries": "Philippines - ",
-    "countryCodes": [
-      "PH",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Pakistan",
@@ -5719,39 +5119,9 @@
       "UA"
     ]
   },
-  {
-    "countriesArr": [
-      "Saint Pierre and Miquelon",
-      ""
-    ],
-    "countries": "Saint Pierre and Miquelon - ",
-    "countryCodes": [
-      "PM",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Pitcairn",
-      ""
-    ],
-    "countries": "Pitcairn - ",
-    "countryCodes": [
-      "PN",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Puerto Rico",
-      ""
-    ],
-    "countries": "Puerto Rico - ",
-    "countryCodes": [
-      "PR",
-      ""
-    ]
-  },
+  
+  
+  
   {
     "countriesArr": [
       "Palestine, State of",
@@ -5796,17 +5166,7 @@
       "ES"
     ]
   },
-  {
-    "countriesArr": [
-      "Palau",
-      ""
-    ],
-    "countries": "Palau - ",
-    "countryCodes": [
-      "PW",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Paraguay",
@@ -5851,17 +5211,7 @@
       "SA"
     ]
   },
-  {
-    "countriesArr": [
-      "Reunion",
-      ""
-    ],
-    "countries": "Reunion - ",
-    "countryCodes": [
-      "RE",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Romania",
@@ -6280,28 +5630,8 @@
       "YE"
     ]
   },
-  {
-    "countriesArr": [
-      "Solomon Islands",
-      ""
-    ],
-    "countries": "Solomon Islands - ",
-    "countryCodes": [
-      "SB",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Seychelles",
-      ""
-    ],
-    "countries": "Seychelles - ",
-    "countryCodes": [
-      "SC",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "Sudan",
@@ -6401,28 +5731,8 @@
       "NO"
     ]
   },
-  {
-    "countriesArr": [
-      "Singapore",
-      ""
-    ],
-    "countries": "Singapore - ",
-    "countryCodes": [
-      "SG",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Saint Helena, Ascension and Tristan da Cunha",
-      ""
-    ],
-    "countries": "Saint Helena, Ascension and Tristan da Cunha - ",
-    "countryCodes": [
-      "SH",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "Slovenia",
@@ -6467,17 +5777,7 @@
       "IT"
     ]
   },
-  {
-    "countriesArr": [
-      "Svalbard and Jan Mayen",
-      ""
-    ],
-    "countries": "Svalbard and Jan Mayen - ",
-    "countryCodes": [
-      "SJ",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Slovakia",
@@ -6753,17 +6053,7 @@
       "UG"
     ]
   },
-  {
-    "countriesArr": [
-      "Sao Tome and Principe",
-      ""
-    ],
-    "countries": "Sao Tome and Principe - ",
-    "countryCodes": [
-      "ST",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "El Salvador",
@@ -6874,17 +6164,7 @@
       "ZA"
     ]
   },
-  {
-    "countriesArr": [
-      "Turks and Caicos Islands",
-      ""
-    ],
-    "countries": "Turks and Caicos Islands - ",
-    "countryCodes": [
-      "TC",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Chad",
@@ -6951,17 +6231,7 @@
       "SD"
     ]
   },
-  {
-    "countriesArr": [
-      "French Southern Territories",
-      ""
-    ],
-    "countries": "French Southern Territories - ",
-    "countryCodes": [
-      "TF",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Togo",
@@ -7083,17 +6353,7 @@
       "UZ"
     ]
   },
-  {
-    "countriesArr": [
-      "Tokelau",
-      ""
-    ],
-    "countries": "Tokelau - ",
-    "countryCodes": [
-      "TK",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Timor-Leste",
@@ -7171,17 +6431,7 @@
       "LY"
     ]
   },
-  {
-    "countriesArr": [
-      "Tonga",
-      ""
-    ],
-    "countries": "Tonga - ",
-    "countryCodes": [
-      "TO",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Turkey",
@@ -7270,39 +6520,9 @@
       "SY"
     ]
   },
-  {
-    "countriesArr": [
-      "Trinidad and Tobago",
-      ""
-    ],
-    "countries": "Trinidad and Tobago - ",
-    "countryCodes": [
-      "TT",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Tuvalu",
-      ""
-    ],
-    "countries": "Tuvalu - ",
-    "countryCodes": [
-      "TV",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Taiwan",
-      ""
-    ],
-    "countries": "Taiwan - ",
-    "countryCodes": [
-      "TW",
-      ""
-    ]
-  },
+  
+  
+  
   {
     "countriesArr": [
       "Tanzania (the United Republic of)",
@@ -7523,17 +6743,7 @@
       "TZ"
     ]
   },
-  {
-    "countriesArr": [
-      "United States Minor Outlying Islands",
-      ""
-    ],
-    "countries": "United States Minor Outlying Islands - ",
-    "countryCodes": [
-      "UM",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "United States of America",
@@ -7644,17 +6854,7 @@
       "IT"
     ]
   },
-  {
-    "countriesArr": [
-      "Saint Vincent and the Grenadines",
-      ""
-    ],
-    "countries": "Saint Vincent and the Grenadines - ",
-    "countryCodes": [
-      "VC",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "Venezuela (Bolivarian Republic of)",
@@ -7688,28 +6888,8 @@
       "GY"
     ]
   },
-  {
-    "countriesArr": [
-      "Virgin Islands (British)",
-      ""
-    ],
-    "countries": "Virgin Islands (British) - ",
-    "countryCodes": [
-      "VG",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Virgin Islands (U.S.)",
-      ""
-    ],
-    "countries": "Virgin Islands (U.S.) - ",
-    "countryCodes": [
-      "VI",
-      ""
-    ]
-  },
+  
+  
   {
     "countriesArr": [
       "Viet Nam",
@@ -7743,39 +6923,9 @@
       "LA"
     ]
   },
-  {
-    "countriesArr": [
-      "Vanuatu",
-      ""
-    ],
-    "countries": "Vanuatu - ",
-    "countryCodes": [
-      "VU",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Wallis and Futuna",
-      ""
-    ],
-    "countries": "Wallis and Futuna - ",
-    "countryCodes": [
-      "WF",
-      ""
-    ]
-  },
-  {
-    "countriesArr": [
-      "Samoa",
-      ""
-    ],
-    "countries": "Samoa - ",
-    "countryCodes": [
-      "WS",
-      ""
-    ]
-  },
+  
+  
+  
   {
     "countriesArr": [
       "Yemen",
@@ -7798,17 +6948,7 @@
       "SA"
     ]
   },
-  {
-    "countriesArr": [
-      "Mayotte",
-      ""
-    ],
-    "countries": "Mayotte - ",
-    "countryCodes": [
-      "YT",
-      ""
-    ]
-  },
+  
   {
     "countriesArr": [
       "South Africa",

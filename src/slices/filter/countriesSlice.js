@@ -16,17 +16,24 @@ export const fetchCountries = createAsyncThunk(
   async () => {
     try {
       const response = await fetch(
-        `https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/countries`,
+        `https://dev-api-nrcan.esg.uwaterloo.ca/api/filter/countries`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch countries");
       }
       const data = await response.json();
-      return data;
+      return data.data.map((it) => {
+        return it.country_code === "TW"
+          ? {
+              ...it,
+              country: "Taiwan",
+            }
+          : it;
+    })
     } catch (error) {
       throw error;
     }
-  },
+  }
 );
 
 // Create a slice
@@ -44,7 +51,7 @@ const countriesSlice = createSlice({
       .addCase(fetchCountries.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
-        state.countriesList = action.payload;
+        state.countriesList = {data: action.payload}
       })
       .addCase(fetchCountries.rejected, (state, action) => {
         state.isLoading = false;
