@@ -514,7 +514,7 @@ const Report = () => {
                 )}
                 label="Choose a border country"
                 getOptionLabel={(option) => option.countries}
-              />{" "} 
+              />{" "}
               become unavailable
             </span>
             <Button
@@ -524,7 +524,7 @@ const Report = () => {
               onClick={() => {
                 const par = {
                   bottleneckPercentage: queryFiveBN,
-                  countryCode: queryFive?.countryCodes
+                  countryCode: queryFive?.countryCodes,
                 };
                 dispatch(reportActions.fetchQueryFiveData(par));
               }}
