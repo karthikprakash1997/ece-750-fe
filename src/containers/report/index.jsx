@@ -243,7 +243,7 @@ const BNTextField = ({ setState, defaultValue, value }) => {
 const Report = () => {
 
   const countriesList = useSelector(
-    (state) => state?.countries?.countriesList?.data,
+    (state) => state?.countries?.countriesList?.data || [],
   );
 
   const queryOneData = useSelector((state) => state.report.queryOneData);

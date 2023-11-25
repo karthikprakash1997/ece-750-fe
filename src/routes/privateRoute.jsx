@@ -4,6 +4,7 @@ import { SideDrawer } from "../components/drawer";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { categoriesActions, countriesActions } from "../slices/filter";
+// import { LinearProgress } from "@mui/material";
 // import Footer from '../containers/footer';
 
 const ProtectedRoute = ({ isAuthenticated = false, redirectPath = "/" }) => {
@@ -13,10 +14,14 @@ const ProtectedRoute = ({ isAuthenticated = false, redirectPath = "/" }) => {
 
   const dispatch = useDispatch();
   const categoriesList = useSelector(
-    (state) => state.categories.categoriesList,
+    (state) => state.categories.categoriesList
+  );
+
+  const isLoading = useSelector(
+    (state) => state.categories.isLoading || state.countries.isLoading
   );
   const countriesList = useSelector(
-    (state) => state?.countries?.countriesList?.data,
+    (state) => state?.countries?.countriesList?.data
   );
 
   useEffect(() => {
@@ -31,8 +36,15 @@ const ProtectedRoute = ({ isAuthenticated = false, redirectPath = "/" }) => {
   return (
     <>
       <AppBar />
+      {/* {isLoading ? (
+        <LinearProgress />
+      ) : ( */}
+      {/* <> */}
       <SideDrawer />
       <Outlet />
+      {/* </> */}
+      {/* )} */}
+
       {/* <Footer /> */}
     </>
   );
