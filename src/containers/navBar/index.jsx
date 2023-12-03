@@ -1,50 +1,13 @@
 import { Box, Grid, Typography, useTheme } from "@mui/material";
-import { FaFilterCircleXmark } from "react-icons/fa6";
 // import { getCategories } from "../../utils/filter";
-import { useParamsDeconstructor } from "../../utils/hooks";
-
-const NAV_BAR = [
-  { title: "Overview", route: "overview", search: {} },
-  {
-    title: "Dashboard",
-    route: "dashboard",
-    search: { selectedChart: "dependencyWheel" },
-  },
-  {
-    title: "Report",
-    route: "report",
-    search: {},
-  },
-];
 
 const AppBar = () => {
   const theme = useTheme();
   // const location = useLocation();
-  const {
-    queryParams,
-    currentRoute,
-    filter,
-    addSearchParams,
-    handleRouteChange,
-  } = useParamsDeconstructor();
-
   // getCategories();
   // const handleRouteChange = (pathname) => {
   //   navigate({ pathname });
   // };
-
-  const handleFilterClick = () => {
-    let urlParams = { ...queryParams };
-    if (!filter) {
-      urlParams.filter = 1;
-      urlParams.selectedFilter = "category";
-    } else {
-      delete urlParams.filter;
-      delete urlParams.selectedFilter;
-    }
-    addSearchParams(urlParams);
-    // navigate({ search: `?${new URLSearchParams(urlParams).toString()}` });
-  };
 
   return (
     <Grid
@@ -71,10 +34,10 @@ const AppBar = () => {
             src={window.location.origin + `/assets/uWaterloo.png`}
             alt="University of Waterloo"
           />
-          <Typography variant="h6">Supply Chain Dashboard</Typography>
+          <Typography variant="h6">Mental Wellness application</Typography>
         </Box>
       </Grid>
-      <Grid
+      {/* <Grid
         width={"40%"}
         marginRight={2}
         display={"flex"}
@@ -110,7 +73,7 @@ const AppBar = () => {
           size={20}
           cursor={"pointer"}
         />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

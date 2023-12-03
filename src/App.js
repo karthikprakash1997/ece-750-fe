@@ -3,16 +3,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Dashboard from "./containers/dashboard";
-import Overview from "./containers/overview";
 import Login from "./containers/login";
 import ProtectedRoute from "./routes/privateRoute";
 
 import { Provider } from "react-redux";
 import { store } from "./store";
-import Report from "./containers/report";
-import { useEffect } from "react";
 import "./App.css";
-// import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createTheme({
   typography: {
@@ -47,23 +43,10 @@ const App = () => {
         <Grid bgcolor={theme.palette.primary.main} minHeight={"100vh"}>
           <Router>
             <Routes>
-              <Route path="/" exact element={<Login />} />
-              {/* <AppBar /> */}
-
-              {/* <Route path="/overview" exact element={
-                  <ProtectedRoute isAuthenticated={true}>
-                    <Overview />
-                  </ProtectedRoute>
-                } />
-                <Route path="/dashboard" exact element={
-                  <ProtectedRoute isAuthenticated={true}>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } /> */}
               <Route element={<ProtectedRoute isAuthenticated={true} />}>
-                <Route path="overview" element={<Overview />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="report" element={<Report />} />
+              <Route path="/" exact element={<Dashboard />} />
+                <Route path="profile" element={<Dashboard />} />
+                <Route path="suggestion" element={<Dashboard />} />
               </Route>
             </Routes>
           </Router>

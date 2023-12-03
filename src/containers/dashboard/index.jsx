@@ -1,268 +1,336 @@
-import { Grid, Typography } from "@mui/material";
-import Stats from "../../components/stats";
-import { useTheme } from "@emotion/react";
-import { BsGlobeAmericas } from "react-icons/bs";
-import { SiGoogleanalytics } from "react-icons/si";
-import { FaTools } from "react-icons/fa";
-import PieChart from "../../components/charts/pieChart";
-import { BasicSelect } from "../../components";
-import DependencyWheel from "../../components/charts/dependencyWheel";
-import { useParamsDeconstructor } from "../../utils/hooks";
-import DrilldownPieChart from "../../components/charts/drilldown";
+import React from "react";
+import {
+  Grid,
+  TextField,
+  Autocomplete,
+  Button,
+  Typography,
+  TextareaAutosize,
+} from "@mui/material";
+import {
+  FIRST_Q,
+  SQ,
+  AGE,
+  EMPLOYMENT_STATUS,
+  EDUCATIONAL_STATUS,
+  MARITAL_STATUS,
+  SEX,
+  RESIDENTIAL_STATUS,
+  MOOD,
+  RACE,
+} from "../../utils/helpers/common";
 
-const MENU_ITEMS = [
-  { title: "Shipping Dependency Wheel", value: "dependencyWheel" },
-  { title: "Drill down", value: "drilldown" },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { categoryDrillDownDataActions } from "../../slices/dashboard";
 
-const Dashboard = () => {
-  const theme = useTheme();
-  const { queryParams, selectedChart, addSearchParams } =
-    useParamsDeconstructor();
-
-  const statsCardData = [
-    {
-      title: "Data Count",
-      tooltipText: "Text for tooltip",
-      value: 12300,
-    },
-    {
-      title: "Origin Count",
-      tooltipText: "Text for tooltip",
-      value: 123,
-      // Content: (
-      //   <>
-      //     <Typography margin={1} variant="h4">
-      //       {formatNumberWithAbbreviation(100)}
-      //     </Typography>{' '}
-      //   </>
-      // ),
-      Icon: <BsGlobeAmericas size={25} color="white" />,
-      background: "linear-gradient(195deg, #66BB6A, #43A047)",
-    },
-    {
-      title: "Parts Count",
-      tooltipText: "Text for tooltip",
-      value: 123,
-      // Content: (
-      //   <PieChart
-      //     props={{
-      //       height: 80,
-      //       width: 80,
-      //       title: {
-      //         text: "45",
-      //         align: "center",
-      //         verticalAlign: "middle",
-      //         // y: 30
-      //       },
-      //       colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
-      //       plotOptions: {
-      //         pie: {
-      //           size: 50,
-      //         },
-      //         series: {
-      //           borderWidth: 0,
-      //           colorByPoint: true,
-      //           type: "pie",
-      //           size: "100%",
-      //           innerSize: "80%",
-      //           // dataLabels: {
-      //           //   enabled: false,
-      //           //   crop: false,
-      //           //   distance: '-10%',
-      //           //   style: {
-      //           //     fontWeight: 'bold',
-      //           //     fontSize: '16px'
-      //           //   },
-      //           //   connectorWidth: 0
-      //           // }
-      //         },
-      //       },
-      //       series: [
-      //         {
-      //           type: "pie",
-      //           data: [
-      //             { name: "Category A", y: 45 },
-      //             { name: "Category B", y: 25 },
-      //             { name: "Category C", y: 15 },
-      //             { name: "Category D", y: 10 },
-      //             { name: "Category E", y: 5 },
-      //           ],
-      //         },
-      //       ],
-      //     }}
-      //   />
-      // ),
-      Icon: <FaTools size={25} color="white" />,
-      background: "linear-gradient(195deg, #EC407A, #D81B60)",
-    },
-    {
-      title: "Top Rank",
-      tooltipText: "Text for tooltip",
-      value: "USA",
-      Icon: <SiGoogleanalytics size={25} color="white" />,
-      background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
-    },
-    {
-      title: "Parts Analysis",
-      tooltipText: "Text for tooltip",
-      // value:123,
-      Content: (
-        <PieChart
-          props={{
-            height: 52,
-            width: 52,
-            title: {
-              text: "45",
-              align: "center",
-              verticalAlign: "middle",
-              // y: 30
-            },
-            colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
-            plotOptions: {
-              pie: {
-                size: 48,
-              },
-              series: {
-                borderWidth: 0,
-                colorByPoint: true,
-                type: "pie",
-                size: "100%",
-                innerSize: "80%",
-                // dataLabels: {
-                //   enabled: false,
-                //   crop: false,
-                //   distance: '-10%',
-                //   style: {
-                //     fontWeight: 'bold',
-                //     fontSize: '16px'
-                //   },
-                //   connectorWidth: 0
-                // }
-              },
-            },
-            series: [
-              {
-                type: "pie",
-                data: [
-                  { name: "Category A", y: 45 },
-                  { name: "Category B", y: 25 },
-                  { name: "Category C", y: 15 },
-                  { name: "Category D", y: 10 },
-                  { name: "Category E", y: 5 },
-                ],
-              },
-            ],
+const SelectOption = ({
+  options,
+  onChange,
+  renderOption,
+  getOptionLabel,
+  width = 200,
+  value,
+  multiple = false,
+  filterSelectedOptions = false,
+  label = "Choose an option",
+}) => {
+  return (
+    <Autocomplete
+      multiple={multiple}
+      filterSelectedOptions={filterSelectedOptions}
+      id="country-select-demo"
+      sx={{
+        display: "inline-block",
+        width,
+        verticalAlign: "middle",
+      }}
+      options={options}
+      autoHighlight
+      getOptionLabel={getOptionLabel}
+      renderOption={renderOption}
+      value={value}
+      onChange={onChange}
+      size="small"
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          inputProps={{
+            ...params.inputProps,
+            // autoComplete: "new-password", // disable autocomplete and autofill
           }}
         />
-      ),
-      // Icon: <FaTools size={25} color="white" />,
-      // background: "linear-gradient(195deg, #EC407A, #D81B60)",
-    },
-    {
-      title: "Origin Analysis",
-      tooltipText: "Text for tooltip",
-      // value:123,
-      Content: (
-        <PieChart
-          props={{
-            height: 52,
-            width: 52,
-            title: {
-              text: "45",
-              align: "center",
-              verticalAlign: "middle",
-              // y: 30
-            },
-            colors: ["#FCE700", "#F8C4B4", "#f6e1ea", "#B8E8FC", "#BCE29E"],
-            plotOptions: {
-              pie: {
-                size: 48,
-              },
-              series: {
-                borderWidth: 0,
-                colorByPoint: true,
-                type: "pie",
-                size: "100%",
-                innerSize: "80%",
-                // dataLabels: {
-                //   enabled: false,
-                //   crop: false,
-                //   distance: '-10%',
-                //   style: {
-                //     fontWeight: 'bold',
-                //     fontSize: '16px'
-                //   },
-                //   connectorWidth: 0
-                // }
-              },
-            },
-            series: [
-              {
-                type: "pie",
-                data: [
-                  { name: "Category A", y: 45 },
-                  { name: "Category B", y: 25 },
-                  { name: "Category C", y: 15 },
-                  { name: "Category D", y: 10 },
-                  { name: "Category E", y: 5 },
-                ],
-              },
-            ],
-          }}
-        />
-      ),
-      // Icon: <FaTools size={25} color="white" />,
-      // background: "linear-gradient(195deg, #EC407A, #D81B60)",
-    },
-  ];
+      )}
+    />
+  );
+};
 
-  const handleChange = (e) => {
-    const urlParams = {
-      ...queryParams,
-      selectedChart: e.target.value,
-    };
-    addSearchParams(urlParams);
+const MyForm = () => {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.categoryDrillDown);
+
+  console.log(profile, "profile");
+
+  const valueDispatch = (value) => {
+    dispatch(categoryDrillDownDataActions.setState(value));
   };
 
   return (
-    <Grid container marginTop={3}>
-      <Grid item xs={12} sm={3} display={"grid"} justifyContent={"center"}>
-        <Typography variant="h6">Chart Type</Typography>
-        <BasicSelect
-          handleChange={handleChange}
-          menuItems={MENU_ITEMS}
-          value={selectedChart}
-        />
+    <Grid container spacing={2} width={"100%"} height={"100%"}>
+      {/* Left side (Dropdown) */}
+      <Grid
+        item
+        xs={12}
+        md={6}
+        // padding={2}
+        // sx={{ backgroundColor: "white", boxShadow: 5, borderRadius: 1 }}
+      >
         <Grid
-          bgcolor={theme.palette.secondary.main}
-          // minHeight={500}
-          height={500}
-          boxShadow={3}
-          minWidth={200}
-          maxWidth={240}
-          borderRadius={2}
-          marginTop={3}
-          // margin={2}
-          // marginRight={2}
-          // margintop={1}
+          margin={2}
+          sx={{ backgroundColor: "white", boxShadow: 5, borderRadius: 1 }}
+          width={"100%"}
+          minHeight={"80vh"}
         >
-          {statsCardData.map((it) => {
-            return <Stats props={it} />;
-          })}
+          <Grid padding={1} display={"flex"} justifyContent={"center"}>
+            <Typography variant="h5">User Profile</Typography>
+          </Grid>
+          <Grid padding={1}>
+            I am
+            <TextField
+              label="Enter text"
+              value={profile.name}
+              onChange={(e) => valueDispatch({ key: "name", value:e.target.value })}
+              size="small"
+            />
+          </Grid>
+          <Grid padding={1}>
+            I live in{" "}
+            <SelectOption
+              options={SQ}
+              onChange={(_1, value) =>
+                valueDispatch({ key: "location", value })
+              }
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.location}
+            />
+          </Grid>
+          <Grid padding={1}>
+            My Age is{" "}
+            <SelectOption
+              options={AGE}
+              onChange={(_1, value) => valueDispatch({ key: "age", value })}
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.age}
+            />
+          </Grid>
+          <Grid padding={1}>
+            My Educational status is{" "}
+            <SelectOption
+              options={EDUCATIONAL_STATUS}
+              onChange={(_1, value) =>
+                valueDispatch({ key: "educationalStatus", value })
+              }
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.educationalStatus}
+            />
+          </Grid>
+          <Grid padding={1}>
+            My marital status is{" "}
+            <SelectOption
+              options={MARITAL_STATUS}
+              onChange={(_1, value) =>
+                valueDispatch({ key: "maritalStatus", value })
+              }
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.maritalStatus}
+            />
+          </Grid>
+          <Grid padding={1}>
+            My Residential Status is{" "}
+            <SelectOption
+              options={RESIDENTIAL_STATUS}
+              onChange={(_1, value) =>
+                valueDispatch({ key: "residence", value })
+              }
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.residence}
+            />
+          </Grid>
+          <Grid padding={1}>
+            My Employment Status is{" "}
+            <SelectOption
+              options={EMPLOYMENT_STATUS}
+              onChange={(_1, value) =>
+                valueDispatch({ key: "employmentStatus", value })
+              }
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.employmentStatus}
+            />
+          </Grid>
+          <Grid padding={1}>
+            Some of the emotions i exihibit the most
+            <SelectOption
+              multiple={true}
+              filterSelectedOptions={true}
+              options={MOOD}
+              onChange={(_1, value) =>
+                valueDispatch({ key: "emotions", value })
+              }
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.emotions}
+            />
+          </Grid>
+          <Grid padding={1}>
+            Sex:
+            <SelectOption
+              options={SEX}
+              onChange={(_1, value) => valueDispatch({ key: "sex", value })}
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.sex}
+            />
+          </Grid>
+          <Grid padding={1}>
+            Race:
+            <SelectOption
+              options={RACE}
+              onChange={(_1, value) => valueDispatch({ key: "race", value })}
+              renderOption={(props, option) => <div {...props}>{option}</div>}
+              width={400}
+              getOptionLabel={(option) => option}
+              value={profile.race}
+            />
+          </Grid>
+          <Grid padding={1} display={"flex"} justifyContent={"right"}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                dispatch(
+                  categoryDrillDownDataActions.fetchSuggestions({ profile })
+                );
+              }}
+            >
+              Diagonise
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} sm={9} display={"grid"} justifyContent={"center"}>
-        {selectedChart === MENU_ITEMS[0].value ? (
-          <DependencyWheel />
-        ) : selectedChart === MENU_ITEMS[1].value ? (
-          <DrilldownPieChart />
-        ) : (
-          "Please enter a valid chart type"
-        )}
+
+      <Grid item xs={12} md={6}>
+        <Grid
+          margin={2}
+          sx={{ backgroundColor: "white", boxShadow: 5, borderRadius: 1 }}
+          width={"100%"}
+          minHeight={"80vh"}
+        >
+          <Grid padding={1}>
+            Response:
+            <TextareaAutosize
+              style={{
+                width: "100%",
+              }}
+              disabled
+              label="Response"
+              value={
+                profile.sugg?.diag || ""
+                // "Your estimated diagnosis, based on the input you provided, is Trauma- and stressor-related disorders."
+              }
+            />
+          </Grid>
+
+          <Grid padding={1}>
+            Suggestions:
+            <TextareaAutosize
+              style={{
+                width: "100%",
+              }}
+              disabled
+              label="Response"
+              value={profile.sugg?.suggestions || ""}
+              // value={`Trauma- and stressor-related disorders are a category of mental health disorders that are triggered by the experience of a traumatic life event or a series of stressful situations. Based on the input you provided, it seems that you have been experiencing ongoing stress and underlying trauma.
+
+              //   So it is recommended to consult with a qualified mental health provider for a proper diagnosis and treatment plan. However, I can provide some general recommendations and insights based on the information you shared.
+
+              //   1. Seek professional help: Consider reaching out to a mental health professional such as a therapist or psychiatrist who can conduct a thorough assessment and provide appropriate treatment options. They may suggest therapy techniques like Cognitive Behavioral Therapy (CBT), Eye Movement Desensitization and Reprocessing (EMDR), or medication if necessary.
+
+              //   2. Practice self-care and stress management: Engage in activities that promote relaxation and self-care such as exercise, meditation, deep breathing exercises, or hobbies that you enjoy. These activities can help reduce stress and promote overall well-being.
+
+              //   3. Build a strong support system: Surround yourself with supportive and understanding individuals who can provide a listening ear and offer emotional support. You may also consider joining support groups or online communities where you can connect with others who have had similar experiences.
+
+              //   4. Create a safe environment: Identify triggers that exacerbate your stress and trauma symptoms, and take steps to create a safe and soothing environment for yourself. This might include setting boundaries, avoiding triggering situations or people, and implementing relaxation techniques when you feel overwhelmed.
+
+              //   5. Educate yourself on trauma and stress management: Learning about trauma responses and coping mechanisms can be empowering. There are various resources available such as books, online articles, and podcasts that can provide valuable insights and strategies for managing trauma and stress.
+              //   `}
+            />
+          </Grid>
+
+          <Grid padding={1}>
+            {/* Feedback:  */}
+            <TextField
+              label="Enter Feedback"
+              value={profile.feedback}
+              size="small"
+              style={{ width: "80%", marginRight: 10 }}
+              onChange={(e, value) =>
+                // {
+                //   console.log(e.target.value)
+                // }
+                valueDispatch({ key: "feedback", value:e.target.value })
+              }
+            />
+            <Button
+              variant="contained"
+              color="info"
+              onClick={() => {
+                dispatch(
+                  categoryDrillDownDataActions.fetchFeedback({api_response: profile.sugg?.api_response_openai, feedback: profile.feedback, diag: profile.sugg?.diag})
+                );
+              }}
+            >
+              Feedback
+            </Button>
+            (Note: The feedback will be added as a prefernce for your future
+            promts and will optimize the search results)
+          </Grid>
+          {/* <Grid padding={1}>
+            Feedback:
+            <TextareaAutosize
+              style={{
+                width: "100%",
+              }}
+              disabled
+              label="Response"
+              value={`
+              Trauma- and stressor-related disorders are a category of mental health disorders that are triggered by the experience of a traumatic life event or a series of stressful situations. Based on the input you provided, it seems that you have been experiencing ongoing stress and underlying trauma.
+                So it is recommended to consult with a qualified mental health provider for a proper diagnosis and treatment plan. However, I can provide some general recommendations and insights based on the information you shared.
+                1. Seek professional help: Consider reaching out to a mental health professional such as a therapist or psychiatrist who can conduct a thorough assessment and provide appropriate treatment options. They may suggest therapy techniques like Cognitive Behavioral Therapy (CBT), Eye Movement Desensitization and Reprocessing (EMDR), or medication if necessary.
+                2. Practice self-care and stress management: Engage in activities that promote relaxation and self-care such as exercise, meditation, deep breathing exercises, or hobbies that you enjoy. These activities can help reduce stress and promote overall well-being.
+                3. Build a strong support system: Surround yourself with supportive and understanding individuals who can provide a listening ear and offer emotional support. You may also consider joining support groups or online communities where you can connect with others who have had similar experiences.
+                4. Create a safe environment: Identify triggers that exacerbate your stress and trauma symptoms, and take steps to create a safe and soothing environment for yourself. This might include setting boundaries, avoiding triggering situations or people, and implementing relaxation techniques when you feel overwhelmed.
+                5. Educate yourself on trauma and stress management: Learning about trauma responses and coping mechanisms can be empowering. There are various resources available such as books, online articles, and podcasts that can provide valuable insights and strategies for managing trauma and stress.
+                6. Be mindful of your exposure to potentially triggering or distressing content.`}
+            />
+          </Grid> */}
+        </Grid>
       </Grid>
     </Grid>
   );
 };
 
-export default Dashboard;
+export default MyForm;

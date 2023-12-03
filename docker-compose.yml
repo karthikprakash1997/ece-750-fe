@@ -2,8 +2,8 @@
 
 version: "3.3"
 services:
-  nrcan-dashboard-frontend:
-    image: nrcan-dashboard-frontend
+  metnal-wellness-frontend:
+    image: metnal-wellness-frontend
     build:
       context: ./
       dockerfile: Dockerfile
@@ -12,4 +12,4 @@ services:
     ports:
       - "3000:3000"
     restart: on-failure
-    container_name: nrcan-dashboard-frontend
+    container_name: metnal-wellness-frontend
