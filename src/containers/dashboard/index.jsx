@@ -217,7 +217,7 @@ const MyForm = () => {
               value={profile.race}
             />
           </Grid>
-          <Grid padding={1}>
+          {/* <Grid padding={1}>
             Attributes:
             <TextField
               label="Enter Preferences"
@@ -228,7 +228,7 @@ const MyForm = () => {
                 valueDispatch({ key: "preferences", value: e.target.value })
               }
             />
-          </Grid>
+          </Grid> */}
 
           <Grid padding={1} display={"flex"} justifyContent={"right"}>
             <Button
