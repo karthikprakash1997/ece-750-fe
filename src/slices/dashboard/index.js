@@ -15,7 +15,10 @@ const initialState = {
   prompt: "",
   feedback: "",
   sugg: "",
-  finalFeed:[],
+  queries: "",
+  querysugg:'',
+  preferences: '',
+  feedbackPrompts:[],
   isLoading: false,
   isError: false,
   error: null,
@@ -34,6 +37,27 @@ export const fetchSuggestions = createAsyncThunk(
       );
       if (!response.ok) {
         throw new Error("Failed to fetch category drilldown data");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const fetchQueries = createAsyncThunk(
+  "api/quries",
+  async (queryParams) => {
+    try {
+      const queryString = Object.keys(queryParams)
+        .map((key) => `${key}=${JSON.stringify(queryParams[key])}`)
+        .join("&");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/query?${queryString}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch query data");
       }
       const data = await response.json();
       return data;
@@ -105,6 +129,21 @@ const categoryDrillDownDataSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.error.message;
+      }).
+      addCase(fetchQueries.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.error = null;
+      })
+      .addCase(fetchQueries.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.querysugg = action.payload.results;
+      })
+      .addCase(fetchQueries.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.error.message;
       });
   },
 });
@@ -113,6 +152,7 @@ export const categoryDrillDownDataActions = {
   ...categoryDrillDownDataSlice.actions,
   fetchFeedback,
   fetchSuggestions,
+  fetchQueries
 };
 
 export default categoryDrillDownDataSlice.reducer;

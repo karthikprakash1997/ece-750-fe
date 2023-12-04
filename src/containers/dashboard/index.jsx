@@ -8,7 +8,6 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import {
-  FIRST_Q,
   SQ,
   AGE,
   EMPLOYMENT_STATUS,
@@ -99,7 +98,9 @@ const MyForm = () => {
             <TextField
               label="Enter text"
               value={profile.name}
-              onChange={(e) => valueDispatch({ key: "name", value:e.target.value })}
+              onChange={(e) =>
+                valueDispatch({ key: "name", value: e.target.value })
+              }
               size="small"
             />
           </Grid>
@@ -216,13 +217,32 @@ const MyForm = () => {
               value={profile.race}
             />
           </Grid>
+          <Grid padding={1}>
+            Attributes:
+            <TextField
+              label="Enter Preferences"
+              value={profile.preferences}
+              size="small"
+              style={{ width: "80%", marginRight: 10 }}
+              onChange={(e) =>
+                valueDispatch({ key: "preferences", value: e.target.value })
+              }
+            />
+          </Grid>
+
           <Grid padding={1} display={"flex"} justifyContent={"right"}>
             <Button
               variant="contained"
+              disabled={profile.sugg}
               color="error"
               onClick={() => {
+                const np = {
+                  ...profile
+                };
+                delete np.sugg;
+                delete np.feedbackPrompts;
                 dispatch(
-                  categoryDrillDownDataActions.fetchSuggestions({ profile })
+                  categoryDrillDownDataActions.fetchSuggestions({ profile:np })
                 );
               }}
             >
@@ -239,7 +259,7 @@ const MyForm = () => {
           width={"100%"}
           minHeight={"80vh"}
         >
-          <Grid padding={1}>
+          {/* <Grid padding={1}>
             Response:
             <TextareaAutosize
               style={{
@@ -252,7 +272,34 @@ const MyForm = () => {
                 // "Your estimated diagnosis, based on the input you provided, is Trauma- and stressor-related disorders."
               }
             />
-          </Grid>
+          </Grid> */}
+
+          {/* <Grid padding={1}>
+                        <Button
+              variant="contained"
+              color="info"
+              onClick={() => {
+                // console.log()
+                // valueDispatch({ key: "feedbackPrompts", value:[...profile.feedbackPrompts, 
+                //   {
+                //     "role": "user", "content" : profile.feedback
+                // },{
+                //   "role": "assistant", "content": profile.sugg?.suggestions,
+  
+                // }
+                // ] })
+                // dispatch(
+                //   categoryDrillDownDataActions.fetchFeedback({api_response: profile.sugg?.suggestions, feedback: profile.feedback, diag: profile.sugg?.diag,feedbackPrompts:profile.feedbackPrompts
+                // })
+                // );
+               
+              }}
+            >
+              Feedback
+            </Button>
+            (Note: The feedback will be added as a prefernce for your future
+            promts and will optimize the search results)
+          </Grid> */}
 
           <Grid padding={1}>
             Suggestions:
@@ -291,42 +338,43 @@ const MyForm = () => {
                 // {
                 //   console.log(e.target.value)
                 // }
-                valueDispatch({ key: "feedback", value:e.target.value })
+                valueDispatch({ key: "feedback", value: e.target.value })
               }
             />
             <Button
               variant="contained"
               color="info"
               onClick={() => {
+               
+                const np = {
+                  ...profile
+                };
+                delete np.sugg;
+                delete np.feedbackPrompts;
                 dispatch(
-                  categoryDrillDownDataActions.fetchFeedback({api_response: profile.sugg?.api_response_openai, feedback: profile.feedback, diag: profile.sugg?.diag})
+                  categoryDrillDownDataActions.fetchFeedback({
+                    profile: np,
+                    feedback: [
+                      ...profile.feedbackPrompts,
+                      profile.feedback
+                     ].join(','),
+                    diag: profile.sugg?.diag,
+                    // feedbackPrompts: profile.feedbackPrompts,
+                  })
                 );
+                valueDispatch({
+                  key: "feedbackPrompts",
+                  value: [
+                   ...profile.feedbackPrompts,
+                   profile.feedback
+                  ],
+                });
               }}
             >
               Feedback
             </Button>
-            (Note: The feedback will be added as a prefernce for your future
-            promts and will optimize the search results)
+            (Any suggestion that does not suit you or that needs to be addressed)
           </Grid>
-          {/* <Grid padding={1}>
-            Feedback:
-            <TextareaAutosize
-              style={{
-                width: "100%",
-              }}
-              disabled
-              label="Response"
-              value={`
-              Trauma- and stressor-related disorders are a category of mental health disorders that are triggered by the experience of a traumatic life event or a series of stressful situations. Based on the input you provided, it seems that you have been experiencing ongoing stress and underlying trauma.
-                So it is recommended to consult with a qualified mental health provider for a proper diagnosis and treatment plan. However, I can provide some general recommendations and insights based on the information you shared.
-                1. Seek professional help: Consider reaching out to a mental health professional such as a therapist or psychiatrist who can conduct a thorough assessment and provide appropriate treatment options. They may suggest therapy techniques like Cognitive Behavioral Therapy (CBT), Eye Movement Desensitization and Reprocessing (EMDR), or medication if necessary.
-                2. Practice self-care and stress management: Engage in activities that promote relaxation and self-care such as exercise, meditation, deep breathing exercises, or hobbies that you enjoy. These activities can help reduce stress and promote overall well-being.
-                3. Build a strong support system: Surround yourself with supportive and understanding individuals who can provide a listening ear and offer emotional support. You may also consider joining support groups or online communities where you can connect with others who have had similar experiences.
-                4. Create a safe environment: Identify triggers that exacerbate your stress and trauma symptoms, and take steps to create a safe and soothing environment for yourself. This might include setting boundaries, avoiding triggering situations or people, and implementing relaxation techniques when you feel overwhelmed.
-                5. Educate yourself on trauma and stress management: Learning about trauma responses and coping mechanisms can be empowering. There are various resources available such as books, online articles, and podcasts that can provide valuable insights and strategies for managing trauma and stress.
-                6. Be mindful of your exposure to potentially triggering or distressing content.`}
-            />
-          </Grid> */}
         </Grid>
       </Grid>
     </Grid>
